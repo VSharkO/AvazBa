@@ -17,7 +17,7 @@ class MainScreenTests: QuickSpec {
     
     override func spec() {
         var disposeBag: DisposeBag!
-        var mainViewModel: MainViewModelProtocol!
+        var mainViewModel: MainViewModel!
         let mockRepository = MockRepositoryProtocol()
         
         beforeSuite {
@@ -41,12 +41,12 @@ class MainScreenTests: QuickSpec {
                 it("is not nil"){
                     expect(mainViewModel).toNot(be(nil))
                 }
-//                it("data is not empty"){
-//                    expect(mainViewModel.data.count).toNot(beEmpty())
-//                }
-//                it("data is equal to nuber of mocks"){
-//                    expect(mainViewModel.data.count).to(be(2))
-//                }
+                it("data is not empty"){
+                    expect(mainViewModel.data.count).toNot(beEmpty())
+                }
+                it("data is equal to nuber of mocks"){
+                    expect(mainViewModel.data.count).to(be(2))
+                }
             }
         }
         
