@@ -52,16 +52,22 @@ class MainScreenTests: QuickSpec {
         
         describe("Pull to refresh logic"){
             beforeSuite {
-                mainViewModel.pullToRefreshTriger.onNext(true)
+                mainViewModel.pullToRefreshTrigered.onNext(true)
             }
             context("refreshing data trigered"){
                 it("is calling repository method to get data"){
                     verify(mockRepository).getMostPopularArticles()
                 }
             }
-            context("after refrashing is done"){
-                it("data has changed"){
-                    mainViewModel.pullToRefreshTriger.onNext(true)
+        }
+        
+        describe("Infinite scroll logic"){
+            beforeSuite {
+                mainViewModel.moreDataRequestTrigered.onNext(true)
+            }
+            context("more data request trigered"){
+                it("is calling repository method to get more data"){
+                    verify(mockRepository).getMostPopularArticles()
                 }
             }
         }
