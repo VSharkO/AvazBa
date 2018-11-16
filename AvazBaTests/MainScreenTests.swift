@@ -36,7 +36,7 @@ class MainScreenTests: QuickSpec {
             mainViewModel = nil
         }
         
-        describe("Test mainViewModel initialization"){
+        describe("MainViewModel initialization"){
             context("Initionalized correctly"){
                 it("is not nil"){
                     expect(mainViewModel).toNot(be(nil))
@@ -44,16 +44,24 @@ class MainScreenTests: QuickSpec {
                 it("data is not empty"){
                     expect(mainViewModel.data.count).toNot(beEmpty())
                 }
-                it("data is equal to nuber of mocks"){
+                it("data is equal to number of articles from repository"){
                     expect(mainViewModel.data.count).to(be(2))
                 }
             }
         }
         
-        describe("Test pull to refresh logic"){
+        describe("Pull to refresh logic"){
+            beforeSuite {
+                mainViewModel.pullToRefreshTriger.onNext(true)
+            }
             context("refreshing data trigered"){
-                it("is called func to get data from repository"){
+                it("is calling repository method to get data"){
                     verify(mockRepository).getMostPopularArticles()
+                }
+            }
+            context("after refrashing is done"){
+                it("data has changed"){
+                    mainViewModel.pullToRefreshTriger.onNext(true)
                 }
             }
         }
