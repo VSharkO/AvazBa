@@ -24,8 +24,8 @@
 	<string>LaunchScreen</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Lato-Regular.tff</string>
-		<string>RobotoSlab-Bold.tff</string>
+		<string>Lato-Regularr.tff</string>
+		<string>RobotoSlab-Boldd.tff</string>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
