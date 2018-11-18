@@ -13,15 +13,15 @@ class MainScreenCoordinator : Coordinator, CoordinatorDelegate{
     
     var childCoordinators: [Coordinator] = []
     var presenter: UINavigationController
-//    private var controller: MainViewController
+    private var controller: MainViewController
     
     init(presenter: UINavigationController) {
         self.presenter = presenter
-//        controller = MainViewController(viewModel: MainViewModel())
+        controller = MainViewController(viewModel: MainViewModel(repository: Repository()))
     }
     
     func start() {
-//        presenter.pushViewController(controller, animated: true)
+        presenter.pushViewController(controller, animated: true)
     }
     
     func viewHasFinished() {
