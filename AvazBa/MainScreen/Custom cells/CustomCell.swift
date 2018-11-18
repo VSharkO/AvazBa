@@ -21,6 +21,40 @@ class CustomCell: UITableViewCell {
         view.layer.shadowRadius = 3
         return view
     }()
+
+    var articlePhoto : UIImageView = {
+        let image = UIImageView()
+        image.translatesAutoresizingMaskIntoConstraints = false
+        image.image = #imageLiteral(resourceName: "image1")
+        image.layer.masksToBounds = true
+        image.layer.cornerRadius = 7
+        image.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
+        return image
+    }()
+    
+    var articleTitle : UILabel = {
+        let articleTitle = UILabel()
+        articleTitle.translatesAutoresizingMaskIntoConstraints = false
+        articleTitle.font = UIFont.init(name: "RobotoSlab-Bold", size: 14)
+        articleTitle.textColor = .darkGray
+        articleTitle.adjustsFontSizeToFitWidth = false
+        articleTitle.numberOfLines = 2
+        articleTitle.text = "SAmo sadas ldkfgsm lksdmfg lksmdflg mslSAmo sadas ldkfgsm lksdmfg lksmdflg msldkfgmlk smdfgml lksdmfg lksmdflg msldkfgmlk smdfgml dfgdfg"
+        articleTitle.isUserInteractionEnabled = false
+        return articleTitle
+    }()
+    
+    var articleText : UILabel = {
+        let articleText = UILabel()
+        articleText.translatesAutoresizingMaskIntoConstraints = false
+        articleText.font = UIFont.init(name: "Lato-Regular", size: 13)
+        articleText.textColor = .darkGray
+        articleText.adjustsFontSizeToFitWidth = false
+        articleText.numberOfLines = 2
+        articleText.text = "SAmo sadas ldkfgsm lksdmfg lksmdflg mslSAmo sadas ldkfgsm lksdmfg lksmdflg msldkfgmlk smdfgml lksdmfg lksmdflg msldkfgmlk smdfgml dfgdfg"
+        articleText.isUserInteractionEnabled = false
+        return articleText
+    }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -33,6 +67,9 @@ class CustomCell: UITableViewCell {
     
     func setupViews(){
         self.contentView.addSubview(rootView)
+        self.rootView.addSubview(articlePhoto)
+        self.rootView.addSubview(articleTitle)
+        self.rootView.addSubview(articleText)
         setupConstraints()
     }
     
@@ -43,8 +80,29 @@ class CustomCell: UITableViewCell {
             rootView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8),
             rootView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5)
             ])
-        let constraintRootViewHeight = rootView.heightAnchor.constraint(equalToConstant: 400)
+        let constraintRootViewHeight = rootView.heightAnchor.constraint(equalToConstant: 338)
         constraintRootViewHeight.priority = .init(999)
         constraintRootViewHeight.isActive = true
+        
+        NSLayoutConstraint.activate([
+            articlePhoto.topAnchor.constraint(equalTo: rootView.topAnchor),
+            articlePhoto.leadingAnchor.constraint(equalTo: rootView.leadingAnchor),
+            articlePhoto.trailingAnchor.constraint(equalTo: rootView.trailingAnchor),
+            articlePhoto.heightAnchor.constraint(equalToConstant: 217)
+            ])
+        
+        NSLayoutConstraint.activate([
+            articleTitle.topAnchor.constraint(equalTo: articlePhoto.bottomAnchor, constant: 8),
+            articleTitle.leadingAnchor.constraint(equalTo: rootView.leadingAnchor, constant: 16.7),
+            articleTitle.trailingAnchor.constraint(equalTo: rootView.trailingAnchor, constant: -50),
+            articleTitle.heightAnchor.constraint(equalToConstant: 53)
+            ])
+        
+        NSLayoutConstraint.activate([
+            articleText.topAnchor.constraint(equalTo: articleTitle.bottomAnchor, constant: 5),
+            articleText.leadingAnchor.constraint(equalTo: rootView.leadingAnchor, constant: 16.7),
+            articleText.trailingAnchor.constraint(equalTo: rootView.trailingAnchor, constant: -50),
+            articleText.heightAnchor.constraint(equalToConstant: 40)
+            ])
     }
 }

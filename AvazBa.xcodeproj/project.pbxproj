@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B7B2FA0A40F751BDAEE14888 /* Pods_AvazBa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F49A77D87C1099CCB85723B /* Pods_AvazBa.framework */; };
 		C1828320723B55274748A23B /* Pods_AvazBaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5937AAF90F1C1F9BE294EA13 /* Pods_AvazBaTests.framework */; };
+		D567735E21A22D8D00FD2D44 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D57D6231219DBA0D00A8479F /* Info.plist */; };
 		D56F23AE219ED2E8009B17B6 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F23AA219ED2E8009B17B6 /* AppCoordinator.swift */; };
 		D56F23B0219ED2E8009B17B6 /* CoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F23AC219ED2E8009B17B6 /* CoordinatorDelegate.swift */; };
 		D56F23B1219ED2E8009B17B6 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F23AD219ED2E8009B17B6 /* Coordinator.swift */; };
@@ -178,9 +179,9 @@
 				D56F23BE219EDF8F009B17B6 /* Repository */,
 				D56F23B5219ED477009B17B6 /* MainScreen */,
 				D56F23A9219ED2E8009B17B6 /* Coordinators */,
-				D57D6225219DBA0C00A8479F /* AppDelegate.swift */,
 				D57D622C219DBA0D00A8479F /* Assets.xcassets */,
 				D57D6231219DBA0D00A8479F /* Info.plist */,
+				D57D6225219DBA0C00A8479F /* AppDelegate.swift */,
 			);
 			path = AvazBa;
 			sourceTree = "<group>";
@@ -297,6 +298,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D567735E21A22D8D00FD2D44 /* Info.plist in Resources */,
 				D57D622D219DBA0D00A8479F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
