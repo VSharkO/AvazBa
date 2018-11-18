@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		B7B2FA0A40F751BDAEE14888 /* Pods_AvazBa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F49A77D87C1099CCB85723B /* Pods_AvazBa.framework */; };
 		C1828320723B55274748A23B /* Pods_AvazBaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5937AAF90F1C1F9BE294EA13 /* Pods_AvazBaTests.framework */; };
-		D567735E21A22D8D00FD2D44 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D57D6231219DBA0D00A8479F /* Info.plist */; };
+		D567736D21A2330300FD2D44 /* RobotoSlab-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D567736721A230E300FD2D44 /* RobotoSlab-Bold.ttf */; };
+		D567736E21A2330300FD2D44 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D567736521A230D700FD2D44 /* Lato-Regular.ttf */; };
 		D56F23AE219ED2E8009B17B6 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F23AA219ED2E8009B17B6 /* AppCoordinator.swift */; };
 		D56F23B0219ED2E8009B17B6 /* CoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F23AC219ED2E8009B17B6 /* CoordinatorDelegate.swift */; };
 		D56F23B1219ED2E8009B17B6 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F23AD219ED2E8009B17B6 /* Coordinator.swift */; };
@@ -43,6 +44,8 @@
 		5937AAF90F1C1F9BE294EA13 /* Pods_AvazBaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AvazBaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62FEDC6E800B8DBF1D759572 /* Pods-AvazBa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvazBa.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AvazBa/Pods-AvazBa.debug.xcconfig"; sourceTree = "<group>"; };
 		793C02A025C65463D7A0209F /* Pods-AvazBa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvazBa.release.xcconfig"; path = "Pods/Target Support Files/Pods-AvazBa/Pods-AvazBa.release.xcconfig"; sourceTree = "<group>"; };
+		D567736521A230D700FD2D44 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
+		D567736721A230E300FD2D44 /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
 		D56F23AA219ED2E8009B17B6 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		D56F23AC219ED2E8009B17B6 /* CoordinatorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinatorDelegate.swift; sourceTree = "<group>"; };
 		D56F23AD219ED2E8009B17B6 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -103,6 +106,15 @@
 				5937AAF90F1C1F9BE294EA13 /* Pods_AvazBaTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D567736421A230C400FD2D44 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				D567736721A230E300FD2D44 /* RobotoSlab-Bold.ttf */,
+				D567736521A230D700FD2D44 /* Lato-Regular.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		D56F23A9219ED2E8009B17B6 /* Coordinators */ = {
@@ -175,6 +187,7 @@
 		D57D6224219DBA0C00A8479F /* AvazBa */ = {
 			isa = PBXGroup;
 			children = (
+				D567736421A230C400FD2D44 /* Fonts */,
 				D5CA30FA219EE68E007BE8F9 /* Model */,
 				D56F23BE219EDF8F009B17B6 /* Repository */,
 				D56F23B5219ED477009B17B6 /* MainScreen */,
@@ -298,7 +311,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D567735E21A22D8D00FD2D44 /* Info.plist in Resources */,
+				D567736D21A2330300FD2D44 /* RobotoSlab-Bold.ttf in Resources */,
+				D567736E21A2330300FD2D44 /* Lato-Regular.ttf in Resources */,
 				D57D622D219DBA0D00A8479F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
