@@ -12,4 +12,8 @@ import RxSwift
 protocol MainViewModelProtocol{
     func initGetingDataFromRepository() -> Disposable
     func refreshData()
+    func getData() -> [Article]
+    func dataRequestTrigered(pageNum: Int)
+    
+    var viewReloadData: PublishSubject<Bool>{get set}
 }

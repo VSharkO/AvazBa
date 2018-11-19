@@ -10,6 +10,5 @@ import Foundation
 import RxSwift
 
 protocol RepositoryProtocol{
-    func getMostPopularArticles() -> Observable<[Article]>
-    
+    func getMostPopularArticles(pageNum: Int) -> Observable<[Article]>
 }

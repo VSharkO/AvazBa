@@ -17,7 +17,7 @@ class CustomCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
-        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOpacity = 0.2
         view.layer.shadowRadius = 3
         return view
     }()
@@ -100,8 +100,12 @@ class CustomCell: UITableViewCell {
         NSLayoutConstraint.activate([
             articleText.topAnchor.constraint(equalTo: articleTitle.bottomAnchor, constant: 5),
             articleText.leadingAnchor.constraint(equalTo: rootView.leadingAnchor, constant: 16.7),
-            articleText.trailingAnchor.constraint(equalTo: rootView.trailingAnchor, constant: -50),
-            articleText.heightAnchor.constraint(equalToConstant: 40)
+            articleText.trailingAnchor.constraint(equalTo: rootView.trailingAnchor, constant: -50)
             ])
+    }
+    
+    func setPicture(image: String){
+        let url = URL(string: constants.baseUrl + image)
+        articlePhoto.kf.setImage(with:url)
     }
 }

@@ -7,38 +7,38 @@
 //
 
 import UIKit
+import RxSwift
+import Kingfisher
 
 class MainViewController: UITableViewController {
 
     private var viewModel: MainViewModelProtocol!
+    private var disposeBag: DisposeBag!
     
     init(viewModel: MainViewModelProtocol) {
         super.init(nibName: nil, bundle: nil)
-        registerCells()
+        disposeBag = DisposeBag()
         self.viewModel = viewModel
+    }
+    override func viewDidLoad() {
+        registerCells()
+        initSubscripts()
+        viewModel.initGetingDataFromRepository().disposed(by: self.disposeBag)
+        viewModel.dataRequestTrigered(pageNum: 1)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        for family in UIFont.familyNames.sorted() {
-            let names = UIFont.fontNames(forFamilyName: family)
-            print("Family: \(family) Font names: \(names)")
-        }
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
     // MARK: - Table view data source
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "customeCell", for: indexPath) as? CustomCell{
+            let article = viewModel.getData()[indexPath.row]
+            cell.articleText.text = article.description
+            cell.setPicture(image: article.image.original)
+            cell.articleTitle.text = article.title
             return cell
         }else{
             return UITableViewCell()
@@ -56,8 +56,13 @@ class MainViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 4
+        return viewModel.getData().count
     }
     
+    func initSubscripts(){
+        viewModel.viewReloadData.subscribe { _ in
+            self.tableView.reloadData()
+        }.disposed(by: disposeBag)
+    }
 
 }

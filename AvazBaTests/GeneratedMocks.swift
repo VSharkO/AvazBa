@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: AvazBa/Repository/RepositoryProtocol.swift at 2018-11-16 12:40:30 +0000
+// MARK: - Mocks generated from file: AvazBa/Repository/RepositoryProtocol.swift at 2018-11-19 13:29:14 +0000
 
 //
 //  RepositoryProtocol.swift
@@ -31,17 +31,17 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
     
 
     
-    // ["name": "getMostPopularArticles", "returnSignature": " -> Observable<[Article]>", "fullyQualifiedName": "getMostPopularArticles() -> Observable<[Article]>", "parameterSignature": "", "parameterSignatureWithoutNames": "", "inputTypes": "", "isThrowing": false, "isInit": false, "isOverriding": false, "hasClosureParams": false, "@type": "ProtocolMethod", "accessibility": "", "parameterNames": "", "call": "", "parameters": [], "returnType": "Observable<[Article]>", "isOptional": false, "escapingParameterNames": "", "stubFunction": "Cuckoo.ProtocolStubFunction"]
-     func getMostPopularArticles()  -> Observable<[Article]> {
+    // ["name": "getMostPopularArticles", "returnSignature": " -> Observable<[Article]>", "fullyQualifiedName": "getMostPopularArticles(pageNum: Int) -> Observable<[Article]>", "parameterSignature": "pageNum: Int", "parameterSignatureWithoutNames": "pageNum: Int", "inputTypes": "Int", "isThrowing": false, "isInit": false, "isOverriding": false, "hasClosureParams": false, "@type": "ProtocolMethod", "accessibility": "", "parameterNames": "pageNum", "call": "pageNum: pageNum", "parameters": [CuckooGeneratorFramework.MethodParameter(label: Optional("pageNum"), name: "pageNum", type: "Int", range: CountableRange(253..<265), nameRange: CountableRange(253..<260))], "returnType": "Observable<[Article]>", "isOptional": false, "escapingParameterNames": "pageNum", "stubFunction": "Cuckoo.ProtocolStubFunction"]
+     func getMostPopularArticles(pageNum: Int)  -> Observable<[Article]> {
         
-            return cuckoo_manager.call("getMostPopularArticles() -> Observable<[Article]>",
-                parameters: (),
-                escapingParameters: (),
+            return cuckoo_manager.call("getMostPopularArticles(pageNum: Int) -> Observable<[Article]>",
+                parameters: (pageNum),
+                escapingParameters: (pageNum),
                 superclassCall:
                     
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
-                defaultCall: __defaultImplStub!.getMostPopularArticles())
+                defaultCall: __defaultImplStub!.getMostPopularArticles(pageNum: pageNum))
         
     }
     
@@ -54,9 +54,9 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
-	    func getMostPopularArticles() -> Cuckoo.ProtocolStubFunction<(), Observable<[Article]>> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return .init(stub: cuckoo_manager.createStub(for: MockRepositoryProtocol.self, method: "getMostPopularArticles() -> Observable<[Article]>", parameterMatchers: matchers))
+	    func getMostPopularArticles<M1: Cuckoo.Matchable>(pageNum: M1) -> Cuckoo.ProtocolStubFunction<(Int), Observable<[Article]>> where M1.MatchedType == Int {
+	        let matchers: [Cuckoo.ParameterMatcher<(Int)>] = [wrap(matchable: pageNum) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockRepositoryProtocol.self, method: "getMostPopularArticles(pageNum: Int) -> Observable<[Article]>", parameterMatchers: matchers))
 	    }
 	    
 	}
@@ -76,9 +76,9 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
 	
 	    
 	    @discardableResult
-	    func getMostPopularArticles() -> Cuckoo.__DoNotUse<Observable<[Article]>> {
-	        let matchers: [Cuckoo.ParameterMatcher<Void>] = []
-	        return cuckoo_manager.verify("getMostPopularArticles() -> Observable<[Article]>", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func getMostPopularArticles<M1: Cuckoo.Matchable>(pageNum: M1) -> Cuckoo.__DoNotUse<Observable<[Article]>> where M1.MatchedType == Int {
+	        let matchers: [Cuckoo.ParameterMatcher<(Int)>] = [wrap(matchable: pageNum) { $0 }]
+	        return cuckoo_manager.verify("getMostPopularArticles(pageNum: Int) -> Observable<[Article]>", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	}
@@ -91,7 +91,7 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
     
 
     
-     func getMostPopularArticles()  -> Observable<[Article]> {
+     func getMostPopularArticles(pageNum: Int)  -> Observable<[Article]> {
         return DefaultValueRegistry.defaultValue(for: Observable<[Article]>.self)
     }
     

@@ -10,18 +10,35 @@ import Foundation
 import RxSwift
 
 class MainViewModel : MainViewModelProtocol{
-    
-    func initGetingDataFromRepository() -> Disposable {
-        return Observable.just(0).subscribe() //ovo implementirati
-    }
-    
-    func refreshData() {
-        
-    }
+    var data: [Article] = []
     
     let repository: RepositoryProtocol!
+    var dataRequestTrigered = PublishSubject<Int>()
+    
+    var viewReloadData = PublishSubject<Bool>()
     
     init(repository: RepositoryProtocol) {
         self.repository = repository
+    }
+    
+    func initGetingDataFromRepository() -> Disposable {
+        return dataRequestTrigered.flatMap({ num -> Observable<[Article]> in
+            return self.repository.getMostPopularArticles(pageNum: num)
+        }).subscribe(onNext: { [unowned self] articles in
+            self.data = articles
+            self.refreshData()
+        })
+    }
+    
+    func refreshData() {
+        viewReloadData.onNext(true)
+    }
+    
+    func getData() -> [Article]{
+        return data
+    }
+    
+    func dataRequestTrigered(pageNum: Int){
+        dataRequestTrigered.onNext(pageNum)
     }
 }

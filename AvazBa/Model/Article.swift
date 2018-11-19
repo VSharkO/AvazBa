@@ -8,14 +8,31 @@
 
 import Foundation
 
-struct Article{
-    private var urlToImage: String
-    private var title: String
-    private var description: String
+struct Article: Codable {
+    var image: FeaturedImage
+    var title: String
+    var description: String
     
-    init(title: String, description: String, urlToImage: String) {
+    enum CodingKeys: String, CodingKey {
+        case image = "featured_image"
+        case title = "uppertitle_raw"
+        case description = "title"
+    }
+    
+    init(title: String, description: String, image: FeaturedImage) {
         self.title = title
         self.description = description
-        self.urlToImage = urlToImage
+        self.image = image
     }
+}
+
+struct FeaturedImage: Codable {
+    var original: String
+}
+
+struct Response : Codable {
+    let name: String
+    let slug: String
+    let category_id: String
+    let articles : [Article]
 }
