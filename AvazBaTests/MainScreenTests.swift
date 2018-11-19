@@ -46,10 +46,18 @@ class MainScreenTests: QuickSpec {
                 }
             }
             context("Called data from repo first time"){
+                it("data is equal to number of articles from repository"){
+                    mainViewModel.dataRequestTrigered.onNext(1)
+                    expect(mainViewModel.data.count).to(be(2))
+                }
+            }
+        }
+        
+        describe("LoaderLogic"){
+            context("when sending request"){
                 let subscriber = testScheduler.createObserver(Bool.self)
-                
                 beforeEach {
-                    mainViewModel.showSpinner.subscribe(subscriber).disposed(by: disposeBag)
+                    mainViewModel.viewShowLoader.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
                     mainViewModel.dataRequestTrigered.onNext(1)
                 }
@@ -58,10 +66,6 @@ class MainScreenTests: QuickSpec {
                 }
                 it("loader is hiden after receiving data"){
                     expect(subscriber.events.last!.value.element).to(be(false))
-                }
-                it("data is equal to number of articles from repository"){
-                    mainViewModel.dataRequestTrigered.onNext(1)
-                    expect(mainViewModel.data.count).to(be(2))
                 }
             }
         }

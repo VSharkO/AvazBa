@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: AvazBa/Repository/RepositoryProtocol.swift at 2018-11-19 14:50:12 +0000
+// MARK: - Mocks generated from file: AvazBa/Repository/RepositoryProtocol.swift at 2018-11-19 15:14:20 +0000
 
 //
 //  RepositoryProtocol.swift

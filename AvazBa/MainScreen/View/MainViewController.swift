@@ -10,10 +10,12 @@ import UIKit
 import RxSwift
 import Kingfisher
 
-class MainViewController: UITableViewController {
+class MainViewController: UITableViewController, LoaderManager {
 
     private var viewModel: MainViewModelProtocol!
     private let disposeBag = DisposeBag()
+    var loaderController: UIRefreshControl?
+    var loader : UIView?
     
     init(viewModel: MainViewModelProtocol) {
         super.init(nibName: nil, bundle: nil)
@@ -24,6 +26,7 @@ class MainViewController: UITableViewController {
         initSubscripts()
         viewModel.initGetingDataFromRepository().disposed(by: self.disposeBag)
         viewModel.dataRequestTrigered(pageNum: 1)
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,8 +61,24 @@ class MainViewController: UITableViewController {
         viewModel.viewReloadData.subscribe { _ in
             self.tableView.reloadData()
         }.disposed(by: disposeBag)
+        
+        viewModel.viewShowLoader.subscribe{ isActive in
+            if isActive.element!{
+                self.displayLoader()
+            }else{
+                self.hideLoader()
+            }
+        }.disposed(by: disposeBag)
     }
     
+    func displayLoader() {
+        loader = displayLoader(onView: self.view)
+    }
     
+    func hideLoader() {
+        if let loader = loader{
+            removeLoader(loader: loader)
+        }
+    }
 
 }

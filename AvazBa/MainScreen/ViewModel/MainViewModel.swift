@@ -16,9 +16,10 @@ class MainViewModel : MainViewModelProtocol{
     
     let repository: RepositoryProtocol!
     var dataRequestTrigered = PublishSubject<Int>()
-    var showSpinner = PublishSubject<Bool>()
     
+    var viewShowLoader = PublishSubject<Bool>()
     var viewReloadData = PublishSubject<Bool>()
+    
     
     init(repository: RepositoryProtocol) {
         self.repository = repository
@@ -26,16 +27,16 @@ class MainViewModel : MainViewModelProtocol{
     
     func initGetingDataFromRepository() -> Disposable {
         return dataRequestTrigered.flatMap({ num -> Observable<[Article]> in
-            self.showSpinner.onNext(true)
+            self.viewShowLoader.onNext(true)
             return self.repository.getMostPopularArticles(pageNum: num)
         }).subscribe(onNext: { [unowned self] articles in
             self.data = articles
             self.refreshViewModelData()
-            self.showSpinner.onNext(false)
+            self.viewShowLoader.onNext(false)
         })
     }
     
-    func refreshViewModelData() {
+    private func refreshViewModelData() {
         viewReloadData.onNext(true)
     }
     
