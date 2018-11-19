@@ -35,10 +35,10 @@ class CustomCell: UITableViewCell {
     var articleTitle : UILabel = {
         let articleTitle = UILabel()
         articleTitle.translatesAutoresizingMaskIntoConstraints = false
-        articleTitle.font = UIFont.init(name: "RobotoSlab-Bold", size: 14)
         articleTitle.textColor = .darkGray
         articleTitle.adjustsFontSizeToFitWidth = false
         articleTitle.numberOfLines = 2
+        articleTitle.font = UIFont.init(name: "RobotoSlab-Bold", size: 14)
         articleTitle.text = "SAmo sadas ldkfgsm lksdmfg lksmdflg mslSAmo sadas ldkfgsm lksdmfg lksmdflg msldkfgmlk smdfgml lksdmfg lksmdflg msldkfgmlk smdfgml dfgdfg"
         articleTitle.isUserInteractionEnabled = false
         return articleTitle
@@ -47,10 +47,10 @@ class CustomCell: UITableViewCell {
     var articleText : UILabel = {
         let articleText = UILabel()
         articleText.translatesAutoresizingMaskIntoConstraints = false
-        articleText.font = UIFont.init(name: "Lato-Regular", size: 13)
         articleText.textColor = .darkGray
         articleText.adjustsFontSizeToFitWidth = false
         articleText.numberOfLines = 2
+        articleText.font = UIFont.init(name: "Lato-Regular", size: 13)
         articleText.text = "SAmo sadas ldkfgsm lksdmfg lksmdflg mslSAmo sadas ldkfgsm lksdmfg lksmdflg msldkfgmlk smdfgml lksdmfg lksmdflg msldkfgmlk smdfgml dfgdfg"
         articleText.isUserInteractionEnabled = false
         return articleText
@@ -94,8 +94,7 @@ class CustomCell: UITableViewCell {
         NSLayoutConstraint.activate([
             articleTitle.topAnchor.constraint(equalTo: articlePhoto.bottomAnchor, constant: 8),
             articleTitle.leadingAnchor.constraint(equalTo: rootView.leadingAnchor, constant: 16.7),
-            articleTitle.trailingAnchor.constraint(equalTo: rootView.trailingAnchor, constant: -50),
-            articleTitle.heightAnchor.constraint(equalToConstant: 53)
+            articleTitle.trailingAnchor.constraint(equalTo: rootView.trailingAnchor, constant: -50)
             ])
         
         NSLayoutConstraint.activate([
