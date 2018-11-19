@@ -35,7 +35,7 @@ class CustomCell: UITableViewCell {
     var articleTitle : UILabel = {
         let articleTitle = UILabel()
         articleTitle.translatesAutoresizingMaskIntoConstraints = false
-        articleTitle.font = UIFont.init(name: "RobotoSlab-Boldd", size: 14)
+        articleTitle.font = UIFont.init(name: "RobotoSlab-Bold", size: 14)
         articleTitle.textColor = .darkGray
         articleTitle.adjustsFontSizeToFitWidth = false
         articleTitle.numberOfLines = 2
@@ -47,7 +47,7 @@ class CustomCell: UITableViewCell {
     var articleText : UILabel = {
         let articleText = UILabel()
         articleText.translatesAutoresizingMaskIntoConstraints = false
-        articleText.font = UIFont.init(name: "Lato-Regularr", size: 13)
+        articleText.font = UIFont.init(name: "Lato-Regular", size: 13)
         articleText.textColor = .darkGray
         articleText.adjustsFontSizeToFitWidth = false
         articleText.numberOfLines = 2
