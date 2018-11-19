@@ -28,6 +28,7 @@ class CustomCell: UITableViewCell {
         image.image = #imageLiteral(resourceName: "image1")
         image.layer.masksToBounds = true
         image.layer.cornerRadius = 7
+        image.contentMode = .scaleAspectFill
         image.layer.maskedCorners = [.layerMinXMinYCorner,.layerMaxXMinYCorner]
         return image
     }()

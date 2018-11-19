@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		B7B2FA0A40F751BDAEE14888 /* Pods_AvazBa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F49A77D87C1099CCB85723B /* Pods_AvazBa.framework */; };
 		C1828320723B55274748A23B /* Pods_AvazBaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5937AAF90F1C1F9BE294EA13 /* Pods_AvazBaTests.framework */; };
+		D520BA0321A2F5AA0065361C /* MainScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57D623A219DBA0D00A8479F /* MainScreenTests.swift */; };
+		D520BA0621A2F93F0065361C /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D520BA0521A2F93F0065361C /* Utils.swift */; };
 		D56F23AE219ED2E8009B17B6 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F23AA219ED2E8009B17B6 /* AppCoordinator.swift */; };
 		D56F23B0219ED2E8009B17B6 /* CoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F23AC219ED2E8009B17B6 /* CoordinatorDelegate.swift */; };
 		D56F23B1219ED2E8009B17B6 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F23AD219ED2E8009B17B6 /* Coordinator.swift */; };
@@ -19,7 +21,6 @@
 		D56F608121A18C9A00DDE70D /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F608021A18C9A00DDE70D /* Repository.swift */; };
 		D579DD1C21A2CA6700133127 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D579DD1B21A2CA6700133127 /* Interactor.swift */; };
 		D57D6226219DBA0C00A8479F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57D6225219DBA0C00A8479F /* AppDelegate.swift */; };
-		D57D623B219DBA0D00A8479F /* MainScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57D623A219DBA0D00A8479F /* MainScreenTests.swift */; };
 		D5932A1C21A0D8C800BBA8E0 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5932A1B21A0D8C800BBA8E0 /* CustomCell.swift */; };
 		D5B4562621A23BDC0055A9C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D57D622C219DBA0D00A8479F /* Assets.xcassets */; };
 		D5B4562921A23C180055A9C2 /* RobotoSlab-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5B4562321A23B340055A9C2 /* RobotoSlab-Bold.ttf */; };
@@ -45,6 +46,7 @@
 		5937AAF90F1C1F9BE294EA13 /* Pods_AvazBaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AvazBaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62FEDC6E800B8DBF1D759572 /* Pods-AvazBa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvazBa.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AvazBa/Pods-AvazBa.debug.xcconfig"; sourceTree = "<group>"; };
 		793C02A025C65463D7A0209F /* Pods-AvazBa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvazBa.release.xcconfig"; path = "Pods/Target Support Files/Pods-AvazBa/Pods-AvazBa.release.xcconfig"; sourceTree = "<group>"; };
+		D520BA0521A2F93F0065361C /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		D56F23AA219ED2E8009B17B6 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		D56F23AC219ED2E8009B17B6 /* CoordinatorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinatorDelegate.swift; sourceTree = "<group>"; };
 		D56F23AD219ED2E8009B17B6 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -108,6 +110,14 @@
 				5937AAF90F1C1F9BE294EA13 /* Pods_AvazBaTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D520BA0421A2F92E0065361C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D520BA0521A2F93F0065361C /* Utils.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		D56F23A9219ED2E8009B17B6 /* Coordinators */ = {
@@ -188,6 +198,7 @@
 		D57D6224219DBA0C00A8479F /* AvazBa */ = {
 			isa = PBXGroup;
 			children = (
+				D520BA0421A2F92E0065361C /* Utils */,
 				D579DD1A21A2CA1E00133127 /* Interactor */,
 				D5CA30FA219EE68E007BE8F9 /* Model */,
 				D56F23BE219EDF8F009B17B6 /* Repository */,
@@ -265,7 +276,7 @@
 				15819CB7184BBFC131D52A8E /* [CP] Check Pods Manifest.lock */,
 				D57D6232219DBA0D00A8479F /* Sources */,
 				D57D6233219DBA0D00A8479F /* Frameworks */,
-				D5CA30F9219EE3A9007BE8F9 /* ShellScript */,
+				D5CA30F9219EE3A9007BE8F9 /* Run Script */,
 				D57D6234219DBA0D00A8479F /* Resources */,
 				8AEDD3B8B663E75BD471AC0E /* [CP] Embed Pods Frameworks */,
 			);
@@ -430,13 +441,14 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D5CA30F9219EE3A9007BE8F9 /* ShellScript */ = {
+		D5CA30F9219EE3A9007BE8F9 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -453,6 +465,7 @@
 				D56F23AE219ED2E8009B17B6 /* AppCoordinator.swift in Sources */,
 				D56F23B7219ED6E0009B17B6 /* MainScreenCoordinator.swift in Sources */,
 				D5932A1C21A0D8C800BBA8E0 /* CustomCell.swift in Sources */,
+				D520BA0621A2F93F0065361C /* Utils.swift in Sources */,
 				D56F23B1219ED2E8009B17B6 /* Coordinator.swift in Sources */,
 				D56F23BB219EDA19009B17B6 /* MainViewModelProtocol.swift in Sources */,
 				D5CA30FC219EE699007BE8F9 /* Article.swift in Sources */,
@@ -470,7 +483,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D57D623B219DBA0D00A8479F /* MainScreenTests.swift in Sources */,
+				D520BA0321A2F5AA0065361C /* MainScreenTests.swift in Sources */,
 				D5CA30FE219EEC6A007BE8F9 /* GeneratedMocks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -19,6 +19,7 @@ class MainScreenTests: QuickSpec {
         var disposeBag: DisposeBag!
         var mainViewModel: MainViewModel!
         let mockRepository = MockRepositoryProtocol()
+        let testScheduler = TestScheduler(initialClock: 0)
         
         beforeSuite {
             disposeBag = DisposeBag()
@@ -32,7 +33,6 @@ class MainScreenTests: QuickSpec {
         
         describe("MainViewModel initialization"){
             context("Initionalized correctly"){
-                
                 stub(mockRepository) { mock in
                     when(mock.getMostPopularArticles(pageNum: 1)).then({ _ -> Observable<[Article]> in
                         return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
@@ -46,8 +46,21 @@ class MainScreenTests: QuickSpec {
                 }
             }
             context("Called data from repo first time"){
-                mainViewModel.dataRequestTrigered.onNext(1)
+                let subscriber = testScheduler.createObserver(Bool.self)
+                
+                beforeEach {
+                    mainViewModel.showSpinner.subscribe(subscriber).disposed(by: disposeBag)
+                    testScheduler.start()
+                    mainViewModel.dataRequestTrigered.onNext(1)
+                }
+                it("loader is shown on start of request"){
+                    expect(subscriber.events.first!.value.element).to(be(true))
+                }
+                it("loader is hiden after receiving data"){
+                    expect(subscriber.events.last!.value.element).to(be(false))
+                }
                 it("data is equal to number of articles from repository"){
+                    mainViewModel.dataRequestTrigered.onNext(1)
                     expect(mainViewModel.data.count).to(be(2))
                 }
             }

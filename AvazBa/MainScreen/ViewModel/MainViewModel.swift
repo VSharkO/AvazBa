@@ -10,10 +10,13 @@ import Foundation
 import RxSwift
 
 class MainViewModel : MainViewModelProtocol{
+    
+    
     var data: [Article] = []
     
     let repository: RepositoryProtocol!
     var dataRequestTrigered = PublishSubject<Int>()
+    var showSpinner = PublishSubject<Bool>()
     
     var viewReloadData = PublishSubject<Bool>()
     
@@ -23,14 +26,16 @@ class MainViewModel : MainViewModelProtocol{
     
     func initGetingDataFromRepository() -> Disposable {
         return dataRequestTrigered.flatMap({ num -> Observable<[Article]> in
+            self.showSpinner.onNext(true)
             return self.repository.getMostPopularArticles(pageNum: num)
         }).subscribe(onNext: { [unowned self] articles in
             self.data = articles
-            self.refreshData()
+            self.refreshViewModelData()
+            self.showSpinner.onNext(false)
         })
     }
     
-    func refreshData() {
+    func refreshViewModelData() {
         viewReloadData.onNext(true)
     }
     
