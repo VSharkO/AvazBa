@@ -21,7 +21,7 @@ class MainScreenTests: QuickSpec {
         let mockRepository = MockRepositoryProtocol()
         let testScheduler = TestScheduler(initialClock: 0)
         
-        beforeSuite {
+        beforeEach {
             disposeBag = DisposeBag()
             mainViewModel = MainViewModel(repository: mockRepository)
             mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
@@ -48,7 +48,7 @@ class MainScreenTests: QuickSpec {
             context("Called data from repo first time"){
                 it("data is equal to number of articles from repository"){
                     mainViewModel.dataRequestTrigered.onNext(1)
-                    expect(mainViewModel.data.count).to(be(2))
+                    expect(mainViewModel.data.count).to(equal(2))
                 }
             }
         }
@@ -70,19 +70,25 @@ class MainScreenTests: QuickSpec {
             }
         }
         
-//        describe("Pull to refresh logic"){
-//            beforeSuite {
-//                mainViewModel.pullToRefreshTrigered.onNext(true)
-//            }
-//            context("refreshing data trigered"){
-//                it("is calling repository method to get data"){
-//                    verify(mockRepository).getMostPopularArticles()
-//                }
-//            }
-//        }
-//
+        describe("Pull to refresh logic"){
+            context("user pull to refresh"){
+                let subscriber = testScheduler.createObserver(Bool.self)
+                beforeEach {
+                mainViewModel.pullToRefreshTrigered.subscribe(subscriber).disposed(by: disposeBag)
+                    testScheduler.start()
+                    mainViewModel.pullToRefreshTrigered.onNext(true)
+                }
+                it("is refreshing data trigered"){
+                    expect(subscriber.events.first!.value.element).to(be(true))
+                }
+                it("is calling viewModel to send request for first page"){
+                    verify(mockRepository).getMostPopularArticles(pageNum: 1)
+                }
+            }
+        }
+
 //        describe("Infinite scroll logic"){
-//            beforeSuite {
+//            beforeEach {
 //                mainViewModel.moreDataRequestTrigered.onNext(true)
 //            }
 //            context("more data request trigered"){

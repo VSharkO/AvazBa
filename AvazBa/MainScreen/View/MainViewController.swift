@@ -16,6 +16,7 @@ class MainViewController: UITableViewController, LoaderManager {
     private let disposeBag = DisposeBag()
     var loaderController: UIRefreshControl?
     var loader : UIView?
+    var refreshController: UIRefreshControl?
     
     init(viewModel: MainViewModelProtocol) {
         super.init(nibName: nil, bundle: nil)
@@ -24,9 +25,10 @@ class MainViewController: UITableViewController, LoaderManager {
     override func viewDidLoad() {
         registerCells()
         initSubscripts()
+        setupRefreshControl()
         viewModel.initGetingDataFromRepository().disposed(by: self.disposeBag)
+        viewModel.initPullToRefreshHandler().disposed(by: disposeBag)
         viewModel.dataRequestTrigered(pageNum: 1)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -71,6 +73,16 @@ class MainViewController: UITableViewController, LoaderManager {
         }.disposed(by: disposeBag)
     }
     
+    private func setupRefreshControl(){
+        refreshController = UIRefreshControl()
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshController
+        } else {
+            self.tableView.addSubview(refreshController!)
+        }
+        refreshController?.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+    }
+    
     func displayLoader() {
         loader = displayLoader(onView: self.view)
     }
@@ -79,6 +91,15 @@ class MainViewController: UITableViewController, LoaderManager {
         if let loader = loader{
             removeLoader(loader: loader)
         }
+        hideSpinner()
+    }
+    
+    func hideSpinner(){
+        refreshController?.endRefreshing()
+    }
+    
+    @objc func refreshData(){
+        viewModel.pullToRefresh()
     }
 
 }

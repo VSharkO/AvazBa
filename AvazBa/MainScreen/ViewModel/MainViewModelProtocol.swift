@@ -13,6 +13,8 @@ protocol MainViewModelProtocol{
     func initGetingDataFromRepository() -> Disposable
     func getData() -> [Article]
     func dataRequestTrigered(pageNum: Int)
+    func initPullToRefreshHandler() -> Disposable
+    func pullToRefresh()
     
     var viewShowLoader: PublishSubject<Bool>{get set}
     var viewReloadData: PublishSubject<Bool>{get set}
