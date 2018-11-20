@@ -16,16 +16,9 @@ import Nimble
 class MainScreenTests: QuickSpec {
     
     override func spec() {
-        var disposeBag: DisposeBag!
         var mainViewModel: MainViewModel!
         let mockRepository = MockRepositoryProtocol()
-        let testScheduler = TestScheduler(initialClock: 0)
-        
-        beforeEach {
-            disposeBag = DisposeBag()
-            mainViewModel = MainViewModel(repository: mockRepository)
-            mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
-        }
+        let disposeBag = DisposeBag()
         
         afterSuite {
             mainViewModel = nil
@@ -33,6 +26,12 @@ class MainScreenTests: QuickSpec {
         
         describe("MainViewModel initialization"){
             context("Initionalized correctly"){
+                beforeEach {
+                    let testScheduler = TestScheduler(initialClock: 0)
+                    mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
+                    mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
+                    testScheduler.start()
+                }
                 stub(mockRepository) { mock in
                     when(mock.getMostPopularArticles(pageNum: 1)).then({ _ -> Observable<[Article]> in
                         return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
@@ -46,6 +45,12 @@ class MainScreenTests: QuickSpec {
                 }
             }
             context("Called data from repo first time"){
+                beforeEach {
+                    let testScheduler = TestScheduler(initialClock: 0)
+                    mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
+                    mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
+                    testScheduler.start()
+                }
                 it("data is equal to number of articles from repository"){
                     mainViewModel.dataRequestTrigered.onNext(1)
                     expect(mainViewModel.data.count).to(equal(2))
@@ -55,8 +60,13 @@ class MainScreenTests: QuickSpec {
         
         describe("LoaderLogic"){
             context("when sending request"){
-                let subscriber = testScheduler.createObserver(Bool.self)
+                var testScheduler = TestScheduler(initialClock: 0)
+                var subscriber = testScheduler.createObserver(Bool.self)
                 beforeEach {
+                    testScheduler = TestScheduler(initialClock: 0)
+                    subscriber = testScheduler.createObserver(Bool.self)
+                    mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
+                    mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     mainViewModel.viewShowLoader.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
                     mainViewModel.dataRequestTrigered.onNext(1)
@@ -72,9 +82,14 @@ class MainScreenTests: QuickSpec {
         
         describe("Pull to refresh logic"){
             context("user pull to refresh"){
-                let subscriber = testScheduler.createObserver(Bool.self)
+                var testScheduler = TestScheduler(initialClock: 0)
+                var subscriber = testScheduler.createObserver(Bool.self)
                 beforeEach {
-                mainViewModel.pullToRefreshTrigered.subscribe(subscriber).disposed(by: disposeBag)
+                    testScheduler = TestScheduler(initialClock: 0)
+                    subscriber = testScheduler.createObserver(Bool.self)
+                    mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
+                    mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
+                    mainViewModel.pullToRefreshTrigered.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
                     mainViewModel.pullToRefreshTrigered.onNext(true)
                 }

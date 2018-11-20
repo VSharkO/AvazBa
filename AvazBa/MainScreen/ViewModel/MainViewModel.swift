@@ -14,24 +14,25 @@ class MainViewModel : MainViewModelProtocol{
     
     var data: [Article] = []
     
-    let repository: RepositoryProtocol!
+    let repository: RepositoryProtocol
+    let scheduler : SchedulerType
     var dataRequestTrigered = PublishSubject<Int>()
     var viewShowLoader = PublishSubject<Bool>()
     var viewReloadData = PublishSubject<Bool>()
     var pullToRefreshTrigered = PublishSubject<Bool>()
     var pulltoRefreshFlag = false
     
-    init(repository: RepositoryProtocol) {
+    init(repository: RepositoryProtocol, schedulare: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         self.repository = repository
+        self.scheduler = schedulare
     }
     
     func initGetingDataFromRepository() -> Disposable {
         return dataRequestTrigered.flatMap({ [unowned self] num -> Observable<[Article]> in
             if !self.pulltoRefreshFlag{self.viewShowLoader.onNext(true)}
             return self.repository.getMostPopularArticles(pageNum: num)
-        })
-//            .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .background))
-//            .observeOn(MainScheduler.instance)
+        }).subscribeOn(scheduler)
+            .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] articles in
             self.data = articles
             self.refreshViewModelData()
