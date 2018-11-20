@@ -28,6 +28,9 @@ class MainViewController: UITableViewController, LoaderManager {
         setupRefreshControl()
         viewModel.initGetingDataFromRepository().disposed(by: self.disposeBag)
         viewModel.initPullToRefreshHandler().disposed(by: disposeBag)
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         viewModel.dataRequestTrigered(pageNum: 1)
     }
     
