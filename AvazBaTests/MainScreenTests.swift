@@ -94,6 +94,7 @@ class MainScreenTests: QuickSpec {
         describe("Pull to refresh logic"){
             context("user pull to refresh"){
                 var testScheduler = TestScheduler(initialClock: 0)
+                var subscriber = testScheduler.createObserver(Int.self)
                 var mockRepository = MockRepositoryProtocol()
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
@@ -103,10 +104,15 @@ class MainScreenTests: QuickSpec {
                         })
                     }
                     testScheduler = TestScheduler(initialClock: 0)
+                    subscriber = testScheduler.createObserver(Int.self)
                     mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
+                    mainViewModel.dataRequestTrigered.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
                     mainViewModel.pullToRefresh()
+                }
+                it("is trigered event for request in viewModel"){
+                    expect(subscriber.events.first!.value.element).to(equal(1))
                 }
                 it("is calling viewModel to send request for first page"){
                     verify(mockRepository, times(1)).getMostPopularArticles(pageNum: 1)
@@ -130,11 +136,10 @@ class MainScreenTests: QuickSpec {
                     subscriber = testScheduler.createObserver(Int.self)
                     mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
-                    mainViewModel.initMoreDataRequest().disposed(by: disposeBag)
-                    mainViewModel.moreDataRequestTrigered.subscribe(subscriber).disposed(by: disposeBag)
+                    mainViewModel.dataRequestTrigered.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
-                    mainViewModel.moreDataRequestTrigered.onNext(2)
-                    mainViewModel.moreDataRequestTrigered.onNext(4)
+                    mainViewModel.dataRequestTrigered(pageNum: 2)
+                    mainViewModel.dataRequestTrigered(pageNum: 4)
                 }
                 it("is refreshing data trigered"){
                     expect(subscriber.events.first!.value.element).to(equal(2))
