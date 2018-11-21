@@ -126,9 +126,9 @@ class MainScreenTests: QuickSpec {
             context("more data request trigered"){
                 var testScheduler = TestScheduler(initialClock: 0)
                 var subscriber = testScheduler.createObserver(Int.self)
-                let mockRepository = MockRepositoryProtocol()
+                var mockRepository = MockRepositoryProtocol()
                 beforeEach {
-                    let mockRepository = MockRepositoryProtocol()
+                    mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
                         when(mock.getMostPopularArticles(pageNum: anyInt())).then({ _ -> Observable<[Article]> in
                             return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
@@ -137,8 +137,9 @@ class MainScreenTests: QuickSpec {
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Int.self)
                     mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
-                    mainViewModel.initMoreDataRequest().disposed(by: disposeBag)
+                    mainViewModel.initPullToRefreshHandler().disposed(by: disposeBag)
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
+                    mainViewModel.initMoreDataRequest().disposed(by: disposeBag)
                     mainViewModel.moreDataRequestTrigered.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
                     mainViewModel.moreDataRequestTrigered.onNext(2)
@@ -156,3 +157,4 @@ class MainScreenTests: QuickSpec {
         }
     }
 }
+
