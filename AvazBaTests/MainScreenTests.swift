@@ -85,16 +85,23 @@ class MainScreenTests: QuickSpec {
         }
         
         describe("Pull to refresh logic"){
-//            let mockRepository = MockRepositoryProtocol()  --- bez ovog radi
             context("user pull to refresh"){
                 var testScheduler = TestScheduler(initialClock: 0)
                 var subscriber = testScheduler.createObserver(Bool.self)
                 beforeEach {
+                    let mockRepository = MockRepositoryProtocol()
+                    stub(mockRepository) { mock in
+                        when(mock.getMostPopularArticles(pageNum: 1)).then({ _ -> Observable<[Article]> in
+                            return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
+                        })
+                    }
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Bool.self)
                     mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
-                    mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
+                    mainViewModel.initPullToRefreshHandler().disposed(by: disposeBag)
                     mainViewModel.pullToRefreshTrigered.subscribe(subscriber).disposed(by: disposeBag)
+                    mainViewModel.initPullToRefreshHandler().disposed(by: disposeBag)
+                    mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     testScheduler.start()
                     mainViewModel.pullToRefreshTrigered.onNext(true)
                 }
@@ -102,13 +109,13 @@ class MainScreenTests: QuickSpec {
                     expect(subscriber.events.first!.value.element).to(equal(true))
                 }
                 it("is calling viewModel to send request for first page"){
-                    verify(mockRepository, times(1)).getMostPopularArticles(pageNum: 1)
+                    verify(mockRepository).getMostPopularArticles(pageNum: 1)
                 }
             }
         }
         
 //        describe("Infinite scroll logic"){
-////            let mockRepository = MockRepositoryProtocol()  --- bez ovog radi
+////            let mockRepository = MockRepositoryProtocol()
 //            context("more data request trigered"){
 //                var testScheduler = TestScheduler(initialClock: 0)
 //                var subscriber = testScheduler.createObserver(Bool.self)
