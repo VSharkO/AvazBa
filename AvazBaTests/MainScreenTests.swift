@@ -83,7 +83,7 @@ class MainScreenTests: QuickSpec {
                     mainViewModel.dataRequestTrigered.onNext(1)
                 }
                 it("loader is shown on start of request"){
-                    expect(subscriber.events.first!.value.element).to(be(true))
+                    expect(subscriber.events.first!.value.element).to(equal(true))
                 }
                 it("loader is hiden after receiving data"){
                     expect(subscriber.events.last!.value.element).to(be(false))
@@ -94,7 +94,6 @@ class MainScreenTests: QuickSpec {
         describe("Pull to refresh logic"){
             context("user pull to refresh"){
                 var testScheduler = TestScheduler(initialClock: 0)
-                var subscriber = testScheduler.createObserver(Bool.self)
                 var mockRepository = MockRepositoryProtocol()
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
@@ -104,20 +103,13 @@ class MainScreenTests: QuickSpec {
                         })
                     }
                     testScheduler = TestScheduler(initialClock: 0)
-                    subscriber = testScheduler.createObserver(Bool.self)
                     mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
-                    mainViewModel.initPullToRefreshHandler().disposed(by: disposeBag)
-                    mainViewModel.pullToRefreshTrigered.subscribe(subscriber).disposed(by: disposeBag)
-                    mainViewModel.initPullToRefreshHandler().disposed(by: disposeBag)
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     testScheduler.start()
-                    mainViewModel.pullToRefreshTrigered.onNext(true)
-                }
-                it("is refreshing data trigered"){
-                    expect(subscriber.events.first!.value.element).to(equal(true))
+                    mainViewModel.pullToRefresh()
                 }
                 it("is calling viewModel to send request for first page"){
-                    verify(mockRepository, times(2)).getMostPopularArticles(pageNum: 1) //Zašto?
+                    verify(mockRepository, times(1)).getMostPopularArticles(pageNum: 1)
                 }
             }
         }
@@ -137,7 +129,6 @@ class MainScreenTests: QuickSpec {
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Int.self)
                     mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
-                    mainViewModel.initPullToRefreshHandler().disposed(by: disposeBag)
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     mainViewModel.initMoreDataRequest().disposed(by: disposeBag)
                     mainViewModel.moreDataRequestTrigered.subscribe(subscriber).disposed(by: disposeBag)

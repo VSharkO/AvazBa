@@ -33,7 +33,6 @@ class MainViewController: UITableViewController, LoaderManager {
         initSubscripts()
         setupRefreshControl()
         viewModel.initGetingDataFromRepository().disposed(by: self.disposeBag)
-        viewModel.initPullToRefreshHandler().disposed(by: disposeBag)
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -42,7 +41,7 @@ class MainViewController: UITableViewController, LoaderManager {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "customeCell", for: indexPath) as? CustomCell{
-            let article = viewModel.getData()[indexPath.row]
+            let article = viewModel.data[indexPath.row]
             cell.articleText.text = article.description
             cell.setPicture(image: article.image.original)
             cell.articleTitle.text = article.title
@@ -57,12 +56,12 @@ class MainViewController: UITableViewController, LoaderManager {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.getData().count
+        return viewModel.data.count
     }
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        if(viewModel.getData().count != 0){
-            if Double(indexPath.row) >= Double(viewModel.getData().count) * 0.8 {
+        if(viewModel.data.count != 0){
+            if Double(indexPath.row) >= Double(viewModel.data.count) * 0.8 {
                 viewModel.moreDataRequest()
             }
         }
