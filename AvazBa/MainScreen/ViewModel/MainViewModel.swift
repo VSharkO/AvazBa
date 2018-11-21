@@ -14,6 +14,7 @@ class MainViewModel : MainViewModelProtocol{
     internal var data: [Article] = []
     var pageCounter = 0
     var pullToRefreshFlag = false
+    var moreDataFlag = true
     
     let repository: RepositoryProtocol
     let scheduler : SchedulerType
@@ -32,9 +33,9 @@ class MainViewModel : MainViewModelProtocol{
             if !self.pullToRefreshFlag{
                 self.pullToRefreshFlag = true
                 self.viewShowLoader.onNext(true)
-                
             }
             self.pageCounter = num
+            self.moreDataFlag = false
             return self.repository.getMostPopularArticles(pageNum: self.pageCounter)
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
@@ -43,10 +44,12 @@ class MainViewModel : MainViewModelProtocol{
                     self.data.append(contentsOf: articles)
                     self.refreshViewControllerTableData()
                     self.viewShowLoader.onNext(false)
+                    self.moreDataFlag = true
                 }else{
                     self.data = articles
                     self.refreshViewControllerTableData()
                     self.viewShowLoader.onNext(false)
+                    self.moreDataFlag = true
                 }
         })
     }
@@ -61,7 +64,10 @@ class MainViewModel : MainViewModelProtocol{
     }
     
     func dataRequestTrigered(pageNum: Int){
-        dataRequestTrigered.onNext(pageNum)
+        if moreDataFlag{
+            dataRequestTrigered.onNext(pageNum)
+        }
+        
     }
     
     private func refreshViewControllerTableData() {

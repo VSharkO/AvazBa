@@ -63,6 +63,7 @@ class MainViewController: UITableViewController, LoaderManager {
         if(viewModel.data.count != 0){
             if Double(indexPath.row) >= Double(viewModel.data.count) * 0.8 {
                 viewModel.moreDataRequest()
+                
             }
         }
     }
