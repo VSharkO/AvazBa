@@ -12,7 +12,7 @@ import RxSwift
 class MainViewModel : MainViewModelProtocol{
 
     var data: [Article] = []
-    var pageCounter = 1
+    var pageCounter = 0
     var pullToRefreshFlag = false
     
     let repository: RepositoryProtocol
@@ -23,7 +23,6 @@ class MainViewModel : MainViewModelProtocol{
     
     var viewShowLoader = PublishSubject<Bool>()
     var viewReloadData = PublishSubject<Bool>()
-    
     
     init(repository: RepositoryProtocol, schedulare: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         self.repository = repository
@@ -69,8 +68,8 @@ class MainViewModel : MainViewModelProtocol{
     }
     
     func moreDataRequest() {
-        dataRequestTrigered(pageNum: pageCounter)
         pageCounter += 1
+        dataRequestTrigered(pageNum: pageCounter)
     }
     
     func pullToRefresh(){
