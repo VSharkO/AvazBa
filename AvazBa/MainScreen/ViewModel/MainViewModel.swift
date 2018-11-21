@@ -12,16 +12,18 @@ import RxSwift
 class MainViewModel : MainViewModelProtocol{
 
     var data: [Article] = []
+    var pageCounter = 1
+    var pullToRefreshFlag = false
     
     let repository: RepositoryProtocol
     let scheduler : SchedulerType
     var dataRequestTrigered = PublishSubject<Int>()
-    var viewShowLoader = PublishSubject<Bool>()
-    var viewReloadData = PublishSubject<Bool>()
     var pullToRefreshTrigered = PublishSubject<Bool>()
     var moreDataRequestTrigered = PublishSubject<Int>()
-    var pullToRefreshFlag = false
-     var pageCounter = 1
+    
+    var viewShowLoader = PublishSubject<Bool>()
+    var viewReloadData = PublishSubject<Bool>()
+    
     
     init(repository: RepositoryProtocol, schedulare: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         self.repository = repository
@@ -38,16 +40,20 @@ class MainViewModel : MainViewModelProtocol{
             .subscribe(onNext: { [unowned self] articles in
                 if self.pageCounter > 1{
                     self.data.append(contentsOf: articles)
-                    self.refreshViewModelData()
+                    self.refreshViewControllerTableData()
                     self.viewShowLoader.onNext(false)
                     self.pullToRefreshFlag = false
                 }else{
                     self.data = articles
-                    self.refreshViewModelData()
+                    self.refreshViewControllerTableData()
                     self.viewShowLoader.onNext(false)
                     self.pullToRefreshFlag = false
                 }
         })
+    }
+    
+    func getData() -> [Article]{
+        return data
     }
     
     func initPullToRefreshHandler() -> Disposable{
@@ -62,14 +68,6 @@ class MainViewModel : MainViewModelProtocol{
         })
     }
     
-    private func refreshViewModelData() {
-        viewReloadData.onNext(true)
-    }
-    
-    func getData() -> [Article]{
-        return data
-    }
-    
     func moreDataRequest() {
         dataRequestTrigered(pageNum: pageCounter)
         pageCounter += 1
@@ -82,5 +80,9 @@ class MainViewModel : MainViewModelProtocol{
     
     func dataRequestTrigered(pageNum: Int){
         dataRequestTrigered.onNext(pageNum)
+    }
+    
+    private func refreshViewControllerTableData() {
+        viewReloadData.onNext(true)
     }
 }

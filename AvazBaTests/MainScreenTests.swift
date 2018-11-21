@@ -117,7 +117,7 @@ class MainScreenTests: QuickSpec {
                     expect(subscriber.events.first!.value.element).to(equal(true))
                 }
                 it("is calling viewModel to send request for first page"){
-                    verify(mockRepository, times(2)).getMostPopularArticles(pageNum: 1)
+                    verify(mockRepository, times(2)).getMostPopularArticles(pageNum: 1) //Zašto?
                 }
             }
         }
