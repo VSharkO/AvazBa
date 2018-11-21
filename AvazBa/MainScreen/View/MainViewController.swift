@@ -56,20 +56,20 @@ class MainViewController: UITableViewController, LoaderManager {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.data.count
+        return viewModel.data.count+1
     }
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(viewModel.data.count != 0){
-            if Double(indexPath.row) >= Double(viewModel.data.count) * 0.8 {
+            if Double(indexPath.row) >= Double(viewModel.data.count) * 0.85 {
                 viewModel.moreDataRequest()
-                
             }
         }
     }
     
     private func registerCells(){
         self.tableView.register(CustomCell.self, forCellReuseIdentifier: "customeCell")
+        self.tableView.register(LoaderCell.self, forCellReuseIdentifier: "loaderCell")
     }
     
     func initSubscripts(){

@@ -67,7 +67,6 @@ class MainViewModel : MainViewModelProtocol{
         if moreDataFlag{
             dataRequestTrigered.onNext(pageNum)
         }
-        
     }
     
     private func refreshViewControllerTableData() {
