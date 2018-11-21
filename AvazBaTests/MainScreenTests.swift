@@ -18,22 +18,22 @@ class MainScreenTests: QuickSpec {
     override func spec() {
         var mainViewModel: MainViewModel!
         let disposeBag = DisposeBag()
-        let mockRepository = MockRepositoryProtocol()
         afterSuite {
             mainViewModel = nil
         }
         describe("MainViewModel initialization"){
             context("Initionalized correctly"){
                 beforeEach {
+                    let mockRepository = MockRepositoryProtocol()
+                    stub(mockRepository) { mock in
+                        when(mock.getMostPopularArticles(pageNum: 1)).then({ _ -> Observable<[Article]> in
+                            return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
+                        })
+                    }
                     let testScheduler = TestScheduler(initialClock: 0)
                     mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     testScheduler.start()
-                }
-                stub(mockRepository) { mock in
-                    when(mock.getMostPopularArticles(pageNum: 1)).then({ _ -> Observable<[Article]> in
-                        return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
-                    })
                 }
                 it("is not nil"){
                     expect(mainViewModel).toNot(be(nil))
@@ -43,7 +43,14 @@ class MainScreenTests: QuickSpec {
                 }
             }
             context("Called data from repo first time"){
+                var mockRepository = MockRepositoryProtocol()
                 beforeEach {
+                    mockRepository = MockRepositoryProtocol()
+                    stub(mockRepository) { mock in
+                        when(mock.getMostPopularArticles(pageNum: 1)).then({ _ -> Observable<[Article]> in
+                            return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
+                        })
+                    }
                     let testScheduler = TestScheduler(initialClock: 0)
                     mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
@@ -57,11 +64,16 @@ class MainScreenTests: QuickSpec {
         }
         
         describe("LoaderLogic"){
-            let mockRepository = MockRepositoryProtocol()  //Kad ovo maknem onda ne radi test zadnji.
             context("when sending request"){
                 var testScheduler = TestScheduler(initialClock: 0)
                 var subscriber = testScheduler.createObserver(Bool.self)
                 beforeEach {
+                    let mockRepository = MockRepositoryProtocol()
+                    stub(mockRepository) { mock in
+                        when(mock.getMostPopularArticles(pageNum: 1)).then({ _ -> Observable<[Article]> in
+                            return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
+                        })
+                    }
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Bool.self)
                     mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
@@ -69,11 +81,6 @@ class MainScreenTests: QuickSpec {
                     mainViewModel.viewShowLoader.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
                     mainViewModel.dataRequestTrigered.onNext(1)
-                }
-                stub(mockRepository) { mock in
-                    when(mock.getMostPopularArticles(pageNum: 1)).then({ _ -> Observable<[Article]> in
-                        return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
-                    })
                 }
                 it("loader is shown on start of request"){
                     expect(subscriber.events.first!.value.element).to(be(true))
@@ -88,8 +95,9 @@ class MainScreenTests: QuickSpec {
             context("user pull to refresh"){
                 var testScheduler = TestScheduler(initialClock: 0)
                 var subscriber = testScheduler.createObserver(Bool.self)
+                var mockRepository = MockRepositoryProtocol()
                 beforeEach {
-                    let mockRepository = MockRepositoryProtocol()
+                    mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
                         when(mock.getMostPopularArticles(pageNum: 1)).then({ _ -> Observable<[Article]> in
                             return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
@@ -109,35 +117,42 @@ class MainScreenTests: QuickSpec {
                     expect(subscriber.events.first!.value.element).to(equal(true))
                 }
                 it("is calling viewModel to send request for first page"){
-                    verify(mockRepository).getMostPopularArticles(pageNum: 1)
+                    verify(mockRepository, times(2)).getMostPopularArticles(pageNum: 1)
                 }
             }
         }
         
-//        describe("Infinite scroll logic"){
-////            let mockRepository = MockRepositoryProtocol()
-//            context("more data request trigered"){
-//                var testScheduler = TestScheduler(initialClock: 0)
-//                var subscriber = testScheduler.createObserver(Bool.self)
-//                beforeEach {
-//                    testScheduler = TestScheduler(initialClock: 0)
-//                    subscriber = testScheduler.createObserver(Int.self)
-//                    mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
-//                    mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
-//                    mainViewModel.moreDataRequestTrigered.subscribe(subscriber).disposed(by: disposeBag)
-//                    testScheduler.start()
-//                    mainViewModel.moreDataRequestTrigered.onNext(2)
-//                    mainViewModel.moreDataRequestTrigered.onNext(4)
-//                }
-//                it("is refreshing data trigered"){
-//                    expect(subscriber.events.first!.value.element).to(equal(2))
-//                    expect(subscriber.events.last!.value.element).to(equal(4))
-//                }
-//                it("is calling repository method to get more data"){
-//                    verify(mockRepository).getMostPopularArticles(2)
-//                    verify(mockRepository).getMostPopularArticles(4)
-//                }
-//            }
-//        }
+        describe("Infinite scroll logic"){
+            context("more data request trigered"){
+                var testScheduler = TestScheduler(initialClock: 0)
+                var subscriber = testScheduler.createObserver(Int.self)
+                let mockRepository = MockRepositoryProtocol()
+                beforeEach {
+                    let mockRepository = MockRepositoryProtocol()
+                    stub(mockRepository) { mock in
+                        when(mock.getMostPopularArticles(pageNum: anyInt())).then({ _ -> Observable<[Article]> in
+                            return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
+                        })
+                    }
+                    testScheduler = TestScheduler(initialClock: 0)
+                    subscriber = testScheduler.createObserver(Int.self)
+                    mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
+                    mainViewModel.initMoreDataRequest().disposed(by: disposeBag)
+                    mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
+                    mainViewModel.moreDataRequestTrigered.subscribe(subscriber).disposed(by: disposeBag)
+                    testScheduler.start()
+                    mainViewModel.moreDataRequestTrigered.onNext(2)
+                    mainViewModel.moreDataRequestTrigered.onNext(4)
+                }
+                it("is refreshing data trigered"){
+                    expect(subscriber.events.first!.value.element).to(equal(2))
+                    expect(subscriber.events.last!.value.element).to(equal(4))
+                }
+                it("is calling repository method to get more data"){
+                    verify(mockRepository).getMostPopularArticles(pageNum: 2)
+                    verify(mockRepository).getMostPopularArticles(pageNum: 4)
+                }
+            }
+        }
     }
 }

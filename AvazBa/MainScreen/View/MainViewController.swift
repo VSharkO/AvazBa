@@ -17,11 +17,17 @@ class MainViewController: UITableViewController, LoaderManager {
     var loaderController: UIRefreshControl?
     var loader : UIView?
     var refreshController: UIRefreshControl?
+   
     
     init(viewModel: MainViewModelProtocol) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
     }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         registerCells()
         initSubscripts()
@@ -31,11 +37,7 @@ class MainViewController: UITableViewController, LoaderManager {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.dataRequestTrigered(pageNum: 1)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        viewModel.moreDataRequest()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -50,16 +52,24 @@ class MainViewController: UITableViewController, LoaderManager {
         }
     }
     
-    private func registerCells(){
-        self.tableView.register(CustomCell.self, forCellReuseIdentifier: "customeCell")
-    }
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.getData().count
+    }
+
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if(viewModel.getData().count != 0){
+            if Double(indexPath.row) >= Double(viewModel.getData().count) * 0.8 {
+                viewModel.moreDataRequest()
+            }
+        }
+    }
+    
+    private func registerCells(){
+        self.tableView.register(CustomCell.self, forCellReuseIdentifier: "customeCell")
     }
     
     func initSubscripts(){

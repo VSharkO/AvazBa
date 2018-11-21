@@ -12,7 +12,7 @@ import RxSwift
 protocol MainViewModelProtocol{
     func initGetingDataFromRepository() -> Disposable
     func getData() -> [Article]
-    func dataRequestTrigered(pageNum: Int)
+    func moreDataRequest()
     func initPullToRefreshHandler() -> Disposable
     func pullToRefresh()
     
