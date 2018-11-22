@@ -28,42 +28,40 @@ class MainViewModel : MainViewModelProtocol{
         self.repository = repository
         self.scheduler = schedulare
     }
-    
     func initGetingDataFromRepository() -> Disposable {
-        
+        let lastDataCount = data.count
         return dataRequestTrigered.flatMap({ [unowned self] num -> Observable<[Article]> in
             if !self.pullToRefreshFlag{
                 self.pullToRefreshFlag = true
                 self.viewShowLoader.onNext(true)
             }
-//            self.data.append(LoaderCellType())
-//            self.viewInsertRows.onNext([IndexPath(item: self.data.count-1, section: 0)])
             self.pageCounter = num
-            self.moreDataFlag = false
             return self.repository.getMostPopularArticles(pageNum: self.pageCounter)
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] articles in
                 if self.pageCounter > 1{
-//                    self.data.remove(at: self.data.count-1)
-//                    self.viewDeleteRow.onNext(self.data.count-1)
-                    self.data.append(contentsOf: articles)
+                    self.data.remove(at: self.data.count-1)
+                    self.viewDeleteRow.onNext(self.data.count-1)
+                    
                     var arrayOfIndexPaths = [IndexPath]()
-                    for element in Array(self.data.count...self.data.count+articles.count-1){
+                    for element in Array(lastDataCount..<lastDataCount+articles.count){
                         arrayOfIndexPaths.append(IndexPath.init(row: element, section: 0))
                     }
+                    self.data.append(contentsOf: articles)
                     self.viewInsertRows.onNext(arrayOfIndexPaths)
                     self.viewShowLoader.onNext(false)
                     self.moreDataFlag = true
                 }else{
-                    self.data = articles
 //                    self.data.remove(at: self.data.count-1)
 //                    self.viewDeleteRow.onNext(self.data.count-1)
-                    var arrayOfIndexPaths = [IndexPath]()
-                    for element in Array(self.data.count...self.data.count+articles.count-1){
-                        arrayOfIndexPaths.append(IndexPath.init(row: element, section: 0))
-                    }
-                    self.viewInsertRows.onNext(arrayOfIndexPaths)
+//                    var arrayOfIndexPaths = [IndexPath]()
+                    print(Array(self.data.count..<lastDataCount+articles.count))
+//                    for element in Array(lastDataCount..<lastDataCount+articles.count){
+//                        arrayOfIndexPaths.append(IndexPath.init(row: element, section: 0))
+//                    }
+                    self.data = articles
+                    self.refreshViewControllerTableData()
                     self.viewShowLoader.onNext(false)
                     self.moreDataFlag = true
                 }
@@ -73,15 +71,18 @@ class MainViewModel : MainViewModelProtocol{
     func moreDataRequest() {
         pageCounter += 1
         dataRequestTrigered(pageNum: pageCounter)
-        
     }
     
     func pullToRefresh(){
+        data = []
         dataRequestTrigered(pageNum: 1)
     }
     
     func dataRequestTrigered(pageNum: Int){
         if moreDataFlag{
+            self.moreDataFlag = false
+//            self.data.append(LoaderCellType())
+//            self.viewInsertRows.onNext([IndexPath(item: self.data.count-1, section: 0)])
             dataRequestTrigered.onNext(pageNum)
         }
     }

@@ -149,8 +149,8 @@ class MainScreenTests: QuickSpec {
                     verify(mockRepository).getMostPopularArticles(pageNum: 2)
                     verify(mockRepository).getMostPopularArticles(pageNum: 4)
                 }
-                it("last item is loader"){
-                    expect(mainViewModel.data[mainViewModel.data.count-1].cellType).to(equal(CellType.loader))
+                it("last item is not loader"){
+                    expect(mainViewModel.data[mainViewModel.data.count-1].cellType).notTo(equal(CellType.loader))
                 }
                 it("all other items in tableview are articles"){
                     expect(mainViewModel.data[mainViewModel.data.count-2].cellType).to(equal(CellType.article))

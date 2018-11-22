@@ -78,26 +78,31 @@ class MainViewController: UITableViewController, LoaderManager {
     }
     
     func initSubscripts(){
-        viewModel.viewReloadData.subscribe { _ in
+        viewModel.viewReloadData.subscribe(onNext:{ _ in
             self.tableView.reloadData()
-        }.disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
-        viewModel.viewShowLoader.subscribe{ isActive in
-            if isActive.element!{
+        viewModel.viewShowLoader.subscribe(onNext:{ isActive in
+            if isActive{
                 self.displayLoader()
             }else{
                 self.hideLoader()
             }
-        }.disposed(by: disposeBag)
+        }).disposed(by: disposeBag)
         
         viewModel.viewInsertRows.subscribe(onNext:{
-            ind in self.tableView.insertRows(at: ind, with: .automatic)
+            ind in
+            self.tableView.beginUpdates()
+            self.tableView.insertRows(at: ind, with: .automatic)
+            self.tableView.endUpdates()
             
         }).disposed(by: disposeBag)
         
-        viewModel.viewDeleteRow.subscribe{ index in
-            self.tableView.deleteRows(at: [IndexPath(item: index.element!, section: 0)], with: .automatic)
-        }.disposed(by: disposeBag)
+        viewModel.viewDeleteRow.subscribe(onNext:{ index in
+            self.tableView.beginUpdates()
+            self.tableView.deleteRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
+            self.tableView.endUpdates()
+        }).disposed(by: disposeBag)
     }
     
     private func setupRefreshControl(){
