@@ -12,6 +12,7 @@
 		D520BA0321A2F5AA0065361C /* MainScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57D623A219DBA0D00A8479F /* MainScreenTests.swift */; };
 		D520BA0621A2F93F0065361C /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D520BA0521A2F93F0065361C /* Utils.swift */; };
 		D53AD63021A5941A00C30A2B /* LoaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53AD62F21A5941A00C30A2B /* LoaderCell.swift */; };
+		D55B415721A6A64300923984 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D55B415621A6A64200923984 /* Interactor.swift */; };
 		D56F23AE219ED2E8009B17B6 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F23AA219ED2E8009B17B6 /* AppCoordinator.swift */; };
 		D56F23B0219ED2E8009B17B6 /* CoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F23AC219ED2E8009B17B6 /* CoordinatorDelegate.swift */; };
 		D56F23B1219ED2E8009B17B6 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F23AD219ED2E8009B17B6 /* Coordinator.swift */; };
@@ -20,7 +21,6 @@
 		D56F23BB219EDA19009B17B6 /* MainViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F23BA219EDA19009B17B6 /* MainViewModelProtocol.swift */; };
 		D56F23C0219EDFA8009B17B6 /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F23BF219EDFA8009B17B6 /* RepositoryProtocol.swift */; };
 		D56F608121A18C9A00DDE70D /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F608021A18C9A00DDE70D /* Repository.swift */; };
-		D579DD1C21A2CA6700133127 /* Interactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D579DD1B21A2CA6700133127 /* Interactor.swift */; };
 		D57D6226219DBA0C00A8479F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57D6225219DBA0C00A8479F /* AppDelegate.swift */; };
 		D5932A1C21A0D8C800BBA8E0 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5932A1B21A0D8C800BBA8E0 /* CustomCell.swift */; };
 		D5B4562621A23BDC0055A9C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D57D622C219DBA0D00A8479F /* Assets.xcassets */; };
@@ -49,6 +49,7 @@
 		793C02A025C65463D7A0209F /* Pods-AvazBa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvazBa.release.xcconfig"; path = "Pods/Target Support Files/Pods-AvazBa/Pods-AvazBa.release.xcconfig"; sourceTree = "<group>"; };
 		D520BA0521A2F93F0065361C /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		D53AD62F21A5941A00C30A2B /* LoaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderCell.swift; sourceTree = "<group>"; };
+		D55B415621A6A64200923984 /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		D56F23AA219ED2E8009B17B6 /* AppCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		D56F23AC219ED2E8009B17B6 /* CoordinatorDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoordinatorDelegate.swift; sourceTree = "<group>"; };
 		D56F23AD219ED2E8009B17B6 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
@@ -57,7 +58,6 @@
 		D56F23BA219EDA19009B17B6 /* MainViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelProtocol.swift; sourceTree = "<group>"; };
 		D56F23BF219EDFA8009B17B6 /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
 		D56F608021A18C9A00DDE70D /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
-		D579DD1B21A2CA6700133127 /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
 		D57D6222219DBA0C00A8479F /* AvazBa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvazBa.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D57D6225219DBA0C00A8479F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D57D622C219DBA0D00A8479F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -172,7 +172,7 @@
 		D579DD1A21A2CA1E00133127 /* Interactor */ = {
 			isa = PBXGroup;
 			children = (
-				D579DD1B21A2CA6700133127 /* Interactor.swift */,
+				D55B415621A6A64200923984 /* Interactor.swift */,
 			);
 			path = Interactor;
 			sourceTree = "<group>";
@@ -471,11 +471,11 @@
 				D53AD63021A5941A00C30A2B /* LoaderCell.swift in Sources */,
 				D520BA0621A2F93F0065361C /* Utils.swift in Sources */,
 				D56F23B1219ED2E8009B17B6 /* Coordinator.swift in Sources */,
+				D55B415721A6A64300923984 /* Interactor.swift in Sources */,
 				D56F23BB219EDA19009B17B6 /* MainViewModelProtocol.swift in Sources */,
 				D5CA30FC219EE699007BE8F9 /* Article.swift in Sources */,
 				D56F23C0219EDFA8009B17B6 /* RepositoryProtocol.swift in Sources */,
 				D56F23B0219ED2E8009B17B6 /* CoordinatorDelegate.swift in Sources */,
-				D579DD1C21A2CA6700133127 /* Interactor.swift in Sources */,
 				D57D6226219DBA0C00A8479F /* AppDelegate.swift in Sources */,
 				D56F23B9219ED949009B17B6 /* MainViewModel.swift in Sources */,
 				D5CA30F8219EE311007BE8F9 /* MainViewController.swift in Sources */,
