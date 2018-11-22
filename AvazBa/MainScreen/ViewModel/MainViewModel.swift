@@ -21,6 +21,8 @@ class MainViewModel : MainViewModelProtocol{
     
     var viewShowLoader = PublishSubject<Bool>()
     var viewReloadData = PublishSubject<Bool>()
+    var viewInsertRows = PublishSubject<[IndexPath]>()
+    var viewDeleteRow = PublishSubject<Int>()
     
     init(repository: RepositoryProtocol, schedulare: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         self.repository = repository
@@ -28,11 +30,14 @@ class MainViewModel : MainViewModelProtocol{
     }
     
     func initGetingDataFromRepository() -> Disposable {
+        
         return dataRequestTrigered.flatMap({ [unowned self] num -> Observable<[Article]> in
             if !self.pullToRefreshFlag{
                 self.pullToRefreshFlag = true
                 self.viewShowLoader.onNext(true)
             }
+//            self.data.append(LoaderCellType())
+//            self.viewInsertRows.onNext([IndexPath(item: self.data.count-1, section: 0)])
             self.pageCounter = num
             self.moreDataFlag = false
             return self.repository.getMostPopularArticles(pageNum: self.pageCounter)
@@ -40,16 +45,25 @@ class MainViewModel : MainViewModelProtocol{
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] articles in
                 if self.pageCounter > 1{
-                    if self.data.count>0 {self.data.remove(at: self.data.count-1)}
+//                    self.data.remove(at: self.data.count-1)
+//                    self.viewDeleteRow.onNext(self.data.count-1)
                     self.data.append(contentsOf: articles)
-                    self.data.append(LoaderCellType())
-                    self.refreshViewControllerTableData()
+                    var arrayOfIndexPaths = [IndexPath]()
+                    for element in Array(self.data.count...self.data.count+articles.count-1){
+                        arrayOfIndexPaths.append(IndexPath.init(row: element, section: 0))
+                    }
+                    self.viewInsertRows.onNext(arrayOfIndexPaths)
                     self.viewShowLoader.onNext(false)
                     self.moreDataFlag = true
                 }else{
                     self.data = articles
-                    self.data.append(LoaderCellType())
-                    self.refreshViewControllerTableData()
+//                    self.data.remove(at: self.data.count-1)
+//                    self.viewDeleteRow.onNext(self.data.count-1)
+                    var arrayOfIndexPaths = [IndexPath]()
+                    for element in Array(self.data.count...self.data.count+articles.count-1){
+                        arrayOfIndexPaths.append(IndexPath.init(row: element, section: 0))
+                    }
+                    self.viewInsertRows.onNext(arrayOfIndexPaths)
                     self.viewShowLoader.onNext(false)
                     self.moreDataFlag = true
                 }

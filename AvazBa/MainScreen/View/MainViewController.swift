@@ -89,6 +89,15 @@ class MainViewController: UITableViewController, LoaderManager {
                 self.hideLoader()
             }
         }.disposed(by: disposeBag)
+        
+        viewModel.viewInsertRows.subscribe(onNext:{
+            ind in self.tableView.insertRows(at: ind, with: .automatic)
+            
+        }).disposed(by: disposeBag)
+        
+        viewModel.viewDeleteRow.subscribe{ index in
+            self.tableView.deleteRows(at: [IndexPath(item: index.element!, section: 0)], with: .automatic)
+        }.disposed(by: disposeBag)
     }
     
     private func setupRefreshControl(){

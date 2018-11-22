@@ -17,4 +17,6 @@ protocol MainViewModelProtocol{
     var data: [CellItem]{get}
     var viewShowLoader: PublishSubject<Bool>{get set}
     var viewReloadData: PublishSubject<Bool>{get set}
+    var viewInsertRows: PublishSubject<[IndexPath]>{get set}
+    var viewDeleteRow: PublishSubject<Int>{get set}
 }
