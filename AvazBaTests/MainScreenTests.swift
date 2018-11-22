@@ -58,7 +58,7 @@ class MainScreenTests: QuickSpec {
                 }
                 it("data is equal to number of articles from repository"){
                     mainViewModel.dataRequestTrigered.onNext(1)
-                    expect(mainViewModel.data.count).to(equal(2))
+                    expect(mainViewModel.data.count).to(equal(3)) //2 articles in mock and loader
                 }
             }
         }
@@ -148,6 +148,14 @@ class MainScreenTests: QuickSpec {
                 it("is calling repository method to get more data"){
                     verify(mockRepository).getMostPopularArticles(pageNum: 2)
                     verify(mockRepository).getMostPopularArticles(pageNum: 4)
+                }
+                it("last item is loader"){
+                    expect(mainViewModel.data[mainViewModel.data.count-1].cellType).to(equal(CellType.loader))
+                }
+                it("all other items in tableview are articles"){
+                    expect(mainViewModel.data[mainViewModel.data.count-2].cellType).to(equal(CellType.article))
+                    expect(mainViewModel.data[0].cellType).to(equal(CellType.article))
+                    expect(mainViewModel.data[mainViewModel.data.count/2].cellType).to(equal(CellType.article))
                 }
             }
         }

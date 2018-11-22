@@ -8,7 +8,8 @@
 
 import Foundation
 
-struct Article: Codable {
+struct Article: Codable,CellItem {
+    var cellType: CellType = .article
     var image: FeaturedImage
     var title: String
     var description: String

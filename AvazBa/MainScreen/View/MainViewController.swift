@@ -40,14 +40,19 @@ class MainViewController: UITableViewController, LoaderManager {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "customeCell", for: indexPath) as? CustomCell{
-            let article = viewModel.data[indexPath.row]
-            cell.articleText.text = article.description
-            cell.setPicture(image: article.image.original)
-            cell.articleTitle.text = article.title
-            return cell
-        }else{
-            return UITableViewCell()
+        switch viewModel.data[indexPath.row].cellType{
+        case CellType.article:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "customeCell", for: indexPath) as? CustomCell{
+                let article = viewModel.data[indexPath.row] as! Article
+                cell.articleText.text = article.description
+                cell.setPicture(image: article.image.original)
+                cell.articleTitle.text = article.title
+                return cell
+            }else{
+                return UITableViewCell()
+            }
+        case CellType.loader:
+                return LoaderCell()
         }
     }
     
@@ -61,7 +66,7 @@ class MainViewController: UITableViewController, LoaderManager {
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(viewModel.data.count != 0){
-            if Double(indexPath.row) >= Double(viewModel.data.count) * 0.85 {
+            if Double(indexPath.row) >= Double(viewModel.data.count-1) * 0.9{
                 viewModel.moreDataRequest()
             }
         }

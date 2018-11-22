@@ -11,11 +11,10 @@ import RxSwift
 
 class MainViewModel : MainViewModelProtocol{
     
-    internal var data: [Article] = []
+    internal var data: [CellItem] = []
     var pageCounter = 0
     var pullToRefreshFlag = false
     var moreDataFlag = true
-    
     let repository: RepositoryProtocol
     let scheduler : SchedulerType
     var dataRequestTrigered = PublishSubject<Int>()
@@ -41,12 +40,15 @@ class MainViewModel : MainViewModelProtocol{
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] articles in
                 if self.pageCounter > 1{
+                    if self.data.count>0 {self.data.remove(at: self.data.count-1)}
                     self.data.append(contentsOf: articles)
+                    self.data.append(LoaderCellType())
                     self.refreshViewControllerTableData()
                     self.viewShowLoader.onNext(false)
                     self.moreDataFlag = true
                 }else{
                     self.data = articles
+                    self.data.append(LoaderCellType())
                     self.refreshViewControllerTableData()
                     self.viewShowLoader.onNext(false)
                     self.moreDataFlag = true
@@ -57,6 +59,7 @@ class MainViewModel : MainViewModelProtocol{
     func moreDataRequest() {
         pageCounter += 1
         dataRequestTrigered(pageNum: pageCounter)
+        
     }
     
     func pullToRefresh(){

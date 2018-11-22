@@ -14,7 +14,7 @@ protocol MainViewModelProtocol{
     func moreDataRequest()
     func pullToRefresh()
     
-    var data: [Article]{get}
+    var data: [CellItem]{get}
     var viewShowLoader: PublishSubject<Bool>{get set}
     var viewReloadData: PublishSubject<Bool>{get set}
 }
