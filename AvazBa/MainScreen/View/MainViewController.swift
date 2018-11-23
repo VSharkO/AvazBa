@@ -78,11 +78,11 @@ class MainViewController: UITableViewController, LoaderManager {
     }
     
     func initSubscripts(){
-        viewModel.viewReloadData.subscribe(onNext:{ _ in
+        viewModel.viewReloadData.observeOn(MainScheduler.instance).subscribe(onNext:{ _ in
             self.tableView.reloadData()
         }).disposed(by: disposeBag)
         
-        viewModel.viewShowLoader.subscribe(onNext:{ isActive in
+        viewModel.viewShowLoader.observeOn(MainScheduler.instance).subscribe(onNext:{ isActive in
             if isActive{
                 self.displayLoader()
             }else{
@@ -90,18 +90,15 @@ class MainViewController: UITableViewController, LoaderManager {
             }
         }).disposed(by: disposeBag)
         
-        viewModel.viewInsertRows.subscribe(onNext:{
+        viewModel.viewInsertRows.observeOn(MainScheduler.instance).subscribe(onNext:{
             ind in
-            self.tableView.beginUpdates()
-            self.tableView.insertRows(at: ind, with: .automatic)
-            self.tableView.endUpdates()
-            
+            self.tableView.performBatchUpdates({self.tableView.insertRows(at: ind, with: .automatic)})
         }).disposed(by: disposeBag)
         
-        viewModel.viewDeleteRow.subscribe(onNext:{ index in
-            self.tableView.beginUpdates()
-            self.tableView.deleteRows(at: [IndexPath(item: index, section: 0)], with: .automatic)
-            self.tableView.endUpdates()
+        viewModel.viewDeleteRow.observeOn(MainScheduler.instance).subscribe(onNext:{ indexes in
+            self.tableView.performBatchUpdates({
+                 self.tableView.deleteRows(at: indexes, with: .automatic)
+            }, completion: nil)
         }).disposed(by: disposeBag)
     }
     
