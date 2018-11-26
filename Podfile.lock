@@ -1,7 +1,27 @@
 PODS:
-  - Alamofire (4.7.3)
+  - Alamofire (4.8.0)
   - Cuckoo (0.12.0)
   - Kingfisher (4.9.0)
+  - MaterialComponents/AnimationTiming (70.0.0)
+  - MaterialComponents/Ink (70.0.0):
+    - MaterialComponents/private/Math
+  - MaterialComponents/private/Application (70.0.0)
+  - MaterialComponents/private/Math (70.0.0)
+  - MaterialComponents/ShadowElevations (70.0.0)
+  - MaterialComponents/ShadowLayer (70.0.0):
+    - MaterialComponents/ShadowElevations
+  - MaterialComponents/Tabs (70.0.0):
+    - MaterialComponents/AnimationTiming
+    - MaterialComponents/Ink
+    - MaterialComponents/private/Math
+    - MaterialComponents/ShadowElevations
+    - MaterialComponents/ShadowLayer
+    - MaterialComponents/Typography
+    - MDFInternationalization
+  - MaterialComponents/Typography (70.0.0):
+    - MaterialComponents/private/Application
+    - MaterialComponents/private/Math
+  - MDFInternationalization (1.1.0)
   - Nimble (7.3.1)
   - Quick (1.3.2)
   - Realm (3.11.2):
@@ -25,6 +45,7 @@ DEPENDENCIES:
   - Alamofire (~> 4.7)
   - Cuckoo
   - Kingfisher (= 4.9.0)
+  - MaterialComponents/Tabs
   - Nimble
   - Quick
   - RealmSwift
@@ -38,6 +59,8 @@ SPEC REPOS:
     - Alamofire
     - Cuckoo
     - Kingfisher
+    - MaterialComponents
+    - MDFInternationalization
     - Nimble
     - Quick
     - Realm
@@ -49,9 +72,11 @@ SPEC REPOS:
     - RxTest
 
 SPEC CHECKSUMS:
-  Alamofire: c7287b6e5d7da964a70935e5db17046b7fde6568
+  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   Cuckoo: d30b6c149e52ffbcfe6b4a9543e4627d08947274
   Kingfisher: 64539b51826b778206daa6ed815d12653caa69dd
+  MaterialComponents: 7c107af5ae6566de2f1ba94bde3db99d1b874bab
+  MDFInternationalization: b5b8626628abf026e630e5ebaeee563037712cbb
   Nimble: 04f732da099ea4d153122aec8c2a88fd0c7219ae
   Quick: 2623cb30d7a7f41ca62f684f679586558f483d46
   Realm: 864477d028db77f7c5a0cba64a4892ad53db128a
@@ -62,6 +87,6 @@ SPEC CHECKSUMS:
   RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
   RxTest: 19d03286bdc0a3aaea5d61d4cde31fdf4bb8a5ba
 
-PODFILE CHECKSUM: 5d970225690dac077c604d511dc41d46f1b2f835
+PODFILE CHECKSUM: da2c0cfb7c2d91cee8f867014371ea77d01b8f77
 
 COCOAPODS: 1.5.0

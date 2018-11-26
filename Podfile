@@ -19,6 +19,7 @@ target 'AvazBa' do
     pod 'RxTest',     '~> 4.0'
     pod 'RxBlocking', '~> 4.0'
     pod "Cuckoo"
+    pod 'MaterialComponents/Tabs'
 
 
   target 'AvazBaTests' do

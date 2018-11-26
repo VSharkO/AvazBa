@@ -23,6 +23,8 @@
 		D56F23C0219EDFA8009B17B6 /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F23BF219EDFA8009B17B6 /* RepositoryProtocol.swift */; };
 		D56F608121A18C9A00DDE70D /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F608021A18C9A00DDE70D /* Repository.swift */; };
 		D57D6226219DBA0C00A8479F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57D6225219DBA0C00A8479F /* AppDelegate.swift */; };
+		D58975CD21AC3D0600E1ECB7 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58975CC21AC3D0600E1ECB7 /* TabBarCoordinator.swift */; };
+		D58975D521AC4E2500E1ECB7 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58975D421AC4E2500E1ECB7 /* TabBarController.swift */; };
 		D5932A1C21A0D8C800BBA8E0 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5932A1B21A0D8C800BBA8E0 /* CustomCell.swift */; };
 		D5B4562621A23BDC0055A9C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D57D622C219DBA0D00A8479F /* Assets.xcassets */; };
 		D5B4562921A23C180055A9C2 /* RobotoSlab-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5B4562321A23B340055A9C2 /* RobotoSlab-Bold.ttf */; };
@@ -67,6 +69,8 @@
 		D57D6236219DBA0D00A8479F /* AvazBaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AvazBaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D57D623A219DBA0D00A8479F /* MainScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenTests.swift; sourceTree = "<group>"; };
 		D57D623C219DBA0D00A8479F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D58975CC21AC3D0600E1ECB7 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		D58975D421AC4E2500E1ECB7 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		D5932A1B21A0D8C800BBA8E0 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		D5B4562021A23B220055A9C2 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		D5B4562321A23B340055A9C2 /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
@@ -211,6 +215,7 @@
 		D57D6224219DBA0C00A8479F /* AvazBa */ = {
 			isa = PBXGroup;
 			children = (
+				D58975CB21AC3CE800E1ECB7 /* TabBarCoordinator */,
 				D520BA0421A2F92E0065361C /* Utils */,
 				D579DD1A21A2CA1E00133127 /* Interactor */,
 				D5CA30FA219EE68E007BE8F9 /* Model */,
@@ -233,6 +238,15 @@
 				D57D623C219DBA0D00A8479F /* Info.plist */,
 			);
 			path = AvazBaTests;
+			sourceTree = "<group>";
+		};
+		D58975CB21AC3CE800E1ECB7 /* TabBarCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				D58975CC21AC3D0600E1ECB7 /* TabBarCoordinator.swift */,
+				D58975D421AC4E2500E1ECB7 /* TabBarController.swift */,
+			);
+			path = TabBarCoordinator;
 			sourceTree = "<group>";
 		};
 		D5932A1A21A0D88F00BBA8E0 /* Custom cells */ = {
@@ -391,6 +405,8 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
+				"${BUILT_PRODUCTS_DIR}/MaterialComponents/MaterialComponents.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
@@ -404,6 +420,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cuckoo.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MDFInternationalization.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MaterialComponents.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
@@ -481,12 +499,14 @@
 				D5932A1C21A0D8C800BBA8E0 /* CustomCell.swift in Sources */,
 				D53AD63021A5941A00C30A2B /* LoaderCell.swift in Sources */,
 				D520BA0621A2F93F0065361C /* Utils.swift in Sources */,
+				D58975CD21AC3D0600E1ECB7 /* TabBarCoordinator.swift in Sources */,
 				D56F23B1219ED2E8009B17B6 /* Coordinator.swift in Sources */,
 				D55B415721A6A64300923984 /* Interactor.swift in Sources */,
 				D56F23BB219EDA19009B17B6 /* MainViewModelProtocol.swift in Sources */,
 				D5CA30FC219EE699007BE8F9 /* Article.swift in Sources */,
 				D56F23C0219EDFA8009B17B6 /* RepositoryProtocol.swift in Sources */,
 				D56F23B0219ED2E8009B17B6 /* CoordinatorDelegate.swift in Sources */,
+				D58975D521AC4E2500E1ECB7 /* TabBarController.swift in Sources */,
 				D57D6226219DBA0C00A8479F /* AppDelegate.swift in Sources */,
 				D56F23B9219ED949009B17B6 /* MainViewModel.swift in Sources */,
 				D5CA30F8219EE311007BE8F9 /* MainViewController.swift in Sources */,

@@ -19,8 +19,8 @@ class AppCoordinator: Coordinator {
     }
     
     func start() {
-        let mainCoordinator = MainScreenCoordinator(presenter: presenter)
-        mainCoordinator.start()
-        self.addChildCoordinator(childCoordinator: mainCoordinator)
+        let tabBarCoordinator = TabBarCoordinator(presenter: presenter)
+        tabBarCoordinator.start()
+        self.addChildCoordinator(childCoordinator: tabBarCoordinator)
     }
 }
