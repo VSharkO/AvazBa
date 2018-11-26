@@ -52,7 +52,6 @@ class MainViewModel : MainViewModelProtocol{
                 self.pageCounter += 1
                 self.moreDataFlag = true
         })
-        
     }
 
     func moreDataRequest(){

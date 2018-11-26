@@ -17,8 +17,8 @@ class CustomCell: UITableViewCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.shadowColor = UIColor.black.cgColor
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
-        view.layer.shadowOpacity = 0.2
-        view.layer.shadowRadius = 3
+        view.layer.shadowOpacity = 0.4
+        view.layer.shadowRadius = 1
         return view
     }()
 
