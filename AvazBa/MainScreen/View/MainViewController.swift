@@ -66,7 +66,7 @@ class MainViewController: UITableViewController, LoaderManager {
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(viewModel.data.count != 0){
-            if Double(indexPath.row) >= Double(viewModel.data.count-1)/* * 0.9*/{
+            if Double(indexPath.row) >= Double(viewModel.data.count-1) * 0.9{
                 viewModel.moreDataRequest()
             }
         }
