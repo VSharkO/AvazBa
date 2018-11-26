@@ -36,7 +36,6 @@ class MainViewModel : MainViewModelProtocol{
             }
             self.data.append(LoaderCellType())
             self.viewInsertRows.onNext([IndexPath(item: self.data.count-1, section: 0)])
-            print(self.pageCounter)
             return self.repository.getMostPopularArticles(pageNum: self.pageCounter)
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
