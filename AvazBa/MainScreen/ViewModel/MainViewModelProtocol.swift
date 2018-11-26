@@ -18,5 +18,5 @@ protocol MainViewModelProtocol{
     var viewShowLoader: PublishSubject<Bool>{get set}
     var viewReloadData: PublishSubject<Bool>{get set}
     var viewInsertRows: PublishSubject<[IndexPath]>{get set}
-    var viewDeleteRow: PublishSubject<[IndexPath]>{get set}
+    var viewReloadRows: PublishSubject<[IndexPath]>{get set}
 }

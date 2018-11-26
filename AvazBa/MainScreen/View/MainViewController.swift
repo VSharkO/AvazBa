@@ -66,7 +66,7 @@ class MainViewController: UITableViewController, LoaderManager {
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(viewModel.data.count != 0){
-            if Double(indexPath.row) >= Double(viewModel.data.count-1) * 0.9{
+            if Double(indexPath.row) >= Double(viewModel.data.count-1)/* * 0.9*/{
                 viewModel.moreDataRequest()
             }
         }
@@ -91,13 +91,15 @@ class MainViewController: UITableViewController, LoaderManager {
         }).disposed(by: disposeBag)
         
         viewModel.viewInsertRows.observeOn(MainScheduler.instance).subscribe(onNext:{
-            ind in
-            self.tableView.performBatchUpdates({self.tableView.insertRows(at: ind, with: .automatic)})
+            indexes in
+            self.tableView.performBatchUpdates({
+                self.tableView.insertRows(at: indexes, with: .automatic)
+                })
         }).disposed(by: disposeBag)
         
-        viewModel.viewDeleteRow.observeOn(MainScheduler.instance).subscribe(onNext:{ indexes in
+        viewModel.viewReloadRows.observeOn(MainScheduler.instance).subscribe(onNext:{ indexes in
             self.tableView.performBatchUpdates({
-                 self.tableView.deleteRows(at: indexes, with: .automatic)
+                 self.tableView.reloadRows(at: indexes, with: .automatic)
             }, completion: nil)
         }).disposed(by: disposeBag)
     }
