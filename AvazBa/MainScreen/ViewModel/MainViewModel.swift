@@ -34,12 +34,16 @@ class MainViewModel : MainViewModelProtocol{
                 self.pullToRefreshFlag = true
                 self.viewShowLoader.onNext(true)
             }
-            self.data.append(LoaderCellType())
-            self.viewInsertRows.onNext([IndexPath(item: self.data.count-1, section: 0)])
+            
+            if self.pageCounter>1 {
+                self.data.append(LoaderCellType())
+                self.viewInsertRows.onNext([IndexPath(item: self.data.count-1, section: 0)])
+            }
             return self.repository.getMostPopularArticles(pageNum: self.pageCounter)
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] articles in
+                if self.pageCounter>1{
                 var arrayOfIndexPaths = [IndexPath]()
                 for element in Array(self.data.count..<self.data.count+articles.count-1){
                 arrayOfIndexPaths.append(IndexPath.init(row: element, section: 0))
@@ -51,6 +55,14 @@ class MainViewModel : MainViewModelProtocol{
                 self.viewShowLoader.onNext(false)
                 self.pageCounter += 1
                 self.moreDataFlag = true
+                }
+                else{
+                    self.data = articles
+                    self.refreshViewControllerTableData()
+                    self.viewShowLoader.onNext(false)
+                    self.pageCounter += 1
+                    self.moreDataFlag = true
+                }
         })
     }
 
@@ -67,9 +79,6 @@ class MainViewModel : MainViewModelProtocol{
     func dataRequestTrigered(pageNum: Int){
         if moreDataFlag{
             self.moreDataFlag = false
-            if pageNum == 1 {
-                refreshViewControllerTableData()
-            }
             dataRequestTrigered.onNext(pageNum)
         }
     }

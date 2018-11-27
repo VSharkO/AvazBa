@@ -9,15 +9,36 @@
 import UIKit
 import RxSwift
 import Kingfisher
+import MaterialComponents.MaterialTabs
 
-class MainViewController: UITableViewController, LoaderManager {
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, LoaderManager{
 
     private var viewModel: MainViewModelProtocol!
     private let disposeBag = DisposeBag()
     var loaderController: UIRefreshControl?
     var loader : UIView?
     var refreshController: UIRefreshControl?
-   
+    
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
+    }()
+    
+    let tabBar: UIView = {
+        let costumeView = UIView()
+        let tabBar = MDCTabBar()
+        costumeView.translatesAutoresizingMaskIntoConstraints = false
+        tabBar.items = [
+            UITabBarItem(title: "Recents", image: UIImage(named: "phone"), tag: 0),
+            UITabBarItem(title: "Favorites", image: UIImage(named: "heart"), tag: 0),
+        ]
+        tabBar.itemAppearance = .titledImages
+        tabBar.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
+        tabBar.sizeToFit()
+        costumeView.addSubview(tabBar)
+        return costumeView
+    }()
     
     init(viewModel: MainViewModelProtocol) {
         super.init(nibName: nil, bundle: nil)
@@ -29,6 +50,8 @@ class MainViewController: UITableViewController, LoaderManager {
     }
     
     override func viewDidLoad() {
+//        tableView.rowHeight = UITableViewAutomaticDimension
+//        tableView.estimatedRowHeight = 44
         registerCells()
         initSubscripts()
         setupRefreshControl()
@@ -36,10 +59,11 @@ class MainViewController: UITableViewController, LoaderManager {
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        setupViews()
         viewModel.moreDataRequest()
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch viewModel.data[indexPath.row].cellType{
         case CellType.article:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "customeCell", for: indexPath) as? CustomCell{
@@ -55,16 +79,16 @@ class MainViewController: UITableViewController, LoaderManager {
                 return LoaderCell()
         }
     }
-    
-    override func numberOfSections(in tableView: UITableView) -> Int {
+
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.data.count
     }
 
-    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(viewModel.data.count != 0){
             if Double(indexPath.row) >= Double(viewModel.data.count-1) * 0.9{
                 viewModel.moreDataRequest()
@@ -102,6 +126,30 @@ class MainViewController: UITableViewController, LoaderManager {
                  self.tableView.reloadRows(at: indexes, with: .automatic)
             }, completion: nil)
         }).disposed(by: disposeBag)
+    }
+    
+    private func setupViews(){
+        self.view.addSubview(tabBar)
+        self.view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        setupConstraints()
+    }
+    
+    func setupConstraints(){
+        NSLayoutConstraint.activate([
+            tabBar.topAnchor.constraint(equalTo: view.topAnchor),
+            tabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tabBar.heightAnchor.constraint(equalToConstant: tabBar.frame.height)
+            ])
+        
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: tabBar.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
     }
     
     private func setupRefreshControl(){

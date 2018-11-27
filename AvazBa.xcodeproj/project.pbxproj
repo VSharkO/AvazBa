@@ -24,8 +24,8 @@
 		D56F608121A18C9A00DDE70D /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = D56F608021A18C9A00DDE70D /* Repository.swift */; };
 		D57D6226219DBA0C00A8479F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57D6225219DBA0C00A8479F /* AppDelegate.swift */; };
 		D58975CD21AC3D0600E1ECB7 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58975CC21AC3D0600E1ECB7 /* TabBarCoordinator.swift */; };
-		D58975D521AC4E2500E1ECB7 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D58975D421AC4E2500E1ECB7 /* TabBarController.swift */; };
 		D5932A1C21A0D8C800BBA8E0 /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5932A1B21A0D8C800BBA8E0 /* CustomCell.swift */; };
+		D59736B621AD694E00F35F0F /* MCDViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D59736B521AD694E00F35F0F /* MCDViewController.swift */; };
 		D5B4562621A23BDC0055A9C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D57D622C219DBA0D00A8479F /* Assets.xcassets */; };
 		D5B4562921A23C180055A9C2 /* RobotoSlab-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5B4562321A23B340055A9C2 /* RobotoSlab-Bold.ttf */; };
 		D5B4562A21A23C180055A9C2 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5B4562021A23B220055A9C2 /* Lato-Regular.ttf */; };
@@ -70,8 +70,8 @@
 		D57D623A219DBA0D00A8479F /* MainScreenTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenTests.swift; sourceTree = "<group>"; };
 		D57D623C219DBA0D00A8479F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D58975CC21AC3D0600E1ECB7 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
-		D58975D421AC4E2500E1ECB7 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		D5932A1B21A0D8C800BBA8E0 /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		D59736B521AD694E00F35F0F /* MCDViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCDViewController.swift; sourceTree = "<group>"; };
 		D5B4562021A23B220055A9C2 /* Lato-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Lato-Regular.ttf"; sourceTree = "<group>"; };
 		D5B4562321A23B340055A9C2 /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
 		D5CA30F7219EE311007BE8F9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -244,7 +244,7 @@
 			isa = PBXGroup;
 			children = (
 				D58975CC21AC3D0600E1ECB7 /* TabBarCoordinator.swift */,
-				D58975D421AC4E2500E1ECB7 /* TabBarController.swift */,
+				D59736B521AD694E00F35F0F /* MCDViewController.swift */,
 			);
 			path = TabBarCoordinator;
 			sourceTree = "<group>";
@@ -506,12 +506,12 @@
 				D5CA30FC219EE699007BE8F9 /* Article.swift in Sources */,
 				D56F23C0219EDFA8009B17B6 /* RepositoryProtocol.swift in Sources */,
 				D56F23B0219ED2E8009B17B6 /* CoordinatorDelegate.swift in Sources */,
-				D58975D521AC4E2500E1ECB7 /* TabBarController.swift in Sources */,
 				D57D6226219DBA0C00A8479F /* AppDelegate.swift in Sources */,
 				D56F23B9219ED949009B17B6 /* MainViewModel.swift in Sources */,
 				D5CA30F8219EE311007BE8F9 /* MainViewController.swift in Sources */,
 				D56F608121A18C9A00DDE70D /* Repository.swift in Sources */,
 				D55B415A21A6A7C300923984 /* CellTypes.swift in Sources */,
+				D59736B621AD694E00F35F0F /* MCDViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
