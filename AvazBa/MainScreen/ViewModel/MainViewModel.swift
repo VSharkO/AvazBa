@@ -10,14 +10,15 @@ import Foundation
 import RxSwift
 
 class MainViewModel : MainViewModelProtocol{
-    
+ 
     internal var data: [CellItem] = []
     var pageCounter = 1
     var pullToRefreshFlag = false
     var moreDataFlag = true
     let repository: RepositoryProtocol
     let scheduler : SchedulerType
-    var dataRequestTrigered = PublishSubject<Int>()
+    var selectedTab: String = "najnovije"
+    var dataRequestTrigered = PublishSubject<(Int,String)>()
     
     var viewShowLoader = PublishSubject<Bool>()
     var viewReloadData = PublishSubject<Bool>()
@@ -39,7 +40,7 @@ class MainViewModel : MainViewModelProtocol{
                 self.data.append(LoaderCellType())
                 self.viewInsertRows.onNext([IndexPath(item: self.data.count-1, section: 0)])
             }
-            return self.repository.getMostPopularArticles(pageNum: self.pageCounter)
+            return self.repository.getMostPopularArticles(pageNum: self.pageCounter, category: self.selectedTab)
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] articles in
@@ -67,19 +68,19 @@ class MainViewModel : MainViewModelProtocol{
     }
 
     func moreDataRequest(){
-        dataRequestTrigered(pageNum: pageCounter)
+        dataRequestTrigered(pageNum: pageCounter, category: selectedTab)
     }
     
     func pullToRefresh(){
         data = []
         pageCounter = 1
-        dataRequestTrigered(pageNum: pageCounter)
+        dataRequestTrigered(pageNum: pageCounter, category: selectedTab)
     }
     
-    func dataRequestTrigered(pageNum: Int){
+    func dataRequestTrigered(pageNum: Int, category: String){
         if moreDataFlag{
             self.moreDataFlag = false
-            dataRequestTrigered.onNext(pageNum)
+            dataRequestTrigered.onNext((pageNum,category))
         }
     }
     

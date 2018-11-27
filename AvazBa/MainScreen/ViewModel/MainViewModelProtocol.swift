@@ -15,6 +15,7 @@ protocol MainViewModelProtocol{
     func pullToRefresh()
     
     var data: [CellItem]{get}
+    var selectedTab: String{get set}
     var viewShowLoader: PublishSubject<Bool>{get set}
     var viewReloadData: PublishSubject<Bool>{get set}
     var viewInsertRows: PublishSubject<[IndexPath]>{get set}

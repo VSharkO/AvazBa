@@ -11,13 +11,14 @@ import RxSwift
 import Kingfisher
 import MaterialComponents.MaterialTabs
 
-class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, LoaderManager{
+class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MDCTabBarDelegate, LoaderManager{
 
     private var viewModel: MainViewModelProtocol!
     private let disposeBag = DisposeBag()
     var loaderController: UIRefreshControl?
     var loader : UIView?
     var refreshController: UIRefreshControl?
+    var selectedTab = "najnovije"
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -27,16 +28,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     let tabBar: UIView = {
         let costumeView = UIView()
-        let tabBar = MDCTabBar()
         costumeView.translatesAutoresizingMaskIntoConstraints = false
-        tabBar.items = [
-            UITabBarItem(title: "Recents", image: UIImage(named: "phone"), tag: 0),
-            UITabBarItem(title: "Favorites", image: UIImage(named: "heart"), tag: 0),
-        ]
-        tabBar.itemAppearance = .titledImages
-        tabBar.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
-        tabBar.sizeToFit()
-        costumeView.addSubview(tabBar)
         return costumeView
     }()
     
@@ -50,11 +42,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewDidLoad() {
-//        tableView.rowHeight = UITableViewAutomaticDimension
-//        tableView.estimatedRowHeight = 44
         registerCells()
         initSubscripts()
         setupRefreshControl()
+        setupTabBar()
         viewModel.initGetingDataFromRepository().disposed(by: self.disposeBag)
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -77,6 +68,24 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         case CellType.loader:
                 return LoaderCell()
+        }
+    }
+    
+    func tabBar(_ tabBar: MDCTabBar, willSelect item: UITabBarItem) {
+        if let title = item.title{
+            switch title {
+            case "Najnovije":
+                selectedTab = "najnovije"
+                viewModel.selectedTab = "najnovije"
+            case "Najčitanije":
+                selectedTab = "najcitanije"
+                viewModel.selectedTab = "najcitanije"
+            default:
+                selectedTab = "najnovije"
+                viewModel.selectedTab = "najnovije"
+            }
+            viewModel.moreDataRequest()
+            refreshData()
         }
     }
 
@@ -136,12 +145,30 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         setupConstraints()
     }
     
+    private func setupTabBar(){
+        let tabBar = MDCTabBar(frame: self.tabBar.bounds)
+        tabBar.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
+        tabBar.sizeToFit()
+        tabBar.items = [
+            UITabBarItem(title: "Najnovije", image: nil, tag: 0),
+            UITabBarItem(title: "Najčitanije", image: nil, tag: 0),
+        ]
+        tabBar.itemAppearance = .titles
+        tabBar.barTintColor = UIColor.white
+        tabBar.tintColor = UIColor.red
+        tabBar.alignment = .justified
+        tabBar.setTitleColor(UIColor.black, for: .normal)
+        tabBar.setTitleColor(UIColor.black, for: .selected)
+        tabBar.delegate = self
+        self.tabBar.addSubview(tabBar)
+    }
+    
     func setupConstraints(){
         NSLayoutConstraint.activate([
-            tabBar.topAnchor.constraint(equalTo: view.topAnchor),
-            tabBar.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tabBar.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tabBar.heightAnchor.constraint(equalToConstant: tabBar.frame.height)
+            tabBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tabBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tabBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tabBar.heightAnchor.constraint(equalToConstant: 48)
             ])
         
         NSLayoutConstraint.activate([
