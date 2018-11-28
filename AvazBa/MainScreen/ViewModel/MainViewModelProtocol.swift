@@ -13,6 +13,7 @@ protocol MainViewModelProtocol{
     func initGetingDataFromRepository() -> Disposable
     func moreDataRequest()
     func pullToRefresh()
+    func newTabOpened()
     
     var data: [CellItem]{get}
     var selectedTab: String{get set}

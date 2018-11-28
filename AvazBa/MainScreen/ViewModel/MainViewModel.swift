@@ -35,7 +35,6 @@ class MainViewModel : MainViewModelProtocol{
                 self.pullToRefreshFlag = true
                 self.viewShowLoader.onNext(true)
             }
-            
             if self.pageCounter>1 {
                 self.data.append(LoaderCellType())
                 self.viewInsertRows.onNext([IndexPath(item: self.data.count-1, section: 0)])
@@ -82,6 +81,15 @@ class MainViewModel : MainViewModelProtocol{
             self.moreDataFlag = false
             dataRequestTrigered.onNext((pageNum,category))
         }
+    }
+    
+    func newTabOpened(){
+        data = []
+        pageCounter = 1
+        self.viewShowLoader.onNext(true)
+        moreDataRequest()
+        self.refreshViewControllerTableData()
+        
     }
     
     private func refreshViewControllerTableData() {

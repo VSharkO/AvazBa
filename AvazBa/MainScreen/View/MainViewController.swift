@@ -84,8 +84,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 selectedTab = "najnovije"
                 viewModel.selectedTab = "najnovije"
             }
-            viewModel.moreDataRequest()
-            refreshData()
+            viewModel.newTabOpened()
         }
     }
 
