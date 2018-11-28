@@ -15,7 +15,6 @@ target 'AvazBa' do
     pod 'Kingfisher', '4.9.0'
     pod 'RxSwift',    '~> 4.0'
     pod 'RxCocoa',    '~> 4.0'
-    pod 'RealmSwift'
     pod 'RxTest',     '~> 4.0'
     pod 'RxBlocking', '~> 4.0'
     pod "Cuckoo"

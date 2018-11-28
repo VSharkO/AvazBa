@@ -18,7 +18,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     var loaderController: UIRefreshControl?
     var loader : UIView?
     var refreshController: UIRefreshControl?
-    var selectedTab = "najnovije"
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -35,6 +34,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     init(viewModel: MainViewModelProtocol) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -42,6 +42,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewDidLoad() {
+        setupViews()
         registerCells()
         initSubscripts()
         setupRefreshControl()
@@ -50,7 +51,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        setupViews()
         viewModel.moreDataRequest()
     }
     
@@ -75,16 +75,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         if let title = item.title{
             switch title {
             case "Najnovije":
-                selectedTab = "najnovije"
                 viewModel.selectedTab = "najnovije"
             case "Najčitanije":
-                selectedTab = "najcitanije"
                 viewModel.selectedTab = "najcitanije"
             default:
-                selectedTab = "najnovije"
                 viewModel.selectedTab = "najnovije"
             }
             viewModel.newTabOpened()
+            let indexPath = IndexPath(row: 0, section: 0)
+            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
         }
     }
 

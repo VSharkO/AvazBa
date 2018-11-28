@@ -43,7 +43,7 @@ class MainViewModel : MainViewModelProtocol{
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] articles in
-                if self.pageCounter>1{
+//                if self.pageCounter>1{
                 var arrayOfIndexPaths = [IndexPath]()
                 for element in Array(self.data.count..<self.data.count+articles.count-1){
                 arrayOfIndexPaths.append(IndexPath.init(row: element, section: 0))
@@ -55,14 +55,14 @@ class MainViewModel : MainViewModelProtocol{
                 self.viewShowLoader.onNext(false)
                 self.pageCounter += 1
                 self.moreDataFlag = true
-                }
-                else{
-                    self.data = articles
-                    self.refreshViewControllerTableData()
-                    self.viewShowLoader.onNext(false)
-                    self.pageCounter += 1
-                    self.moreDataFlag = true
-                }
+//                }
+//                else{
+//                    self.data = articles
+//                    self.refreshViewControllerTableData()
+//                    self.viewShowLoader.onNext(false)
+//                    self.pageCounter += 1
+//                    self.moreDataFlag = true
+//                }
         })
     }
 
@@ -71,7 +71,6 @@ class MainViewModel : MainViewModelProtocol{
     }
     
     func pullToRefresh(){
-        data = []
         pageCounter = 1
         dataRequestTrigered(pageNum: pageCounter, category: selectedTab)
     }
@@ -84,12 +83,8 @@ class MainViewModel : MainViewModelProtocol{
     }
     
     func newTabOpened(){
-        data = []
         pageCounter = 1
-        self.viewShowLoader.onNext(true)
         moreDataRequest()
-        self.refreshViewControllerTableData()
-        
     }
     
     private func refreshViewControllerTableData() {
