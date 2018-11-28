@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B7B2FA0A40F751BDAEE14888 /* Pods_AvazBa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F49A77D87C1099CCB85723B /* Pods_AvazBa.framework */; };
 		C1828320723B55274748A23B /* Pods_AvazBaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5937AAF90F1C1F9BE294EA13 /* Pods_AvazBaTests.framework */; };
+		D50A0C7721AEC33800261511 /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A0C7621AEC33800261511 /* GeneratedMocks.swift */; };
 		D520BA0321A2F5AA0065361C /* MainScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57D623A219DBA0D00A8479F /* MainScreenTests.swift */; };
 		D520BA0621A2F93F0065361C /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = D520BA0521A2F93F0065361C /* Utils.swift */; };
 		D53AD63021A5941A00C30A2B /* LoaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D53AD62F21A5941A00C30A2B /* LoaderCell.swift */; };
@@ -31,7 +32,6 @@
 		D5B4562A21A23C180055A9C2 /* Lato-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D5B4562021A23B220055A9C2 /* Lato-Regular.ttf */; };
 		D5CA30F8219EE311007BE8F9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CA30F7219EE311007BE8F9 /* MainViewController.swift */; };
 		D5CA30FC219EE699007BE8F9 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CA30FB219EE699007BE8F9 /* Article.swift */; };
-		D5CA30FE219EEC6A007BE8F9 /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CA30FD219EEC6A007BE8F9 /* GeneratedMocks.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +50,7 @@
 		5937AAF90F1C1F9BE294EA13 /* Pods_AvazBaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AvazBaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62FEDC6E800B8DBF1D759572 /* Pods-AvazBa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvazBa.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AvazBa/Pods-AvazBa.debug.xcconfig"; sourceTree = "<group>"; };
 		793C02A025C65463D7A0209F /* Pods-AvazBa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvazBa.release.xcconfig"; path = "Pods/Target Support Files/Pods-AvazBa/Pods-AvazBa.release.xcconfig"; sourceTree = "<group>"; };
+		D50A0C7621AEC33800261511 /* GeneratedMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.swift; sourceTree = "<group>"; };
 		D520BA0521A2F93F0065361C /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		D53AD62F21A5941A00C30A2B /* LoaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderCell.swift; sourceTree = "<group>"; };
 		D55B415621A6A64200923984 /* Interactor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Interactor.swift; sourceTree = "<group>"; };
@@ -76,7 +77,6 @@
 		D5B4562321A23B340055A9C2 /* RobotoSlab-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "RobotoSlab-Bold.ttf"; sourceTree = "<group>"; };
 		D5CA30F7219EE311007BE8F9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D5CA30FB219EE699007BE8F9 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
-		D5CA30FD219EEC6A007BE8F9 /* GeneratedMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.swift; sourceTree = "<group>"; };
 		F81D8A49DBA37939FB664EEB /* Pods-AvazBaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvazBaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AvazBaTests/Pods-AvazBaTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -233,7 +233,7 @@
 		D57D6239219DBA0D00A8479F /* AvazBaTests */ = {
 			isa = PBXGroup;
 			children = (
-				D5CA30FD219EEC6A007BE8F9 /* GeneratedMocks.swift */,
+				D50A0C7621AEC33800261511 /* GeneratedMocks.swift */,
 				D57D623A219DBA0D00A8479F /* MainScreenTests.swift */,
 				D57D623C219DBA0D00A8479F /* Info.plist */,
 			);
@@ -524,7 +524,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D520BA0321A2F5AA0065361C /* MainScreenTests.swift in Sources */,
-				D5CA30FE219EEC6A007BE8F9 /* GeneratedMocks.swift in Sources */,
+				D50A0C7721AEC33800261511 /* GeneratedMocks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -660,7 +660,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AvazBa/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = plava.tvornica.AvazBa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -675,7 +678,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AvazBa/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = plava.tvornica.AvazBa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -691,7 +697,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AvazBaTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = plava.tvornica.AvazBaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -708,7 +718,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = AvazBaTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = plava.tvornica.AvazBaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

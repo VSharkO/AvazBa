@@ -40,7 +40,6 @@ class CustomCell: UITableViewCell {
         articleTitle.adjustsFontSizeToFitWidth = false
         articleTitle.numberOfLines = 2
         articleTitle.font = UIFont.init(name: "RobotoSlab-Bold", size: 14)
-        articleTitle.text = "SAmo sadas ldkfgsm lksdmfg lksmdflg mslSAmo sadas ldkfgsm lksdmfg lksmdflg msldkfgmlk smdfgml lksdmfg lksmdflg msldkfgmlk smdfgml dfgdfg"
         articleTitle.isUserInteractionEnabled = false
         return articleTitle
     }()
@@ -52,7 +51,6 @@ class CustomCell: UITableViewCell {
         articleText.adjustsFontSizeToFitWidth = false
         articleText.numberOfLines = 2
         articleText.font = UIFont.init(name: "Lato-Regular", size: 13)
-        articleText.text = "SAmo sadas ldkfgsm lksdmfg lksmdflg mslSAmo sadas ldkfgsm lksdmfg lksmdflg msldkfgmlk smdfgml lksdmfg lksmdflg msldkfgmlk smdfgml dfgdfg"
         articleText.isUserInteractionEnabled = false
         return articleText
     }()

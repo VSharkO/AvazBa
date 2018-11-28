@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: AvazBa/Repository/RepositoryProtocol.swift at 2018-11-22 14:18:43 +0000
+// MARK: - Mocks generated from file: AvazBa/Repository/RepositoryProtocol.swift at 2018-11-28 12:38:34 +0000
 
 //
 //  RepositoryProtocol.swift
@@ -31,17 +31,17 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
     
 
     
-    // ["name": "getMostPopularArticles", "returnSignature": " -> Observable<[Article]>", "fullyQualifiedName": "getMostPopularArticles(pageNum: Int) -> Observable<[Article]>", "parameterSignature": "pageNum: Int", "parameterSignatureWithoutNames": "pageNum: Int", "inputTypes": "Int", "isThrowing": false, "isInit": false, "isOverriding": false, "hasClosureParams": false, "@type": "ProtocolMethod", "accessibility": "", "parameterNames": "pageNum", "call": "pageNum: pageNum", "parameters": [CuckooGeneratorFramework.MethodParameter(label: Optional("pageNum"), name: "pageNum", type: "Int", range: CountableRange(253..<265), nameRange: CountableRange(253..<260))], "returnType": "Observable<[Article]>", "isOptional": false, "escapingParameterNames": "pageNum", "stubFunction": "Cuckoo.ProtocolStubFunction"]
-     func getMostPopularArticles(pageNum: Int)  -> Observable<[Article]> {
+    // ["name": "getMostPopularArticles", "returnSignature": " -> Observable<[Article]>", "fullyQualifiedName": "getMostPopularArticles(pageNum: Int, category: String) -> Observable<[Article]>", "parameterSignature": "pageNum: Int, category: String", "parameterSignatureWithoutNames": "pageNum: Int, category: String", "inputTypes": "Int, String", "isThrowing": false, "isInit": false, "isOverriding": false, "hasClosureParams": false, "@type": "ProtocolMethod", "accessibility": "", "parameterNames": "pageNum, category", "call": "pageNum: pageNum, category: category", "parameters": [CuckooGeneratorFramework.MethodParameter(label: Optional("pageNum"), name: "pageNum", type: "Int", range: CountableRange(253..<265), nameRange: CountableRange(253..<260)), CuckooGeneratorFramework.MethodParameter(label: Optional("category"), name: "category", type: "String", range: CountableRange(267..<283), nameRange: CountableRange(267..<275))], "returnType": "Observable<[Article]>", "isOptional": false, "escapingParameterNames": "pageNum, category", "stubFunction": "Cuckoo.ProtocolStubFunction"]
+     func getMostPopularArticles(pageNum: Int, category: String)  -> Observable<[Article]> {
         
-            return cuckoo_manager.call("getMostPopularArticles(pageNum: Int) -> Observable<[Article]>",
-                parameters: (pageNum),
-                escapingParameters: (pageNum),
+            return cuckoo_manager.call("getMostPopularArticles(pageNum: Int, category: String) -> Observable<[Article]>",
+                parameters: (pageNum, category),
+                escapingParameters: (pageNum, category),
                 superclassCall:
                     
                     Cuckoo.MockManager.crashOnProtocolSuperclassCall()
                     ,
-                defaultCall: __defaultImplStub!.getMostPopularArticles(pageNum: pageNum))
+                defaultCall: __defaultImplStub!.getMostPopularArticles(pageNum: pageNum, category: category))
         
     }
     
@@ -54,9 +54,9 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
 	    }
 	    
 	    
-	    func getMostPopularArticles<M1: Cuckoo.Matchable>(pageNum: M1) -> Cuckoo.ProtocolStubFunction<(Int), Observable<[Article]>> where M1.MatchedType == Int {
-	        let matchers: [Cuckoo.ParameterMatcher<(Int)>] = [wrap(matchable: pageNum) { $0 }]
-	        return .init(stub: cuckoo_manager.createStub(for: MockRepositoryProtocol.self, method: "getMostPopularArticles(pageNum: Int) -> Observable<[Article]>", parameterMatchers: matchers))
+	    func getMostPopularArticles<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(pageNum: M1, category: M2) -> Cuckoo.ProtocolStubFunction<(Int, String), Observable<[Article]>> where M1.MatchedType == Int, M2.MatchedType == String {
+	        let matchers: [Cuckoo.ParameterMatcher<(Int, String)>] = [wrap(matchable: pageNum) { $0.0 }, wrap(matchable: category) { $0.1 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockRepositoryProtocol.self, method: "getMostPopularArticles(pageNum: Int, category: String) -> Observable<[Article]>", parameterMatchers: matchers))
 	    }
 	    
 	}
@@ -76,9 +76,9 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
 	
 	    
 	    @discardableResult
-	    func getMostPopularArticles<M1: Cuckoo.Matchable>(pageNum: M1) -> Cuckoo.__DoNotUse<Observable<[Article]>> where M1.MatchedType == Int {
-	        let matchers: [Cuckoo.ParameterMatcher<(Int)>] = [wrap(matchable: pageNum) { $0 }]
-	        return cuckoo_manager.verify("getMostPopularArticles(pageNum: Int) -> Observable<[Article]>", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    func getMostPopularArticles<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(pageNum: M1, category: M2) -> Cuckoo.__DoNotUse<Observable<[Article]>> where M1.MatchedType == Int, M2.MatchedType == String {
+	        let matchers: [Cuckoo.ParameterMatcher<(Int, String)>] = [wrap(matchable: pageNum) { $0.0 }, wrap(matchable: category) { $0.1 }]
+	        return cuckoo_manager.verify("getMostPopularArticles(pageNum: Int, category: String) -> Observable<[Article]>", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
 	}
@@ -91,7 +91,7 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
     
 
     
-     func getMostPopularArticles(pageNum: Int)  -> Observable<[Article]> {
+     func getMostPopularArticles(pageNum: Int, category: String)  -> Observable<[Article]> {
         return DefaultValueRegistry.defaultValue(for: Observable<[Article]>.self)
     }
     

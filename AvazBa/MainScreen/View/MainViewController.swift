@@ -74,16 +74,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tabBar(_ tabBar: MDCTabBar, willSelect item: UITabBarItem) {
         if let title = item.title{
             switch title {
-            case "Najnovije":
-                viewModel.selectedTab = "najnovije"
-            case "Najčitanije":
-                viewModel.selectedTab = "najcitanije"
+            case constants.newest:
+                viewModel.selectedTab = constants.newestApi
+            case constants.mostRead:
+                viewModel.selectedTab = constants.mostReadApi
             default:
-                viewModel.selectedTab = "najnovije"
+                viewModel.selectedTab = constants.newestApi
             }
             viewModel.newTabOpened()
-            let indexPath = IndexPath(row: 0, section: 0)
-            self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+            // scroll to top logic
         }
     }
 
@@ -148,8 +147,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         tabBar.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         tabBar.sizeToFit()
         tabBar.items = [
-            UITabBarItem(title: "Najnovije", image: nil, tag: 0),
-            UITabBarItem(title: "Najčitanije", image: nil, tag: 0),
+            UITabBarItem(title: constants.newest, image: nil, tag: 0),
+            UITabBarItem(title: constants.mostRead, image: nil, tag: 0),
         ]
         tabBar.itemAppearance = .titles
         tabBar.barTintColor = UIColor.white

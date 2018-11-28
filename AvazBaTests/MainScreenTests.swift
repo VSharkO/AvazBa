@@ -62,7 +62,7 @@ class MainScreenTests: QuickSpec {
                 }
             }
         }
-        
+
         describe("LoaderLogic"){
             context("when sending request"){
                 var testScheduler = TestScheduler(initialClock: 0)
@@ -90,7 +90,7 @@ class MainScreenTests: QuickSpec {
                 }
             }
         }
-        
+
         describe("Pull to refresh logic"){
             context("user pull to refresh"){
                 var testScheduler = TestScheduler(initialClock: 0)
@@ -119,7 +119,7 @@ class MainScreenTests: QuickSpec {
                 }
             }
         }
-        
+
         describe("Infinite scroll logic"){
             context("more data request trigered"){
                 var testScheduler = TestScheduler(initialClock: 0)

@@ -43,26 +43,25 @@ class MainViewModel : MainViewModelProtocol{
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] articles in
-//                if self.pageCounter>1{
-                var arrayOfIndexPaths = [IndexPath]()
-                for element in Array(self.data.count..<self.data.count+articles.count-1){
-                arrayOfIndexPaths.append(IndexPath.init(row: element, section: 0))
+                if self.pageCounter>1{
+                    var arrayOfIndexPaths = [IndexPath]()
+                    for element in Array(self.data.count..<self.data.count+articles.count-1){
+                        arrayOfIndexPaths.append(IndexPath.init(row: element, section: 0))
+                    }
+                    self.data.remove(at: self.data.count-1)
+                    self.data.append(contentsOf: articles)
+                    self.viewInsertRows.onNext(arrayOfIndexPaths)
+                    self.viewReloadRows.onNext([IndexPath(item: self.data.count-articles.count, section: 0)])
+                    self.viewShowLoader.onNext(false)
+                    self.pageCounter += 1
+                    self.moreDataFlag = true
+                }else{
+                    self.data = articles
+                    self.refreshViewControllerTableData()
+                    self.viewShowLoader.onNext(false)
+                    self.pageCounter += 1
+                    self.moreDataFlag = true
                 }
-                self.data.remove(at: self.data.count-1)
-                self.data.append(contentsOf: articles)
-                self.viewInsertRows.onNext(arrayOfIndexPaths)
-                self.viewReloadRows.onNext([IndexPath(item: self.data.count-articles.count, section: 0)])
-                self.viewShowLoader.onNext(false)
-                self.pageCounter += 1
-                self.moreDataFlag = true
-//                }
-//                else{
-//                    self.data = articles
-//                    self.refreshViewControllerTableData()
-//                    self.viewShowLoader.onNext(false)
-//                    self.pageCounter += 1
-//                    self.moreDataFlag = true
-//                }
         })
     }
 
