@@ -10,15 +10,15 @@ import Foundation
 import RxSwift
 
 class MainViewModel : MainViewModelProtocol{
- 
+  
     internal var data: [CellItem] = []
     var pageCounter = 1
     var pullToRefreshFlag = false
     var moreDataFlag = true
     let repository: RepositoryProtocol
     let scheduler : SchedulerType
-    var selectedTab: String = "najnovije"
-    var dataRequestTrigered = PublishSubject<(Int,String)>()
+    var selectedTab: String = constants.newestApi
+    var dataRequestTriger = PublishSubject<Bool>()
     
     var viewShowLoader = PublishSubject<Bool>()
     var viewReloadData = PublishSubject<Bool>()
@@ -30,7 +30,8 @@ class MainViewModel : MainViewModelProtocol{
         self.scheduler = schedulare
     }
     func initGetingDataFromRepository() -> Disposable {
-        return dataRequestTrigered.flatMap({ [unowned self] num -> Observable<[Article]> in
+        return dataRequestTriger.flatMap({ [unowned self] _ -> Observable<[Article]> in
+            print(self.pageCounter)
             if !self.pullToRefreshFlag{
                 self.pullToRefreshFlag = true
                 self.viewShowLoader.onNext(true)
@@ -64,26 +65,26 @@ class MainViewModel : MainViewModelProtocol{
                 }
         })
     }
-
-    func moreDataRequest(){
-        dataRequestTrigered(pageNum: pageCounter, category: selectedTab)
-    }
     
+    func moreDataRequest() {
+        dataRequestTrigered()
+    }
+
     func pullToRefresh(){
         pageCounter = 1
-        dataRequestTrigered(pageNum: pageCounter, category: selectedTab)
+        dataRequestTrigered()
     }
     
-    func dataRequestTrigered(pageNum: Int, category: String){
+    func dataRequestTrigered(){
         if moreDataFlag{
             self.moreDataFlag = false
-            dataRequestTrigered.onNext((pageNum,category))
+            dataRequestTriger.onNext(true)
         }
     }
     
     func newTabOpened(){
         pageCounter = 1
-        moreDataRequest()
+        dataRequestTrigered()
     }
     
     private func refreshViewControllerTableData() {

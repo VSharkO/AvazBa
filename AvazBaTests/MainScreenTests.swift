@@ -26,7 +26,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     let mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: 1)).then({ _ -> Observable<[Article]> in
+                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).then({ _ -> Observable<[Article]> in
                             return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
                         })
                     }
@@ -47,7 +47,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: 1)).then({ _ -> Observable<[Article]> in
+                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).then({ _ -> Observable<[Article]> in
                             return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
                         })
                     }
@@ -58,7 +58,7 @@ class MainScreenTests: QuickSpec {
                 }
                 it("data is equal to number of articles from repository"){
                     mainViewModel.dataRequestTrigered.onNext(1)
-                    expect(mainViewModel.data.count).to(equal(3)) //2 articles in mock and loader
+                    expect(mainViewModel.data.count).to(equal(2))
                 }
             }
         }
@@ -70,7 +70,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     let mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: 1)).then({ _ -> Observable<[Article]> in
+                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).then({ _ -> Observable<[Article]> in
                             return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
                         })
                     }
@@ -99,7 +99,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: 1)).then({ _ -> Observable<[Article]> in
+                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).then({ _ -> Observable<[Article]> in
                             return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
                         })
                     }
@@ -115,7 +115,7 @@ class MainScreenTests: QuickSpec {
                     expect(subscriber.events.first!.value.element).to(equal(1))
                 }
                 it("is calling viewModel to send request for first page"){
-                    verify(mockRepository, times(1)).getMostPopularArticles(pageNum: 1)
+                    verify(mockRepository, times(1)).getMostPopularArticles(pageNum: 1, category: constants.newestApi)
                 }
             }
         }
@@ -128,7 +128,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: anyInt())).then({ _ -> Observable<[Article]> in
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.newestApi)).then({ _ -> Observable<[Article]> in
                             return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
                         })
                     }
@@ -138,16 +138,20 @@ class MainScreenTests: QuickSpec {
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     mainViewModel.dataRequestTrigered.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
+                    
                     mainViewModel.dataRequestTrigered(pageNum: 2)
                     mainViewModel.dataRequestTrigered(pageNum: 4)
+                    mainViewModel.dataRequestTrigered(pageNum: 5)
                 }
                 it("is refreshing data trigered"){
                     expect(subscriber.events.first!.value.element).to(equal(2))
-                    expect(subscriber.events.last!.value.element).to(equal(4))
+                    expect(subscriber.events[1].value.element).to(equal(4))
+                    expect(subscriber.events.last!.value.element).to(equal(5))
                 }
                 it("is calling repository method to get more data"){
-                    verify(mockRepository).getMostPopularArticles(pageNum: 2)
-                    verify(mockRepository).getMostPopularArticles(pageNum: 4)
+                    verify(mockRepository).getMostPopularArticles(pageNum: 2, category: constants.newestApi)
+                    verify(mockRepository).getMostPopularArticles(pageNum: 4, category: constants.newestApi)
+                    verify(mockRepository).getMostPopularArticles(pageNum: 5, category: constants.newestApi)
                 }
                 it("last item is not loader"){
                     expect(mainViewModel.data[mainViewModel.data.count-1].cellType).notTo(equal(CellType.loader))

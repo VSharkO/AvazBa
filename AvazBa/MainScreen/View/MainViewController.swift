@@ -71,7 +71,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
     
-    func tabBar(_ tabBar: MDCTabBar, willSelect item: UITabBarItem) {
+    func tabBar(_ tabBar: MDCTabBar, didSelect item: UITabBarItem) {
         if let title = item.title{
             switch title {
             case constants.newest:
@@ -89,14 +89,14 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.data.count
     }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(viewModel.data.count != 0){
-            if Double(indexPath.row) >= Double(viewModel.data.count-1) * 0.9{
+            if Double(indexPath.row) >= Double(viewModel.data.count-1){
                 viewModel.moreDataRequest()
             }
         }

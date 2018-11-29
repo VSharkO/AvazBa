@@ -14,10 +14,10 @@ struct constants{
     static let num = "/1?"
     static let apiToken = "api_token=bXd5Dvw1MGZlb9LrNsmDSA6Nv5Gz21oD4SgEOo4QPs0Nv3VAHYFa6oquDdJe"
     static let pageNumber = "&stranica="
-    static let newestApi = "Najnovije"
-    static let mostReadApi = "Najčitanije"
-    static let newest = "najnovije"
-    static let mostRead = "najcitanije"
+    static let newest = "Najnovije"
+    static let mostRead = "Najčitanije"
+    static let newestApi = "najnovije"
+    static let mostReadApi = "najcitanije"
 }
 
 protocol LoaderManager{
