@@ -84,11 +84,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             viewModel.newTabOpened()
         }
     }
-    
-    private func scrollToTop(){
-        let indexPath = IndexPath(row: 0, section:  0)
-        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-    }
 
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -111,7 +106,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView.register(LoaderCell.self, forCellReuseIdentifier: "loaderCell")
     }
     
-    func initSubscripts(){
+    private func initSubscripts(){
         viewModel.viewReloadData.observeOn(MainScheduler.instance).subscribe(onNext:{ _ in
             self.tableView.reloadData()
         }).disposed(by: disposeBag)
@@ -184,7 +179,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tabBar.addSubview(tabBar)
     }
     
-    func setupConstraints(){
+    private func setupConstraints(){
         NSLayoutConstraint.activate([
             tabBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tabBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
