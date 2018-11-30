@@ -100,7 +100,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(viewModel.data.count != 0){
-            if Double(indexPath.row) >= Double(viewModel.data.count-1){
+            if Double(indexPath.row) >= Double(viewModel.data.count-1) * 0.9{
                 viewModel.moreDataRequest()
             }
         }
