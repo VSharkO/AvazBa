@@ -17,6 +17,7 @@ class MainScreenCoordinator : Coordinator, CoordinatorDelegate{
     
     init(presenter: UINavigationController) {
         self.presenter = presenter
+        self.presenter.navigationBar.isTranslucent = false
         controller = MainViewController(viewModel: MainViewModel(repository: Repository()))
     }
     
