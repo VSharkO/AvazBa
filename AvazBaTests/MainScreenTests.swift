@@ -163,6 +163,45 @@ class MainScreenTests: QuickSpec {
                 }
             }
         }
+        
+        describe("tab selection logic"){
+            context("tab is changed"){
+                var testScheduler = TestScheduler(initialClock: 0)
+                var subscriber = testScheduler.createObserver(Bool.self)
+                var mockRepository = MockRepositoryProtocol()
+                beforeEach {
+                    mockRepository = MockRepositoryProtocol()
+                    stub(mockRepository) { mock in
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.mostRead)).then({ _ -> Observable<[Article]> in
+                            return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
+                        })
+                    }
+                    stub(mockRepository) { mock in
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.newest)).then({ _ -> Observable<[Article]> in
+                            return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
+                        })
+                    }
+                    testScheduler = TestScheduler(initialClock: 0)
+                    subscriber = testScheduler.createObserver(Bool.self)
+                    mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
+                    mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
+                    mainViewModel.dataRequestTriger.subscribe(subscriber).disposed(by: disposeBag)
+                    testScheduler.start()
+                    mainViewModel.selectedTab = constants.mostRead
+                    mainViewModel.newTabOpened()
+                    mainViewModel.selectedTab = constants.newest
+                    mainViewModel.newTabOpened()
+                    mainViewModel.selectedTab = constants.mostRead
+                    mainViewModel.newTabOpened()
+                }
+                it("send request with new category in api call"){
+                    verify(mockRepository,times(2)).getMostPopularArticles(pageNum: 1, category: constants.mostRead)
+                    verify(mockRepository).getMostPopularArticles(pageNum: 1, category: constants.newest)
+                }
+            }
+        }
+        
+        
     }
 }
 
