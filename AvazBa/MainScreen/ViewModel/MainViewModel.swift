@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 class MainViewModel : MainViewModelProtocol{
-  
+    
     internal var data: [CellItem] = []
     var pageCounter = 1
     var pullToRefreshFlag = false
@@ -19,11 +19,12 @@ class MainViewModel : MainViewModelProtocol{
     let scheduler : SchedulerType
     var selectedTab: String = constants.newestApi
     var dataRequestTriger = PublishSubject<Bool>()
-    
     var viewShowLoader = PublishSubject<Bool>()
     var viewReloadData = PublishSubject<Bool>()
     var viewInsertRows = PublishSubject<[IndexPath]>()
     var viewReloadRows = PublishSubject<[IndexPath]>()
+    var viewReloadRowsForNewTab = PublishSubject<(Int,Int)>()
+    var newTabSelected = false
     
     init(repository: RepositoryProtocol, schedulare: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         self.repository = repository
@@ -57,11 +58,21 @@ class MainViewModel : MainViewModelProtocol{
                     self.pageCounter += 1
                     self.moreDataFlag = true
                 }else{
-                    self.data = articles
-                    self.refreshViewControllerTableData()
-                    self.viewShowLoader.onNext(false)
-                    self.pageCounter += 1
-                    self.moreDataFlag = true
+                    if self.newTabSelected{
+                        let oldNumOfData = self.data.count
+                        self.data = articles
+                        self.viewReloadRowsForNewTab.onNext((self.data.count, oldNumOfData))
+                        self.viewShowLoader.onNext(false)
+                        self.pageCounter += 1
+                        self.moreDataFlag = true
+                        self.newTabSelected = false
+                    }else{
+                        self.data = articles
+                        self.refreshViewControllerTableData()
+                        self.viewShowLoader.onNext(false)
+                        self.pageCounter += 1
+                        self.moreDataFlag = true
+                    }
                 }
         })
     }
@@ -84,6 +95,7 @@ class MainViewModel : MainViewModelProtocol{
     
     func newTabOpened(){
         pageCounter = 1
+        newTabSelected = true
         dataRequestTrigered()
     }
     

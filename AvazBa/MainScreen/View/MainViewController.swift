@@ -82,8 +82,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 viewModel.selectedTab = constants.newestApi
             }
             viewModel.newTabOpened()
-            // scroll to top logic
         }
+    }
+    
+    private func scrollToTop(){
+        let indexPath = IndexPath(row: 0, section:  0)
+        self.tableView.scrollToRow(at: indexPath, at: .top, animated: true)
     }
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -131,6 +135,26 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.tableView.performBatchUpdates({
                  self.tableView.reloadRows(at: indexes, with: .automatic)
             }, completion: nil)
+        }).disposed(by: disposeBag)
+        
+        viewModel.viewReloadRowsForNewTab.observeOn(MainScheduler.instance).subscribe(onNext:{ (numOfArticlesToAdd,numOfArticlesToDelete) in
+            self.tableView.performBatchUpdates({
+                var arrayOfIndexPathsToDelete = [IndexPath]()
+                for element in Array(numOfArticlesToAdd..<numOfArticlesToDelete){
+                    arrayOfIndexPathsToDelete.append(IndexPath.init(row: element, section: 0))
+                }
+                var arrayOfIndexPathsToAdd = [IndexPath]()
+                for element in Array(0..<numOfArticlesToAdd){
+                    arrayOfIndexPathsToAdd.append(IndexPath.init(row: element, section: 0))
+                }
+                self.tableView.deleteRows(at: arrayOfIndexPathsToDelete, with: .automatic)
+                self.tableView.reloadRows(at: arrayOfIndexPathsToAdd, with: .automatic)
+            }, completion: { isFinished in
+                if isFinished{
+                    let indexPath = IndexPath(row: 0, section:  0)
+                    self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+                }
+            })
         }).disposed(by: disposeBag)
     }
     

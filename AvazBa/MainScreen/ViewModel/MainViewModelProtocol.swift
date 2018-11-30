@@ -21,4 +21,5 @@ protocol MainViewModelProtocol{
     var viewReloadData: PublishSubject<Bool>{get set}
     var viewInsertRows: PublishSubject<[IndexPath]>{get set}
     var viewReloadRows: PublishSubject<[IndexPath]>{get set}
+    var viewReloadRowsForNewTab: PublishSubject<(Int,Int)>{get set}
 }

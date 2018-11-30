@@ -57,7 +57,7 @@ class MainScreenTests: QuickSpec {
                     testScheduler.start()
                 }
                 it("data is equal to number of articles from repository"){
-                    mainViewModel.dataRequestTrigered.onNext(1)
+                    mainViewModel.dataRequestTriger.onNext(true)
                     expect(mainViewModel.data.count).to(equal(2))
                 }
             }
@@ -80,7 +80,7 @@ class MainScreenTests: QuickSpec {
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     mainViewModel.viewShowLoader.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
-                    mainViewModel.dataRequestTrigered.onNext(1)
+                    mainViewModel.dataRequestTriger.onNext(true)
                 }
                 it("loader is shown on start of request"){
                     expect(subscriber.events.first!.value.element).to(equal(true))
@@ -94,7 +94,7 @@ class MainScreenTests: QuickSpec {
         describe("Pull to refresh logic"){
             context("user pull to refresh"){
                 var testScheduler = TestScheduler(initialClock: 0)
-                var subscriber = testScheduler.createObserver(Int.self)
+                var subscriber = testScheduler.createObserver(Bool.self)
                 var mockRepository = MockRepositoryProtocol()
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
@@ -104,15 +104,15 @@ class MainScreenTests: QuickSpec {
                         })
                     }
                     testScheduler = TestScheduler(initialClock: 0)
-                    subscriber = testScheduler.createObserver(Int.self)
+                    subscriber = testScheduler.createObserver(Bool.self)
                     mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
-                    mainViewModel.dataRequestTrigered.subscribe(subscriber).disposed(by: disposeBag)
+                    mainViewModel.dataRequestTriger.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
                     mainViewModel.pullToRefresh()
                 }
                 it("is trigered event for request in viewModel"){
-                    expect(subscriber.events.first!.value.element).to(equal(1))
+                    expect(subscriber.events.first!.value.element).to(equal(true))
                 }
                 it("is calling viewModel to send request for first page"){
                     verify(mockRepository, times(1)).getMostPopularArticles(pageNum: 1, category: constants.newestApi)
@@ -123,7 +123,7 @@ class MainScreenTests: QuickSpec {
         describe("Infinite scroll logic"){
             context("more data request trigered"){
                 var testScheduler = TestScheduler(initialClock: 0)
-                var subscriber = testScheduler.createObserver(Int.self)
+                var subscriber = testScheduler.createObserver(Bool.self)
                 var mockRepository = MockRepositoryProtocol()
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
@@ -133,25 +133,25 @@ class MainScreenTests: QuickSpec {
                         })
                     }
                     testScheduler = TestScheduler(initialClock: 0)
-                    subscriber = testScheduler.createObserver(Int.self)
+                    subscriber = testScheduler.createObserver(Bool.self)
                     mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
-                    mainViewModel.dataRequestTrigered.subscribe(subscriber).disposed(by: disposeBag)
+                    mainViewModel.dataRequestTriger.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
                     
-                    mainViewModel.dataRequestTrigered(pageNum: 2)
-                    mainViewModel.dataRequestTrigered(pageNum: 4)
-                    mainViewModel.dataRequestTrigered(pageNum: 5)
+                    mainViewModel.dataRequestTriger.onNext(true)
+                    mainViewModel.dataRequestTriger.onNext(true)
+                    mainViewModel.dataRequestTriger.onNext(true)
                 }
                 it("is refreshing data trigered"){
-                    expect(subscriber.events.first!.value.element).to(equal(2))
-                    expect(subscriber.events[1].value.element).to(equal(4))
-                    expect(subscriber.events.last!.value.element).to(equal(5))
+                    expect(subscriber.events.first!.value.element).to(equal(true))
+                    expect(subscriber.events[1].value.element).to(equal(true))
+                    expect(subscriber.events.last!.value.element).to(equal(true))
                 }
                 it("is calling repository method to get more data"){
+                    verify(mockRepository).getMostPopularArticles(pageNum: 1, category: constants.newestApi)
                     verify(mockRepository).getMostPopularArticles(pageNum: 2, category: constants.newestApi)
-                    verify(mockRepository).getMostPopularArticles(pageNum: 4, category: constants.newestApi)
-                    verify(mockRepository).getMostPopularArticles(pageNum: 5, category: constants.newestApi)
+                    verify(mockRepository).getMostPopularArticles(pageNum: 3, category: constants.newestApi)
                 }
                 it("last item is not loader"){
                     expect(mainViewModel.data[mainViewModel.data.count-1].cellType).notTo(equal(CellType.loader))
