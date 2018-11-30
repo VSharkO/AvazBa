@@ -34,7 +34,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     init(viewModel: MainViewModelProtocol) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -154,6 +153,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     private func setupViews(){
+        self.view.backgroundColor = .white
         self.view.addSubview(tabBar)
         self.view.addSubview(tableView)
         tableView.delegate = self
@@ -182,8 +182,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     private func setupConstraints(){
         NSLayoutConstraint.activate([
             tabBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tabBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            tabBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            tabBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+            tabBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
             tabBar.heightAnchor.constraint(equalToConstant: 48)
             ])
         
