@@ -25,7 +25,6 @@ class CustomCell: UITableViewCell {
     var articlePhoto : UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = #imageLiteral(resourceName: "image1")
         image.layer.masksToBounds = true
         image.layer.cornerRadius = 7
         image.contentMode = .scaleAspectFill
