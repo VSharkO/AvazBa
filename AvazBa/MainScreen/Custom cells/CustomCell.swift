@@ -67,25 +67,23 @@ class CustomCell: UITableViewCell {
     
     var publishedImage : UIImageView = {
         let publishedImage = UIImageView()
-        publishedImage.image = #imageLiteral(resourceName: "publishedImg.png")
         return publishedImage
     }()
     
     var shareNumText : UILabel = {
-        let publishedText = UILabel()
-        publishedText.textColor = .darkGray
-        publishedText.adjustsFontSizeToFitWidth = false
-        publishedText.text = "dadadad"
-        publishedText.numberOfLines = 1
-        publishedText.font = UIFont.init(name: "RobotoSlab-Normal", size: 12)
-        publishedText.isUserInteractionEnabled = false
-        return publishedText
+        let shareNumText = UILabel()
+        shareNumText.textColor = .darkGray
+        shareNumText.adjustsFontSizeToFitWidth = false
+        shareNumText.text = "dadadad"
+        shareNumText.numberOfLines = 1
+        shareNumText.font = UIFont.init(name: "RobotoSlab-Normal", size: 12)
+        shareNumText.isUserInteractionEnabled = false
+        return shareNumText
     }()
     
     var shareImage : UIImageView = {
-        let publishedImage = UIImageView()
-        publishedImage.image = #imageLiteral(resourceName: "publishedImg.png")
-        return publishedImage
+        let shareImage = UIImageView()
+        return shareImage
     }()
     
     var stackForPublished : UIStackView = {
