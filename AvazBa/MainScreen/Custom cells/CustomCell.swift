@@ -54,6 +54,56 @@ class CustomCell: UITableViewCell {
         return articleText
     }()
     
+    var publishedText : UILabel = {
+        let publishedText = UILabel()
+        publishedText.textColor = .darkGray
+        publishedText.adjustsFontSizeToFitWidth = false
+        publishedText.text = "dadadad"
+        publishedText.numberOfLines = 1
+        publishedText.font = UIFont.init(name: "RobotoSlab-Normal", size: 12)
+        publishedText.isUserInteractionEnabled = false
+        return publishedText
+    }()
+    
+    var publishedImage : UIImageView = {
+        let publishedImage = UIImageView()
+        publishedImage.image = #imageLiteral(resourceName: "publishedImg.png")
+        return publishedImage
+    }()
+    
+    var shareNumText : UILabel = {
+        let publishedText = UILabel()
+        publishedText.textColor = .darkGray
+        publishedText.adjustsFontSizeToFitWidth = false
+        publishedText.text = "dadadad"
+        publishedText.numberOfLines = 1
+        publishedText.font = UIFont.init(name: "RobotoSlab-Normal", size: 12)
+        publishedText.isUserInteractionEnabled = false
+        return publishedText
+    }()
+    
+    var shareImage : UIImageView = {
+        let publishedImage = UIImageView()
+        publishedImage.image = #imageLiteral(resourceName: "publishedImg.png")
+        return publishedImage
+    }()
+    
+    var stackForPublished : UIStackView = {
+        let stackForPublished = UIStackView()
+        stackForPublished.translatesAutoresizingMaskIntoConstraints = false
+        stackForPublished.spacing = 4
+        stackForPublished.axis = .horizontal
+        return stackForPublished
+    }()
+    
+    var stackForShares : UIStackView = {
+        let stackForShares = UIStackView()
+        stackForShares.translatesAutoresizingMaskIntoConstraints = false
+        stackForShares.spacing = 4
+        stackForShares.axis = .horizontal
+        return stackForShares
+    }()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -68,6 +118,12 @@ class CustomCell: UITableViewCell {
         self.rootView.addSubview(articlePhoto)
         self.rootView.addSubview(articleTitle)
         self.rootView.addSubview(articleText)
+        stackForPublished.addArrangedSubview(publishedImage)
+        stackForPublished.addArrangedSubview(publishedText)
+        self.rootView.addSubview(stackForPublished)
+        stackForShares.addArrangedSubview(shareNumText)
+        stackForShares.addArrangedSubview(shareImage)
+        self.rootView.addSubview(stackForShares)
         setupConstraints()
     }
     
@@ -78,7 +134,7 @@ class CustomCell: UITableViewCell {
             rootView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8),
             rootView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5)
             ])
-        let constraintRootViewHeight = rootView.heightAnchor.constraint(equalToConstant: 338)
+        let constraintRootViewHeight = rootView.heightAnchor.constraint(equalToConstant: 359)
         constraintRootViewHeight.priority = .init(999)
         constraintRootViewHeight.isActive = true
         
@@ -99,6 +155,26 @@ class CustomCell: UITableViewCell {
             articleText.topAnchor.constraint(equalTo: articleTitle.bottomAnchor, constant: 5),
             articleText.leadingAnchor.constraint(equalTo: rootView.leadingAnchor, constant: 16.7),
             articleText.trailingAnchor.constraint(equalTo: rootView.trailingAnchor, constant: -50)
+            ])
+        
+        NSLayoutConstraint.activate([
+            stackForPublished.topAnchor.constraint(equalTo: articleText.bottomAnchor, constant: 9),
+            stackForPublished.leadingAnchor.constraint(equalTo: rootView.leadingAnchor, constant: 16.7)
+            ])
+        
+        NSLayoutConstraint.activate([
+            stackForShares.topAnchor.constraint(equalTo: articleText.bottomAnchor, constant: 9),
+            stackForShares.trailingAnchor.constraint(equalTo: rootView.trailingAnchor, constant: -16.7)
+            ])
+        
+        NSLayoutConstraint.activate([
+            publishedImage.heightAnchor.constraint(equalToConstant: 16),
+            publishedImage.widthAnchor.constraint(equalToConstant: 16)
+            ])
+        
+        NSLayoutConstraint.activate([
+            shareImage.heightAnchor.constraint(equalToConstant: 16),
+            shareImage.widthAnchor.constraint(equalToConstant: 16)
             ])
     }
     
