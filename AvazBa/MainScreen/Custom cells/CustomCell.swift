@@ -67,6 +67,7 @@ class CustomCell: UITableViewCell {
     
     var publishedImage : UIImageView = {
         let publishedImage = UIImageView()
+        publishedImage.image = 
         return publishedImage
     }()
     
