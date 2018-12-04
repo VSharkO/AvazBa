@@ -13,17 +13,41 @@ struct Article: Codable,CellItem {
     var image: FeaturedImage
     var title: String
     var description: String
+    var shares: String
+    var publishedAt: PublishedAt
     
     enum CodingKeys: String, CodingKey {
         case image = "featured_image"
         case title = "uppertitle_raw"
         case description = "title"
+        case shares = "shares"
+        case publishedAt = "published_at"
     }
     
-    init(title: String, description: String, image: FeaturedImage) {
+    init(title: String, description: String, image: FeaturedImage, shares: String, publishedAt: PublishedAt) {
         self.title = title
         self.description = description
         self.image = image
+        self.shares = shares
+        self.publishedAt = publishedAt
+    }
+}
+
+struct PublishedAt: Codable{
+    var date: Date
+    var timezoneType: Int
+    var timezone: String
+
+    enum CodingKeys: String, CodingKey {
+        case date = "date"
+        case timezoneType = "timezone_type"
+        case timezone = "timezone"
+    }
+
+    init(date: Date, timezoneType: Int, timezone: String) {
+        self.date = date
+        self.timezoneType = timezoneType
+        self.timezone = timezone
     }
 }
 

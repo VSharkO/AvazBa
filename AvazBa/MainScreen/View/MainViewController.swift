@@ -61,6 +61,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.articleText.text = article.description
                 cell.setPicture(image: article.image.original)
                 cell.articleTitle.text = article.title
+//                cell.publishedText.text = article.publishedAt.date.description
+//                cell.shareNumText.text = article.shares
                 return cell
             }else{
                 return UITableViewCell()

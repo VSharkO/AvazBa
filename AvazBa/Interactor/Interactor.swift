@@ -26,7 +26,9 @@ extension Interactor{
                             return
                         }
                         do{
-                            let articles = try JSONDecoder().decode(Response.self, from: data)
+                            let decoder = JSONDecoder()
+                            decoder.keyDecodingStrategy = .convertFromSnakeCase
+                            let articles = try decoder.decode(Response.self, from: data)
                             observer.onNext(articles.articles)
                         } catch {
                             observer.onError(error)

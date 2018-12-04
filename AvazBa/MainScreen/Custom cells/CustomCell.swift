@@ -67,7 +67,7 @@ class CustomCell: UITableViewCell {
     
     var publishedImage : UIImageView = {
         let publishedImage = UIImageView()
-        publishedImage.image = 
+        publishedImage.image = UIImage(named: "publishImg")
         return publishedImage
     }()
     
@@ -84,6 +84,7 @@ class CustomCell: UITableViewCell {
     
     var shareImage : UIImageView = {
         let shareImage = UIImageView()
+        shareImage.image = UIImage(named: "shareImg")
         return shareImage
     }()
     
