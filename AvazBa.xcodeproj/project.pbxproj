@@ -406,7 +406,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AvazBa/Pods-AvazBa-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-AvazBa/Pods-AvazBa-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MDFInternationalization/MDFInternationalization.framework",
@@ -435,7 +435,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AvazBa/Pods-AvazBa-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AvazBa/Pods-AvazBa-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8AEDD3B8B663E75BD471AC0E /* [CP] Embed Pods Frameworks */ = {
@@ -444,7 +444,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-AvazBaTests/Pods-AvazBaTests-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-AvazBaTests/Pods-AvazBaTests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Cuckoo/Cuckoo.framework",
@@ -465,7 +465,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-AvazBaTests/Pods-AvazBaTests-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AvazBaTests/Pods-AvazBaTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8D4E7E0B712DA749BDB4DEC0 /* [CP] Check Pods Manifest.lock */ = {
