@@ -8,6 +8,9 @@ target 'AvazBa' do
  def testing_pods
     pod 'Quick'
     pod 'Nimble'
+	pod "Cuckoo"
+    pod 'RxTest',     '~> 4.0'
+    pod 'RxBlocking', '~> 4.0'
   end
 
   # Pods for AvazBa
@@ -15,9 +18,6 @@ target 'AvazBa' do
     pod 'Kingfisher', '4.9.0'
     pod 'RxSwift',    '~> 4.0'
     pod 'RxCocoa',    '~> 4.0'
-    pod 'RxTest',     '~> 4.0'
-    pod 'RxBlocking', '~> 4.0'
-    pod "Cuckoo"
     pod 'MaterialComponents'
 
 
