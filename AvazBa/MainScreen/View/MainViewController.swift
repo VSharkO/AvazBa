@@ -35,7 +35,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
         viewModel.initGetingDataFromRepository().disposed(by: self.disposeBag)
-        viewModel.moreDataRequest()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -51,6 +50,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.moreDataRequest()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
