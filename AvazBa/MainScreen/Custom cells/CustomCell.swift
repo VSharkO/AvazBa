@@ -38,7 +38,7 @@ class CustomCell: UITableViewCell {
         articleTitle.textColor = .darkGray
         articleTitle.adjustsFontSizeToFitWidth = false
         articleTitle.numberOfLines = 2
-        articleTitle.font = UIFont.init(name: "RobotoSlab-Bold", size: 14)
+        articleTitle.font = UIFont.init(name: "Roboto-Bold", size: 14)
         articleTitle.isUserInteractionEnabled = false
         return articleTitle
     }()
@@ -58,9 +58,8 @@ class CustomCell: UITableViewCell {
         let publishedText = UILabel()
         publishedText.textColor = .darkGray
         publishedText.adjustsFontSizeToFitWidth = false
-        publishedText.text = "dadadad"
         publishedText.numberOfLines = 1
-        publishedText.font = UIFont.init(name: "RobotoSlab-Normal", size: 12)
+        publishedText.font = UIFont.init(name: "Roboto-Regular", size: 12)
         publishedText.isUserInteractionEnabled = false
         return publishedText
     }()
@@ -75,9 +74,8 @@ class CustomCell: UITableViewCell {
         let shareNumText = UILabel()
         shareNumText.textColor = .darkGray
         shareNumText.adjustsFontSizeToFitWidth = false
-        shareNumText.text = "dadadad"
         shareNumText.numberOfLines = 1
-        shareNumText.font = UIFont.init(name: "RobotoSlab-Normal", size: 12)
+        shareNumText.font = UIFont.init(name: "Roboto-Regular", size: 12)
         shareNumText.isUserInteractionEnabled = false
         return shareNumText
     }()
@@ -134,7 +132,7 @@ class CustomCell: UITableViewCell {
             rootView.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -8),
             rootView.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor, constant: -5)
             ])
-        let constraintRootViewHeight = rootView.heightAnchor.constraint(equalToConstant: 359)
+        let constraintRootViewHeight = rootView.heightAnchor.constraint(equalToConstant: 340)
         constraintRootViewHeight.priority = .init(999)
         constraintRootViewHeight.isActive = true
         
@@ -158,12 +156,12 @@ class CustomCell: UITableViewCell {
             ])
         
         NSLayoutConstraint.activate([
-            stackForPublished.topAnchor.constraint(equalTo: articleText.bottomAnchor, constant: 9),
+            stackForPublished.bottomAnchor.constraint(equalTo: rootView.bottomAnchor, constant: -9),
             stackForPublished.leadingAnchor.constraint(equalTo: rootView.leadingAnchor, constant: 16.7)
             ])
         
         NSLayoutConstraint.activate([
-            stackForShares.topAnchor.constraint(equalTo: articleText.bottomAnchor, constant: 9),
+            stackForShares.bottomAnchor.constraint(equalTo: rootView.bottomAnchor, constant: -9),
             stackForShares.trailingAnchor.constraint(equalTo: rootView.trailingAnchor, constant: -16.7)
             ])
         

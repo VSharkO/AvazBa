@@ -51,6 +51,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.moreDataRequest()
+        for family in UIFont.familyNames.sorted() {
+            let names = UIFont.fontNames(forFamilyName: family)
+            print("Family: \(family) Font names: \(names)")
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -58,11 +62,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         case CellType.article:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "customeCell", for: indexPath) as? CustomCell{
                 let article = viewModel.data[indexPath.row] as! Article
+                let converterForDate = DateToStringConverter(date: article.publishedAt.date)
                 cell.articleText.text = article.description
                 cell.setPicture(image: article.image.original)
                 cell.articleTitle.text = article.title
-//                cell.publishedText.text = article.publishedAt.date.description
-//                cell.shareNumText.text = article.shares
+                cell.publishedText.text = converterForDate.toBeforeCurrentTime()
+                cell.shareNumText.text = String(article.shares)
                 return cell
             }else{
                 return UITableViewCell()
