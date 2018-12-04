@@ -16,6 +16,26 @@ import Nimble
 class MainScreenTests: QuickSpec {
     
     override func spec() {
+        let testBundle = Bundle.init(for: MainScreenTests.self)
+        let supplyListUrl = testBundle.url(forResource: "main_screen_articles_success", withExtension: "json")!
+        let supplyListData = try! Data(contentsOf: supplyListUrl)
+        let supplyListResponse: [Article] =
+        {
+            do{
+                let decoder = JSONDecoder()
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.000000"
+                //                            decoder.keyDecodingStrategy = .convertFromSnakeCase
+                decoder.dateDecodingStrategy = .formatted(formatter)
+                let responce = try decoder.decode(Response.self, from: supplyListData)
+                return responce.articles
+            }catch{
+                return []
+            }
+            
+        }()
+       
+        
         var mainViewModel: MainViewModel!
         let disposeBag = DisposeBag()
         afterSuite {
@@ -26,9 +46,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     let mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).then({ _ -> Observable<[Article]> in
-                            return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
-                        })
+                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
                     }
                     let testScheduler = TestScheduler(initialClock: 0)
                     mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
@@ -47,9 +65,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).then({ _ -> Observable<[Article]> in
-                            return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
-                        })
+                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
                     }
                     let testScheduler = TestScheduler(initialClock: 0)
                     mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
@@ -58,7 +74,7 @@ class MainScreenTests: QuickSpec {
                 }
                 it("data is equal to number of articles from repository"){
                     mainViewModel.dataRequestTriger.onNext(true)
-                    expect(mainViewModel.data.count).to(equal(2))
+                    expect(mainViewModel.data.count).to(equal(16))
                 }
             }
         }
@@ -70,9 +86,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     let mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).then({ _ -> Observable<[Article]> in
-                            return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
-                        })
+                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Bool.self)
@@ -99,9 +113,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).then({ _ -> Observable<[Article]> in
-                            return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
-                        })
+                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Bool.self)
@@ -128,9 +140,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.newestApi)).then({ _ -> Observable<[Article]> in
-                            return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
-                        })
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Bool.self)
@@ -172,14 +182,10 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.mostRead)).then({ _ -> Observable<[Article]> in
-                            return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
-                        })
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
                     }
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.newest)).then({ _ -> Observable<[Article]> in
-                            return Observable.just([Article(title: "title", description: "description", image: FeaturedImage.init(original: "Str")),Article(title: "title2", description: "description2", image: FeaturedImage.init(original: "Str"))])
-                        })
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.mostRead)).thenReturn(Observable.just(supplyListResponse))
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Bool.self)

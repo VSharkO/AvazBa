@@ -41,7 +41,6 @@ class DateToStringConverter{
                     before = "Prije \(months) mjesec"
                 }else{
                     before = "Prije \(months) mjeseci"
-                    
                 }
             }else if days > 0 && hours > 23{
                 if (days%10 == 1){
