@@ -8,14 +8,9 @@
 
 import Foundation
 
-class DateToStringConverter{
-    let date : Date!
+class DateToBeforeCurrentTimeConverter{
     
-    init(date: Date) {
-        self.date = date
-    }
-    
-    func toBeforeCurrentTime() -> String{
+   static func toBeforeCurrentTime(date : Date) -> String{
         var before = ""
         let currentDate = Date()
         let currentCalendar = Calendar.current
@@ -25,8 +20,7 @@ class DateToStringConverter{
         let dayDif = currentCalendar.dateComponents([.day], from: date, to: currentDate).day
         let hourDif = currentCalendar.dateComponents([.hour], from: date, to: currentDate).hour
         let minutesDif = currentCalendar.dateComponents([.minute], from: date, to: currentDate).minute
-        
-        
+    
         if let years = yearDif, let months = monthDif, let days = dayDif, let hours = hourDif, let minutes = minutesDif{
             if years > 0 && months > 12{
                 if years%10 < 5 && months%10 > 0 {
