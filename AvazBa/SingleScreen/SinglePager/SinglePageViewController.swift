@@ -8,18 +8,23 @@
 
 import UIKit
 
-class SinglePageViewController: UIPageViewController {
+class SinglePageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
 
     weak var singleDelegate: CoordinatorDelegate?
+    var pages = [UIViewController]()
+    var focusedItem = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        self.dataSource = self
+        self.delegate = self
+        setViewControllers([pages[focusedItem]],direction: .forward , animated: true, completion: nil)
     }
     
     init(arrayOfViewControllers: [SingleViewController], focusedNews: Int) {
         super.init(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
-        self.setViewControllers([arrayOfViewControllers[focusedNews]], direction: .forward, animated: true, completion: nil)
+        self.pages = arrayOfViewControllers
+        self.focusedItem = focusedNews
     }
     
     required init?(coder: NSCoder) {
@@ -35,15 +40,13 @@ class SinglePageViewController: UIPageViewController {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
-        if let listOfViewControllers = self.viewControllers{
-            if let viewControllerIndex = listOfViewControllers.index(of: viewController){
-                if viewControllerIndex == 0 {
-                    // wrap to last page in array
-                    return self.viewControllers?.last
-                } else {
-                    // go to previous page in array
-                    return listOfViewControllers[viewControllerIndex - 1]
-                }
+        if let viewControllerIndex = self.pages.index(of: viewController) {
+            if viewControllerIndex == 0 {
+                // wrap to last page in array
+                return self.pages.last
+            } else {
+                // go to previous page in array
+                return self.pages[viewControllerIndex - 1]
             }
         }
         return nil
@@ -51,18 +54,15 @@ class SinglePageViewController: UIPageViewController {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         
-            if let listOfViewControllers = self.viewControllers{
-                if let viewControllerIndex = listOfViewControllers.index(of: viewController){
-                    if viewControllerIndex < listOfViewControllers.count - 1 {
-                        // wrap to last page in array
-                        return listOfViewControllers[viewControllerIndex - 1]
-                    } else {
-                        // go to previous page in array
-                        return listOfViewControllers.first
-                    }
-                }
+        if let viewControllerIndex = self.pages.index(of: viewController) {
+            if viewControllerIndex < self.pages.count - 1 {
+                // go to next page in array
+                return self.pages[viewControllerIndex + 1]
+            } else {
+                // wrap to first page in array
+                return self.pages.first
             }
+        }
         return nil
     }
-
 }

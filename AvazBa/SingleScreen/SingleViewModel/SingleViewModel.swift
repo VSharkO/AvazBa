@@ -10,6 +10,7 @@ import Foundation
 
 class SingleViewModel : SingleViewModelProtocol{
     let id: Int!
+    var data: [SingleCellType]!
     
     init(id: Int) {
         self.id = id

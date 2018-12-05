@@ -39,8 +39,15 @@ class SinglePagerCoordinator : Coordinator, CoordinatorDelegate{
     }
     
     func setViewControllersDelegate(){
+        var i = 0
         for controller in viewControllers{
+            i += 1
             controller.singleDelegate = self
+            if i % 2 == 0{
+                controller.view.backgroundColor = .white
+            }else{
+                controller.view.backgroundColor = .red
+            }
         }
     }
     

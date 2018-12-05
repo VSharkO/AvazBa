@@ -8,11 +8,10 @@
 
 import UIKit
 
-class SingleViewController: UIViewController {
-
+class SingleViewController: UIViewController/*, UITableViewDelegate, UITableViewDataSource */{
+    
     var viewModel: SingleViewModelProtocol!
     weak var singleDelegate: CoordinatorDelegate?
-    var presenter: UINavigationController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,5 +26,18 @@ class SingleViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+//    private func registerCells(){
+//        self.tableView.register(SingleImageCell.self, forCellReuseIdentifier: "imageCell")
+//        self.tableView.register(SingleTitleCell.self, forCellReuseIdentifier: "titleCell")
+//        return viewModel.data.count
+//    }
+    
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//
+//    }
     
 }

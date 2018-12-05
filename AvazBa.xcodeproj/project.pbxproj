@@ -40,6 +40,7 @@
 		D5EA7C9E21B7C31800BF762E /* MainCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EA7C9D21B7C31800BF762E /* MainCoordinatorDelegate.swift */; };
 		D5EA7CA021B7ECB500BF762E /* SingleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EA7C9F21B7ECB500BF762E /* SingleViewModel.swift */; };
 		D5EA7CA221B7ECD600BF762E /* SingleViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EA7CA121B7ECD600BF762E /* SingleViewModelProtocol.swift */; };
+		D5EA7CA821B8072500BF762E /* SingleCellTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EA7CA721B8072500BF762E /* SingleCellTypes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +94,7 @@
 		D5EA7C9D21B7C31800BF762E /* MainCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorDelegate.swift; sourceTree = "<group>"; };
 		D5EA7C9F21B7ECB500BF762E /* SingleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewModel.swift; sourceTree = "<group>"; };
 		D5EA7CA121B7ECD600BF762E /* SingleViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewModelProtocol.swift; sourceTree = "<group>"; };
+		D5EA7CA721B8072500BF762E /* SingleCellTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleCellTypes.swift; sourceTree = "<group>"; };
 		F81D8A49DBA37939FB664EEB /* Pods-AvazBaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvazBaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AvazBaTests/Pods-AvazBaTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -298,6 +300,7 @@
 		D5EA7C9621B7BB0300BF762E /* SingleScreen */ = {
 			isa = PBXGroup;
 			children = (
+				D5EA7CA621B8071300BF762E /* Utils */,
 				D5EA7CA521B800A200BF762E /* SinglePager */,
 				D5EA7CA421B8008600BF762E /* SingleViewModel */,
 				D5EA7CA321B8005F00BF762E /* SingleView */,
@@ -329,6 +332,14 @@
 				D5EA7C9B21B7C19000BF762E /* SinglePageViewController.swift */,
 			);
 			path = SinglePager;
+			sourceTree = "<group>";
+		};
+		D5EA7CA621B8071300BF762E /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D5EA7CA721B8072500BF762E /* SingleCellTypes.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -576,6 +587,7 @@
 				D5EA7C9C21B7C19000BF762E /* SinglePageViewController.swift in Sources */,
 				D56F23C0219EDFA8009B17B6 /* RepositoryProtocol.swift in Sources */,
 				D56F23B0219ED2E8009B17B6 /* CoordinatorDelegate.swift in Sources */,
+				D5EA7CA821B8072500BF762E /* SingleCellTypes.swift in Sources */,
 				D5EA7C9821B7BB2700BF762E /* SingleViewController.swift in Sources */,
 				D5EA7CA021B7ECB500BF762E /* SingleViewModel.swift in Sources */,
 				D57D6226219DBA0C00A8479F /* AppDelegate.swift in Sources */,
