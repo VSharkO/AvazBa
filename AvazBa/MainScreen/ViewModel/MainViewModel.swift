@@ -81,7 +81,7 @@ class MainViewModel : MainViewModelProtocol{
         dataRequestTrigered()
     }
 
-    func pullToRefresh(){
+    func initialDataRefresh(){
         pageCounter = 1
         dataRequestTrigered()
     }

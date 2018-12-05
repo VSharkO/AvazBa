@@ -121,7 +121,7 @@ class MainScreenTests: QuickSpec {
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     mainViewModel.dataRequestTriger.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
-                    mainViewModel.pullToRefresh()
+                    mainViewModel.initialDataRefresh()
                 }
                 it("trigeres event for request in viewModel"){
                     expect(subscriber.events.first!.value.element).to(equal(true))

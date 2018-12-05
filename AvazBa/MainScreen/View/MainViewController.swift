@@ -48,10 +48,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         initSubscripts()
         setupRefreshControl()
         setupTabBar()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.moreDataRequest()
+        viewModel.initialDataRefresh()
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -101,6 +98,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 viewModel.moreDataRequest()
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        moveToSingleScreenWithIndex(clickedNews: indexPath.row)
     }
     
     private func registerCells(){
@@ -224,7 +225,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func refreshData(){
-        viewModel.pullToRefresh()
+        viewModel.initialDataRefresh()
     }
     
     @objc func moveToSingleScreenWithIndex(clickedNews: Int){
