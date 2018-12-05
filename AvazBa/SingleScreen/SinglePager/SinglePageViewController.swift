@@ -9,6 +9,8 @@
 import UIKit
 
 class SinglePageViewController: UIPageViewController {
+
+    weak var singleDelegate: CoordinatorDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +26,11 @@ class SinglePageViewController: UIPageViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func createViewControllersArray(arrayOfIDs: [Int], focusedNews: Int){
-        
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        if(isMovingFromParentViewController){
+            singleDelegate?.viewHasFinished()
+        }
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {

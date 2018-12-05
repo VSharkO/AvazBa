@@ -9,31 +9,39 @@
 import Foundation
 import UIKit
 
-class SingleCoordinator : Coordinator, CoordinatorDelegate{
+class SinglePagerCoordinator : Coordinator, CoordinatorDelegate{
     
     var childCoordinators = [Coordinator]()
     weak var parentCoordinatorDelegate: ParentCoordinatorDelegate?
     var presenter: UINavigationController
     private var controller: SinglePageViewController
+    private var viewControllers = [SingleViewController]()
     
     init(presenter: UINavigationController, ids: [Int], focusedArticle: Int) {
         self.presenter = presenter
-        var viewControllers = [SingleViewController]()
         for id in ids{
             let viewModel = SingleViewModel.init(id: id)
-            viewControllers.append(SingleViewController(viewModel: viewModel))
+            let viewController = SingleViewController(viewModel: viewModel)
+            viewControllers.append(viewController)
         }
         controller = SinglePageViewController(arrayOfViewControllers: viewControllers, focusedNews: focusedArticle)
     }
     
     func start() {
+        setViewControllersDelegate()
         presenter.pushViewController(controller, animated: true)
+        controller.singleDelegate = self
     }
     
     func viewHasFinished() {
         childCoordinators.removeAll()
-
+        parentCoordinatorDelegate?.childHasFinished(coordinator: self)
     }
     
+    func setViewControllersDelegate(){
+        for controller in viewControllers{
+            controller.singleDelegate = self
+        }
+    }
     
 }

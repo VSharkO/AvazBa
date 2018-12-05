@@ -31,11 +31,11 @@ class MainScreenCoordinator : Coordinator, ParentCoordinatorDelegate, MainCoordi
     }
     
     func childHasFinished(coordinator: Coordinator) {
-        childCoordinators.removeAll()
+        removeChildCoordinator(childCoordinator: coordinator)
     }
     
     func openNextScreen(ids: [Int], focusedItem: Int) {
-        let coordinator = SingleCoordinator(presenter: presenter, ids: ids, focusedArticle: focusedItem)
+        let coordinator = SinglePagerCoordinator(presenter: presenter, ids: ids, focusedArticle: focusedItem)
         coordinator.parentCoordinatorDelegate = self
         self.addChildCoordinator(childCoordinator: coordinator)
         coordinator.start()
