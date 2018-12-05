@@ -61,7 +61,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.articleText.text = article.description
                 cell.setPicture(image: article.image.original)
                 cell.articleTitle.text = article.title
-                cell.publishedText.text = DateToBeforeCurrentTimeConverter.toBeforeCurrentTime(date: article.publishedAt.date)
+                cell.publishedText.text = DateToBeforeCurrentTimeConverter.toBeforeCurrentTime(dateInPast: article.publishedAt.date, currentDate: Date())
                 cell.shareNumText.text = String(article.shares)
                 return cell
             }else{

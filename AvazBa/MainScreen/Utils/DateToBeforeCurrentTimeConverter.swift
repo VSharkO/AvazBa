@@ -10,20 +10,19 @@ import Foundation
 
 class DateToBeforeCurrentTimeConverter{
     
-   static func toBeforeCurrentTime(date : Date) -> String{
+    static func toBeforeCurrentTime(dateInPast : Date, currentDate: Date) -> String{
         var before = ""
-        let currentDate = Date()
         let currentCalendar = Calendar.current
         
-        let yearDif = currentCalendar.dateComponents([.year], from: date, to: currentDate).year
-        let monthDif = currentCalendar.dateComponents([.month], from: date, to: currentDate).month
-        let dayDif = currentCalendar.dateComponents([.day], from: date, to: currentDate).day
-        let hourDif = currentCalendar.dateComponents([.hour], from: date, to: currentDate).hour
-        let minutesDif = currentCalendar.dateComponents([.minute], from: date, to: currentDate).minute
+        let yearDif = currentCalendar.dateComponents([.year], from: dateInPast, to: currentDate).year
+        let monthDif = currentCalendar.dateComponents([.month], from: dateInPast, to: currentDate).month
+        let dayDif = currentCalendar.dateComponents([.day], from: dateInPast, to: currentDate).day
+        let hourDif = currentCalendar.dateComponents([.hour], from: dateInPast, to: currentDate).hour
+        let minutesDif = currentCalendar.dateComponents([.minute], from: dateInPast, to: currentDate).minute
     
         if let years = yearDif, let months = monthDif, let days = dayDif, let hours = hourDif, let minutes = minutesDif{
-            if years > 0 && months > 12{
-                if years%10 < 5 && months%10 > 0 {
+            if years > 0 && months > 11{
+                if years%10 < 5 && years%10 > 0 {
                     before = "Prije \(years) godine"
                 }else{
                     before = "Prije \(years) godina"
@@ -33,6 +32,9 @@ class DateToBeforeCurrentTimeConverter{
                     before = "Prije \(months) mjeseca"
                 }else if months%10==1{
                     before = "Prije \(months) mjesec"
+                    if months == 11{
+                        before = "Prije \(months) mjeseci"
+                    }
                 }else{
                     before = "Prije \(months) mjeseci"
                 }
@@ -55,7 +57,7 @@ class DateToBeforeCurrentTimeConverter{
                         before = "Prije \(hours) sati"
                     }
                 }//minute
-            }else if minutes > 0 && minutes < 59{
+            }else if minutes > 0{
                 before = "Prije \(minutes) min"
             }else{
                 before = "Sada"

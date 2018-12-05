@@ -79,7 +79,7 @@ class MainScreenTests: QuickSpec {
             }
         }
 
-        describe("LoaderLogic"){
+        describe("Loader logic"){
             context("when sending request"){
                 var testScheduler = TestScheduler(initialClock: 0)
                 var subscriber = testScheduler.createObserver(Bool.self)
@@ -106,7 +106,7 @@ class MainScreenTests: QuickSpec {
         }
 
         describe("Pull to refresh logic"){
-            context("user pull to refresh"){
+            context("user pulls to refresh"){
                 var testScheduler = TestScheduler(initialClock: 0)
                 var subscriber = testScheduler.createObserver(Bool.self)
                 var mockRepository = MockRepositoryProtocol()
@@ -123,7 +123,7 @@ class MainScreenTests: QuickSpec {
                     testScheduler.start()
                     mainViewModel.pullToRefresh()
                 }
-                it("is trigered event for request in viewModel"){
+                it("trigeres event for request in viewModel"){
                     expect(subscriber.events.first!.value.element).to(equal(true))
                 }
                 it("is calling viewModel to send request for first page"){
@@ -206,7 +206,6 @@ class MainScreenTests: QuickSpec {
                 }
             }
         }
-        
         
     }
 }
