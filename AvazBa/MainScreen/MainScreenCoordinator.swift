@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MainScreenCoordinator : Coordinator, CoordinatorDelegate{
+class MainScreenCoordinator : Coordinator, ParentCoordinatorDelegate, MainCoordinatorDelegate{
     
     var childCoordinators: [Coordinator] = []
     var presenter: UINavigationController
@@ -23,10 +23,22 @@ class MainScreenCoordinator : Coordinator, CoordinatorDelegate{
     
     func start() {
         presenter.pushViewController(controller, animated: true)
+        controller.mainCoordinatorDelegate = self
     }
     
     func viewHasFinished() {
         childCoordinators.removeAll()
+    }
+    
+    func childHasFinished(coordinator: Coordinator) {
+        childCoordinators.removeAll()
+    }
+    
+    func openNextScreen(ids: [Int], focusedItem: Int) {
+        let coordinator = SingleCoordinator(presenter: presenter, ids: ids, focusedArticle: focusedItem)
+        coordinator.parentCoordinatorDelegate = self
+        self.addChildCoordinator(childCoordinator: coordinator)
+        coordinator.start()
     }
     
 }

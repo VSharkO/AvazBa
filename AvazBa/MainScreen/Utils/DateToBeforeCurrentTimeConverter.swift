@@ -56,7 +56,7 @@ class DateToBeforeCurrentTimeConverter{
                     if hours > 9 && hours<21{
                         before = "Prije \(hours) sati"
                     }
-                }//minute
+                }
             }else if minutes > 0{
                 before = "Prije \(minutes) min"
             }else{

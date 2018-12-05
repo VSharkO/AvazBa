@@ -12,12 +12,13 @@ import Kingfisher
 import MaterialComponents.MaterialTabs
 
 class MainViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, MDCTabBarDelegate, LoaderManager{
-
+    
     private var viewModel: MainViewModelProtocol!
     private let disposeBag = DisposeBag()
     var loaderController: UIRefreshControl?
     var loader : UIView?
     var refreshController: UIRefreshControl?
+    var mainCoordinatorDelegate: MainCoordinatorDelegate?
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -224,6 +225,16 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     @objc func refreshData(){
         viewModel.pullToRefresh()
+    }
+    
+    @objc func moveToSingleScreenWithIndex(clickedNews: Int){
+        var ids : [Int] = []
+        for article in viewModel.data{
+            if let currentArticle = article as? Article{
+                ids.append(currentArticle.id)
+            }
+        }
+        mainCoordinatorDelegate?.openNextScreen(ids: ids, focusedItem: clickedNews)
     }
 
 }

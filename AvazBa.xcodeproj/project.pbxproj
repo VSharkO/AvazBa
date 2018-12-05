@@ -34,6 +34,12 @@
 		D5CA30F8219EE311007BE8F9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CA30F7219EE311007BE8F9 /* MainViewController.swift */; };
 		D5CA30FC219EE699007BE8F9 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CA30FB219EE699007BE8F9 /* Article.swift */; };
 		D5EA7C9521B7A1BC00BF762E /* DateToBeforeCurrentTimeConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EA7C9421B7A1BC00BF762E /* DateToBeforeCurrentTimeConverterTests.swift */; };
+		D5EA7C9821B7BB2700BF762E /* SingleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EA7C9721B7BB2700BF762E /* SingleViewController.swift */; };
+		D5EA7C9A21B7C0F300BF762E /* SingleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EA7C9921B7C0F300BF762E /* SingleCoordinator.swift */; };
+		D5EA7C9C21B7C19000BF762E /* SinglePageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EA7C9B21B7C19000BF762E /* SinglePageViewController.swift */; };
+		D5EA7C9E21B7C31800BF762E /* MainCoordinatorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EA7C9D21B7C31800BF762E /* MainCoordinatorDelegate.swift */; };
+		D5EA7CA021B7ECB500BF762E /* SingleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EA7C9F21B7ECB500BF762E /* SingleViewModel.swift */; };
+		D5EA7CA221B7ECD600BF762E /* SingleViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EA7CA121B7ECD600BF762E /* SingleViewModelProtocol.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +87,12 @@
 		D5CA30F7219EE311007BE8F9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D5CA30FB219EE699007BE8F9 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
 		D5EA7C9421B7A1BC00BF762E /* DateToBeforeCurrentTimeConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateToBeforeCurrentTimeConverterTests.swift; sourceTree = "<group>"; };
+		D5EA7C9721B7BB2700BF762E /* SingleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewController.swift; sourceTree = "<group>"; };
+		D5EA7C9921B7C0F300BF762E /* SingleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleCoordinator.swift; sourceTree = "<group>"; };
+		D5EA7C9B21B7C19000BF762E /* SinglePageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinglePageViewController.swift; sourceTree = "<group>"; };
+		D5EA7C9D21B7C31800BF762E /* MainCoordinatorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorDelegate.swift; sourceTree = "<group>"; };
+		D5EA7C9F21B7ECB500BF762E /* SingleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewModel.swift; sourceTree = "<group>"; };
+		D5EA7CA121B7ECD600BF762E /* SingleViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleViewModelProtocol.swift; sourceTree = "<group>"; };
 		F81D8A49DBA37939FB664EEB /* Pods-AvazBaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvazBaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AvazBaTests/Pods-AvazBaTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,6 +159,7 @@
 				D56F23AA219ED2E8009B17B6 /* AppCoordinator.swift */,
 				D56F23AC219ED2E8009B17B6 /* CoordinatorDelegate.swift */,
 				D56F23AD219ED2E8009B17B6 /* Coordinator.swift */,
+				D5EA7C9D21B7C31800BF762E /* MainCoordinatorDelegate.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -220,6 +233,7 @@
 		D57D6224219DBA0C00A8479F /* AvazBa */ = {
 			isa = PBXGroup;
 			children = (
+				D5EA7C9621B7BB0300BF762E /* SingleScreen */,
 				D520BA0421A2F92E0065361C /* Utils */,
 				D579DD1A21A2CA1E00133127 /* Interactor */,
 				D5CA30FA219EE68E007BE8F9 /* Model */,
@@ -279,6 +293,18 @@
 				D5CA30FB219EE699007BE8F9 /* Article.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D5EA7C9621B7BB0300BF762E /* SingleScreen */ = {
+			isa = PBXGroup;
+			children = (
+				D5EA7C9721B7BB2700BF762E /* SingleViewController.swift */,
+				D5EA7C9921B7C0F300BF762E /* SingleCoordinator.swift */,
+				D5EA7C9B21B7C19000BF762E /* SinglePageViewController.swift */,
+				D5EA7C9F21B7ECB500BF762E /* SingleViewModel.swift */,
+				D5EA7CA121B7ECD600BF762E /* SingleViewModelProtocol.swift */,
+			);
+			path = SingleScreen;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -511,22 +537,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5EA7C9A21B7C0F300BF762E /* SingleCoordinator.swift in Sources */,
 				D56F23AE219ED2E8009B17B6 /* AppCoordinator.swift in Sources */,
 				D56F23B7219ED6E0009B17B6 /* MainScreenCoordinator.swift in Sources */,
 				D5932A1C21A0D8C800BBA8E0 /* CustomCell.swift in Sources */,
 				D53AD63021A5941A00C30A2B /* LoaderCell.swift in Sources */,
 				D520BA0621A2F93F0065361C /* Utils.swift in Sources */,
 				D56F23B1219ED2E8009B17B6 /* Coordinator.swift in Sources */,
+				D5EA7C9E21B7C31800BF762E /* MainCoordinatorDelegate.swift in Sources */,
 				D55B415721A6A64300923984 /* Interactor.swift in Sources */,
 				D56F23BB219EDA19009B17B6 /* MainViewModelProtocol.swift in Sources */,
 				D5C57F8021B665710063B2AC /* DateToBeforeCurrentTimeConverter.swift in Sources */,
 				D5CA30FC219EE699007BE8F9 /* Article.swift in Sources */,
+				D5EA7C9C21B7C19000BF762E /* SinglePageViewController.swift in Sources */,
 				D56F23C0219EDFA8009B17B6 /* RepositoryProtocol.swift in Sources */,
 				D56F23B0219ED2E8009B17B6 /* CoordinatorDelegate.swift in Sources */,
+				D5EA7C9821B7BB2700BF762E /* SingleViewController.swift in Sources */,
+				D5EA7CA021B7ECB500BF762E /* SingleViewModel.swift in Sources */,
 				D57D6226219DBA0C00A8479F /* AppDelegate.swift in Sources */,
 				D56F23B9219ED949009B17B6 /* MainViewModel.swift in Sources */,
 				D5CA30F8219EE311007BE8F9 /* MainViewController.swift in Sources */,
 				D56F608121A18C9A00DDE70D /* Repository.swift in Sources */,
+				D5EA7CA221B7ECD600BF762E /* SingleViewModelProtocol.swift in Sources */,
 				D55B415A21A6A7C300923984 /* CellTypes.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

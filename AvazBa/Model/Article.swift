@@ -15,6 +15,7 @@ struct Article: Codable,CellItem {
     var description: String
     var shares: Int
     var publishedAt: PublishedAt
+    var id: Int
     
     enum CodingKeys: String, CodingKey {
         case image = "featured_image"
@@ -22,14 +23,16 @@ struct Article: Codable,CellItem {
         case description = "title"
         case shares = "shares"
         case publishedAt = "published_at"
+        case id = "id"
     }
     
-    init(title: String, description: String, image: FeaturedImage, shares: Int, publishedAt: PublishedAt) {
+    init(title: String, description: String, image: FeaturedImage, shares: Int, publishedAt: PublishedAt, id: Int) {
         self.title = title
         self.description = description
         self.image = image
         self.shares = shares
         self.publishedAt = publishedAt
+        self.id = id
     }
 }
 
