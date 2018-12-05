@@ -33,6 +33,7 @@
 		D5C57F8D21B69BE90063B2AC /* main_screen_articles_success.json in Resources */ = {isa = PBXBuildFile; fileRef = D5C57F8C21B69BE90063B2AC /* main_screen_articles_success.json */; };
 		D5CA30F8219EE311007BE8F9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CA30F7219EE311007BE8F9 /* MainViewController.swift */; };
 		D5CA30FC219EE699007BE8F9 /* Article.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5CA30FB219EE699007BE8F9 /* Article.swift */; };
+		D5EA7C9521B7A1BC00BF762E /* DateToBeforeCurrentTimeConverterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5EA7C9421B7A1BC00BF762E /* DateToBeforeCurrentTimeConverterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,7 @@
 		D5C57F8C21B69BE90063B2AC /* main_screen_articles_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = main_screen_articles_success.json; sourceTree = "<group>"; };
 		D5CA30F7219EE311007BE8F9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D5CA30FB219EE699007BE8F9 /* Article.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Article.swift; sourceTree = "<group>"; };
+		D5EA7C9421B7A1BC00BF762E /* DateToBeforeCurrentTimeConverterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateToBeforeCurrentTimeConverterTests.swift; sourceTree = "<group>"; };
 		F81D8A49DBA37939FB664EEB /* Pods-AvazBaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvazBaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AvazBaTests/Pods-AvazBaTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -239,6 +241,7 @@
 				D50A0C7621AEC33800261511 /* GeneratedMocks.swift */,
 				D57D623A219DBA0D00A8479F /* MainScreenTests.swift */,
 				D57D623C219DBA0D00A8479F /* Info.plist */,
+				D5EA7C9421B7A1BC00BF762E /* DateToBeforeCurrentTimeConverterTests.swift */,
 			);
 			path = AvazBaTests;
 			sourceTree = "<group>";
@@ -534,6 +537,7 @@
 			files = (
 				D520BA0321A2F5AA0065361C /* MainScreenTests.swift in Sources */,
 				D50A0C7721AEC33800261511 /* GeneratedMocks.swift in Sources */,
+				D5EA7C9521B7A1BC00BF762E /* DateToBeforeCurrentTimeConverterTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

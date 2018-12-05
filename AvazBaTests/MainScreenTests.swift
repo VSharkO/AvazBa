@@ -182,7 +182,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.newest)).thenReturn(Observable.just(supplyListResponse))
                     }
                     stub(mockRepository) { mock in
                         when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.mostRead)).thenReturn(Observable.just(supplyListResponse))
