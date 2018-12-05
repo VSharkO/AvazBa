@@ -102,6 +102,21 @@ class CustomCell: UITableViewCell {
         return stackForShares
     }()
     
+    var categoryText : UILabel = {
+        let categoryText = UILabel()
+        categoryText.translatesAutoresizingMaskIntoConstraints = false
+        categoryText.textColor = .white
+        categoryText.adjustsFontSizeToFitWidth = false
+        categoryText.numberOfLines = 1
+        categoryText.font = UIFont.init(name: "Roboto-Regular", size: 12)
+        categoryText.isUserInteractionEnabled = false
+        categoryText.backgroundColor = .red
+        categoryText.layer.cornerRadius = 3
+        categoryText.layer.masksToBounds = true
+        categoryText.textAlignment = .justified
+        return categoryText
+    }()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -122,6 +137,7 @@ class CustomCell: UITableViewCell {
         stackForShares.addArrangedSubview(shareNumText)
         stackForShares.addArrangedSubview(shareImage)
         self.rootView.addSubview(stackForShares)
+        self.articlePhoto.addSubview(categoryText)
         setupConstraints()
     }
     
@@ -174,9 +190,15 @@ class CustomCell: UITableViewCell {
             shareImage.heightAnchor.constraint(equalToConstant: 16),
             shareImage.widthAnchor.constraint(equalToConstant: 16)
             ])
+        
+        NSLayoutConstraint.activate([
+            categoryText.bottomAnchor.constraint(equalTo: articlePhoto.bottomAnchor, constant: -16.2),
+            categoryText.leadingAnchor.constraint(equalTo: articlePhoto.leadingAnchor, constant: 28),
+            categoryText.heightAnchor.constraint(equalToConstant: 21)
+            ])
     }
     
-    func setPicture(image: String){
+    func setMainPicture(image: String){
         let url = URL(string: constants.baseUrl + image)
         articlePhoto.kf.setImage(with:url)
     }

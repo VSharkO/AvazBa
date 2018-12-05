@@ -19,6 +19,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     var loader : UIView?
     var refreshController: UIRefreshControl?
     var mainCoordinatorDelegate: MainCoordinatorDelegate?
+    var isScreenEditing: Bool = false
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -57,10 +58,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             if let cell = tableView.dequeueReusableCell(withIdentifier: "customeCell", for: indexPath) as? CustomCell{
                 let article = viewModel.data[indexPath.row] as! Article
                 cell.articleText.text = article.description
-                cell.setPicture(image: article.image.original)
+                cell.setMainPicture(image: article.image.original)
                 cell.articleTitle.text = article.title
                 cell.publishedText.text = DateToBeforeCurrentTimeConverter.toBeforeCurrentTime(dateInPast: article.publishedAt.date, currentDate: Date())
                 cell.shareNumText.text = String(article.shares)
+                cell.categoryText.text = "  " + article.category.capitalized + "  "
                 return cell
             }else{
                 return UITableViewCell()
@@ -94,7 +96,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(viewModel.data.count != 0){
-            if Double(indexPath.row) >= Double(viewModel.data.count-1){
+            if indexPath.row >= viewModel.data.count-1 && isScreenEditing == false{
                 viewModel.moreDataRequest()
             }
         }
@@ -122,20 +124,30 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             }
         }).disposed(by: disposeBag)
         
-        viewModel.viewInsertRows.observeOn(MainScheduler.instance).subscribe(onNext:{
-            indexes in
+        viewModel.viewInsertRows.observeOn(MainScheduler.instance).subscribe(onNext:{ [unowned self] indexes in
+            self.isScreenEditing = true
             self.tableView.performBatchUpdates({
                 self.tableView.insertRows(at: indexes, with: .automatic)
-                })
+            }, completion:{ [unowned self]  isFinished in
+                if isFinished{
+                    self.isScreenEditing = false
+                }
+            })
         }).disposed(by: disposeBag)
         
-        viewModel.viewReloadRows.observeOn(MainScheduler.instance).subscribe(onNext:{ indexes in
+        viewModel.viewReloadRows.observeOn(MainScheduler.instance).subscribe(onNext:{ [unowned self] indexes in
+            self.isScreenEditing = true
             self.tableView.performBatchUpdates({
                  self.tableView.reloadRows(at: indexes, with: .automatic)
-            }, completion: nil)
+            }, completion:{ [unowned self]  isFinished in
+                if isFinished{
+                self.isScreenEditing = false
+                }
+            })
         }).disposed(by: disposeBag)
         
-        viewModel.viewReloadRowsForNewTab.observeOn(MainScheduler.instance).subscribe(onNext:{ (numOfArticlesToAdd,numOfArticlesToDelete) in
+        viewModel.viewReloadRowsForNewTab.observeOn(MainScheduler.instance).subscribe(onNext:{[unowned self] (numOfArticlesToAdd,numOfArticlesToDelete) in
+            self.isScreenEditing = true
             self.tableView.performBatchUpdates({
                 var arrayOfIndexPathsToDelete = [IndexPath]()
                 for element in Array(numOfArticlesToAdd..<numOfArticlesToDelete){
@@ -147,10 +159,11 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 }
                 self.tableView.deleteRows(at: arrayOfIndexPathsToDelete, with: .automatic)
                 self.tableView.reloadRows(at: arrayOfIndexPathsToAdd, with: .automatic)
-            }, completion: { isFinished in
+            }, completion: {[unowned self] isFinished in
                 if isFinished{
                     let indexPath = IndexPath(row: 0, section:  0)
                     self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+                    self.isScreenEditing = false
                 }
             })
         }).disposed(by: disposeBag)
@@ -218,6 +231,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             removeLoader(loader: loader)
         }
         hideSpinner()
+        
     }
     
     func hideSpinner(){
