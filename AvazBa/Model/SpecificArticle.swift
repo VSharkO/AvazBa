@@ -12,24 +12,34 @@ struct SpecificArticle : Codable{
     let id: Int
     let title: String
     let featuredImage: FeaturedImage
-//    let autoRelatedArticles: [Article]
+    let autoRelatedArticles: [ContentOfRelatedArticle]
     let content: [ArticleContent]
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case title = "title"
         case featuredImage = "featured_image"
-//        case autoRelatedArticles = "auto_related_articles"
+        case autoRelatedArticles = "auto_related_articles"
         case content = "content"
     }
     
-//    init(id: Int, title: String, featuredImage: FeaturedImage, autoRelatedArticles: [Article],content: [ArticleContent]) {
-//        self.id = id
-//        self.title = title
-//        self.featuredImage = featuredImage
-//        self.autoRelatedArticles = autoRelatedArticles
-//        self.content = content
-//    }
+    struct ContentOfRelatedArticle: Codable {
+        var image: FeaturedImage?
+        var title: String?
+        var description: String?
+        var shares: Int?
+        var id: Int?
+        var category: String?
+        
+        enum CodingKeys: String, CodingKey {
+            case image = "featured_image"
+            case title = "uppertitle_raw"
+            case description = "title"
+            case shares = "shares"
+            case id = "id"
+            case category = "category_slug"
+        }
+    }
 }
 
 struct ArticleContent : Codable{
@@ -41,11 +51,5 @@ struct ArticleContent : Codable{
         case articleId = "article_id"
         case type = "type"
         case data = "data"
-    }
-    
-    init(articleId: Int, type: String, data: String){
-        self.articleId = articleId
-        self.type = type
-        self.data = data
     }
 }

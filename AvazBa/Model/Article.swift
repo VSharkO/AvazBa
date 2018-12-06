@@ -27,28 +27,12 @@ struct Article: Codable,CellItem {
         case id = "id"
         case category = "category_slug"
     }
-    
-    init(title: String, description: String, image: FeaturedImage, shares: Int, publishedAt: PublishedAt, id: Int, category: String) {
-        self.title = title
-        self.description = description
-        self.image = image
-        self.shares = shares
-        self.publishedAt = publishedAt
-        self.id = id
-        self.category = category
-    }
 }
 
 struct PublishedAt: Codable{
     var date: Date
     var timezoneType: Int
     var timezone: String
-
-    init(date: Date, timezoneType: Int, timezone: String) {
-        self.date = date
-        self.timezoneType = timezoneType
-        self.timezone = timezone
-    }
 
     enum CodingKeys: String, CodingKey {
         case date = "date"
