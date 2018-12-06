@@ -19,14 +19,16 @@ class DateToBeforeCurrentTimeConverter{
         let dayDif = currentCalendar.dateComponents([.day], from: dateInPast, to: currentDate).day
         let hourDif = currentCalendar.dateComponents([.hour], from: dateInPast, to: currentDate).hour
         let minutesDif = currentCalendar.dateComponents([.minute], from: dateInPast, to: currentDate).minute
-    
+        
         if let years = yearDif, let months = monthDif, let days = dayDif, let hours = hourDif, let minutes = minutesDif{
+            //years
             if years > 0 && months > 11{
                 if years%10 < 5 && years%10 > 0 {
                     before = "Prije \(years) godine"
                 }else{
                     before = "Prije \(years) godina"
                 }
+            //months
             }else if months > 0 && days > 29{
                 if (months%10>1 && months%10 < 5){
                     before = "Prije \(months) mjeseca"
@@ -38,6 +40,7 @@ class DateToBeforeCurrentTimeConverter{
                 }else{
                     before = "Prije \(months) mjeseci"
                 }
+            //Days
             }else if days > 0 && hours > 23{
                 if (days%10 == 1){
                     before = "Prije \(days) dan"
@@ -45,6 +48,7 @@ class DateToBeforeCurrentTimeConverter{
                 else{
                     before = "Prije \(days) dana"
                 }
+            //Hours
             }else if hours > 0 && minutes > 59{
                 if hours % 10 == 1{
                     before = "Prije \(hours) sat"
@@ -57,6 +61,7 @@ class DateToBeforeCurrentTimeConverter{
                         before = "Prije \(hours) sati"
                     }
                 }
+            //Minutes
             }else if minutes > 0{
                 before = "Prije \(minutes) min"
             }else{
