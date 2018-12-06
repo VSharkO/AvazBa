@@ -49,7 +49,7 @@ class MainScreenTests: QuickSpec {
                         when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
                     }
                     let testScheduler = TestScheduler(initialClock: 0)
-                    mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
+                    mainViewModel = MainViewModel(repository: mockRepository, scheduler: testScheduler)
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     testScheduler.start()
                 }
@@ -68,7 +68,7 @@ class MainScreenTests: QuickSpec {
                         when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
                     }
                     let testScheduler = TestScheduler(initialClock: 0)
-                    mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
+                    mainViewModel = MainViewModel(repository: mockRepository, scheduler: testScheduler)
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     testScheduler.start()
                 }
@@ -90,7 +90,7 @@ class MainScreenTests: QuickSpec {
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Bool.self)
-                    mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
+                    mainViewModel = MainViewModel(repository: mockRepository, scheduler: testScheduler)
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     mainViewModel.viewShowLoader.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
@@ -117,7 +117,7 @@ class MainScreenTests: QuickSpec {
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Bool.self)
-                    mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
+                    mainViewModel = MainViewModel(repository: mockRepository, scheduler: testScheduler)
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     mainViewModel.dataRequestTriger.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
@@ -144,7 +144,7 @@ class MainScreenTests: QuickSpec {
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Bool.self)
-                    mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
+                    mainViewModel = MainViewModel(repository: mockRepository, scheduler: testScheduler)
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     mainViewModel.dataRequestTriger.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
@@ -189,7 +189,7 @@ class MainScreenTests: QuickSpec {
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Bool.self)
-                    mainViewModel = MainViewModel(repository: mockRepository, schedulare: testScheduler)
+                    mainViewModel = MainViewModel(repository: mockRepository, scheduler: testScheduler)
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     mainViewModel.dataRequestTriger.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()

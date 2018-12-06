@@ -20,7 +20,7 @@ class SinglePagerCoordinator : Coordinator, CoordinatorDelegate{
     init(presenter: UINavigationController, ids: [Int], focusedArticle: Int) {
         self.presenter = presenter
         for id in ids{
-            let viewModel = SingleViewModel.init(id: id)
+            let viewModel = SingleViewModel.init(repository: Repository(), id: id)
             let viewController = SingleViewController(viewModel: viewModel)
             viewControllers.append(viewController)
         }

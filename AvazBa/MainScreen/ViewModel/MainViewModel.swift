@@ -26,9 +26,9 @@ class MainViewModel : MainViewModelProtocol{
     var viewReloadRowsForNewTab = PublishSubject<(Int,Int)>()
     var newTabSelected = false
     
-    init(repository: RepositoryProtocol, schedulare: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
+    init(repository: RepositoryProtocol, scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         self.repository = repository
-        self.scheduler = schedulare
+        self.scheduler = scheduler
     }
     func initGetingDataFromRepository() -> Disposable {
         return dataRequestTriger.flatMap({ [unowned self] _ -> Observable<[Article]> in
