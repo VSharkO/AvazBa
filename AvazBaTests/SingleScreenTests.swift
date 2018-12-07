@@ -17,7 +17,7 @@ import Nimble
 class SingleScreenTests : QuickSpec{
     
     override func spec() {
-        let testBundle = Bundle.init(for: MainScreenTests.self)
+        let testBundle = Bundle.init(for: SingleScreenTests.self)
         let supplyListUrl = testBundle.url(forResource: "single_screen_specific_article_success", withExtension: "json")!
         let supplyListData = try! Data(contentsOf: supplyListUrl)
         let supplyListResponse: SpecificArticle? =
@@ -29,6 +29,25 @@ class SingleScreenTests : QuickSpec{
             }catch{
                 return nil
             }
+        }()
+        
+        let testBundleSingle = Bundle.init(for: SingleScreenTests.self)
+        let supplyListUrlSingle = testBundleSingle.url(forResource: "main_screen_articles_success", withExtension: "json")!
+        let supplyListDataSingle = try! Data(contentsOf: supplyListUrlSingle)
+        let supplyListResponseSingle: [Article] =
+        {
+            do{
+                let decoder = JSONDecoder()
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.000000"
+                //                            decoder.keyDecodingStrategy = .convertFromSnakeCase
+                decoder.dateDecodingStrategy = .formatted(formatter)
+                let responce = try decoder.decode(Response.self, from: supplyListDataSingle)
+                return responce.articles
+            }catch{
+                return []
+            }
+            
         }()
 
         var singleViewModel: SingleViewModel!
@@ -46,6 +65,9 @@ class SingleScreenTests : QuickSpec{
                     stub(mockRepository) { mock in
                         when(mock.getSpecificArticle(id: 2)).thenReturn(Observable.just(supplyListResponse!))
                     }
+                    stub(mockRepository) { mock in
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.mostRead)).thenReturn(Observable.just(supplyListResponseSingle))
+                    }
                     testScheduler = TestScheduler(initialClock: 0)
                     singleViewModel = SingleViewModel(repository: mockRepository, id: 2, scheduler: testScheduler)
                     singleViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
@@ -58,8 +80,8 @@ class SingleScreenTests : QuickSpec{
                 it("data is not empty"){
                     expect(singleViewModel.data.count).toNot(equal(0))
                 }
-                it("data count is equal to desired number of cells(8 currently)"){
-                    expect(singleViewModel.data.count).to(equal(8))
+                it("data count is equal to desired number of cells(15 currently)"){
+                    expect(singleViewModel.data.count).to(equal(16))
                 }
                 it("data order is correct"){
                     expect(singleViewModel.data[0].cellType).to(equal(SingleArticleCellTypes.image))
@@ -70,6 +92,10 @@ class SingleScreenTests : QuickSpec{
                     expect(singleViewModel.data[5].cellType).to(equal(SingleArticleCellTypes.relatedNews))
                     expect(singleViewModel.data[6].cellType).to(equal(SingleArticleCellTypes.relatedNews))
                     expect(singleViewModel.data[7].cellType).to(equal(SingleArticleCellTypes.relatedNews))
+                    expect(singleViewModel.data[8].cellType).to(equal(SingleArticleCellTypes.mostReadTitle))
+                    for i in 9...15{
+                        expect(singleViewModel.data[i].cellType).to(equal(SingleArticleCellTypes.mostReadNews))
+                    }
                 }
             }
         }

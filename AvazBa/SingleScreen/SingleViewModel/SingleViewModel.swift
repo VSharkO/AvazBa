@@ -23,11 +23,11 @@ class SingleViewModel : SingleViewModelProtocol{
     }
     
     func initGetingDataFromRepository() -> Disposable {
-        return dataRequestTriger.flatMap({ [unowned self] _ -> Observable<SpecificArticle> in
-            return self.repository.getSpecificArticle(id: self.id)
+        return dataRequestTriger.flatMap({ [unowned self] _ -> Observable<(SpecificArticle,[Article])> in
+            Observable.zip(self.repository.getSpecificArticle(id: self.id), self.repository.getMostPopularArticles(pageNum: 1, category: constants.mostRead))
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [unowned self] article in
+            .subscribe(onNext: { [unowned self] article,arrayOfRelated in
                 self.data.append(Cell(cellType: SingleArticleCellTypes.image, data: article.featuredImage.original))
                 self.data.append(Cell(cellType: SingleArticleCellTypes.upperTitle, data: article.upperTitle))
                 self.data.append(Cell(cellType: SingleArticleCellTypes.title, data: article.title))
@@ -41,9 +41,9 @@ class SingleViewModel : SingleViewModelProtocol{
                         self.data.append(Cell(cellType: SingleArticleCellTypes.relatedNews, data: article))
                     }
                 }
-                
-                if let title = self.data[0].data as! String?, let image = self.data[1].data as! String?, let text = self.data[2].data as! String?, let upperTitle = self.data[3].data as! String?{
-                    print(title + image + text + upperTitle)
+                self.data.append(Cell(cellType: SingleArticleCellTypes.mostReadTitle, data: constants.mostRead))
+                for i in 0...6{
+                    self.data.append(Cell(cellType: SingleArticleCellTypes.mostReadNews, data: arrayOfRelated[i]))
                 }
             })
     }
