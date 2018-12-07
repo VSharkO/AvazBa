@@ -34,7 +34,6 @@ class MainScreenTests: QuickSpec {
             }
             
         }()
-       
         
         var mainViewModel: MainViewModel!
         let disposeBag = DisposeBag()
@@ -56,7 +55,7 @@ class MainScreenTests: QuickSpec {
                 it("is not nil"){
                     expect(mainViewModel).toNot(be(nil))
                 }
-                it("data is not empty"){
+                it("data count is 0"){
                     expect(mainViewModel.data.count).to(be(0))
                 }
             }

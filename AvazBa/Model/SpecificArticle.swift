@@ -11,25 +11,27 @@ import Foundation
 struct SpecificArticle : Codable{
     let id: Int
     let title: String
+    let upperTitle: String
     let featuredImage: FeaturedImage
-    let autoRelatedArticles: [ContentOfRelatedArticle]
+    let autoRelatedArticles: [ContentOfRelatedArticle]?
     let content: [ArticleContent]
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case title = "title"
+        case upperTitle = "uppertitle"
         case featuredImage = "featured_image"
         case autoRelatedArticles = "auto_related_articles"
         case content = "content"
     }
     
-    struct ContentOfRelatedArticle: Codable {
-        var image: FeaturedImage?
-        var title: String?
-        var description: String?
-        var shares: Int?
-        var id: Int?
-        var category: String?
+    struct ContentOfRelatedArticle: Codable{
+        var image: FeaturedImage
+        var title: String
+        var description: String
+        var shares: Int
+        var id: Int
+        var category: String
         
         enum CodingKeys: String, CodingKey {
             case image = "featured_image"

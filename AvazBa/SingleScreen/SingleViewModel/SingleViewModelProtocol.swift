@@ -12,5 +12,5 @@ import RxSwift
 protocol SingleViewModelProtocol{
     func initGetingDataFromRepository() -> Disposable
     func getSpecificArticle()
-    func getData() -> [(data: String,typeOfCell: String)]
+    func getData() -> [Cell]
 }

@@ -14,7 +14,7 @@ class SingleViewModel : SingleViewModelProtocol{
     let scheduler : SchedulerType
     let repository: RepositoryProtocol
     var dataRequestTriger = PublishSubject<Bool>()
-    var data: [(data: String,typeOfCell: String)] = []
+    var data: [Cell] = []
     
     init(repository: RepositoryProtocol, id: Int, scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         self.id = id
@@ -28,11 +28,26 @@ class SingleViewModel : SingleViewModelProtocol{
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] article in
-                self.data.append((String(article.id), "text"))
-                self.data.append((article.title, "text"))
-                self.data.append((article.featuredImage.original, "text"))
-                self.data.append((article.content[0].data, "text"))
-                print(self.data[0].data + self.data[1].data + self.data[2].data,self.data[3].data)
+                self.data.append(Cell(cellType: SingleArticleCellTypes.title, data: article.title))
+                self.data.append(Cell(cellType: SingleArticleCellTypes.image, data: article.featuredImage.original))
+                
+                for content in article.content{
+                    if content.type == "text"{
+                        self.data.append(Cell(cellType: SingleArticleCellTypes.text, data: content.data))
+                    }
+                }
+                
+                self.data.append(Cell(cellType: SingleArticleCellTypes.upperTitle, data: article.upperTitle))
+                
+                if let relatedArticles = article.autoRelatedArticles{
+                    for article in relatedArticles{
+                        self.data.append(Cell(cellType: SingleArticleCellTypes.relatedNews, data: article))
+                    }
+                }
+                
+                if let title = self.data[0].data as! String?, let image = self.data[1].data as! String?, let text = self.data[2].data as! String?, let upperTitle = self.data[3].data as! String?{
+                    print(title + image + text + upperTitle)
+                }
             })
     }
 
@@ -40,7 +55,7 @@ class SingleViewModel : SingleViewModelProtocol{
         dataRequestTriger.onNext(true)
     }
     
-    func getData() -> [(data: String,typeOfCell: String)]{
+    func getData() -> [Cell]{
         return data
     }
     

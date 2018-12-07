@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: AvazBa/Repository/RepositoryProtocol.swift at 2018-12-05 07:44:05 +0000
+// MARK: - Mocks generated from file: AvazBa/Repository/RepositoryProtocol.swift at 2018-12-07 08:33:22 +0000
 
 //
 //  RepositoryProtocol.swift
@@ -45,6 +45,20 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
         
     }
     
+    // ["name": "getSpecificArticle", "returnSignature": " -> Observable<SpecificArticle>", "fullyQualifiedName": "getSpecificArticle(id: Int) -> Observable<SpecificArticle>", "parameterSignature": "id: Int", "parameterSignatureWithoutNames": "id: Int", "inputTypes": "Int", "isThrowing": false, "isInit": false, "isOverriding": false, "hasClosureParams": false, "@type": "ProtocolMethod", "accessibility": "", "parameterNames": "id", "call": "id: id", "parameters": [CuckooGeneratorFramework.MethodParameter(label: Optional("id"), name: "id", type: "Int", range: CountableRange(338..<345), nameRange: CountableRange(338..<340))], "returnType": "Observable<SpecificArticle>", "isOptional": false, "escapingParameterNames": "id", "stubFunction": "Cuckoo.ProtocolStubFunction"]
+     func getSpecificArticle(id: Int)  -> Observable<SpecificArticle> {
+        
+            return cuckoo_manager.call("getSpecificArticle(id: Int) -> Observable<SpecificArticle>",
+                parameters: (id),
+                escapingParameters: (id),
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.getSpecificArticle(id: id))
+        
+    }
+    
 
 	struct __StubbingProxy_RepositoryProtocol: Cuckoo.StubbingProxy {
 	    private let cuckoo_manager: Cuckoo.MockManager
@@ -57,6 +71,11 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
 	    func getMostPopularArticles<M1: Cuckoo.Matchable, M2: Cuckoo.Matchable>(pageNum: M1, category: M2) -> Cuckoo.ProtocolStubFunction<(Int, String), Observable<[Article]>> where M1.MatchedType == Int, M2.MatchedType == String {
 	        let matchers: [Cuckoo.ParameterMatcher<(Int, String)>] = [wrap(matchable: pageNum) { $0.0 }, wrap(matchable: category) { $0.1 }]
 	        return .init(stub: cuckoo_manager.createStub(for: MockRepositoryProtocol.self, method: "getMostPopularArticles(pageNum: Int, category: String) -> Observable<[Article]>", parameterMatchers: matchers))
+	    }
+	    
+	    func getSpecificArticle<M1: Cuckoo.Matchable>(id: M1) -> Cuckoo.ProtocolStubFunction<(Int), Observable<SpecificArticle>> where M1.MatchedType == Int {
+	        let matchers: [Cuckoo.ParameterMatcher<(Int)>] = [wrap(matchable: id) { $0 }]
+	        return .init(stub: cuckoo_manager.createStub(for: MockRepositoryProtocol.self, method: "getSpecificArticle(id: Int) -> Observable<SpecificArticle>", parameterMatchers: matchers))
 	    }
 	    
 	}
@@ -81,6 +100,12 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
 	        return cuckoo_manager.verify("getMostPopularArticles(pageNum: Int, category: String) -> Observable<[Article]>", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
 	    }
 	    
+	    @discardableResult
+	    func getSpecificArticle<M1: Cuckoo.Matchable>(id: M1) -> Cuckoo.__DoNotUse<Observable<SpecificArticle>> where M1.MatchedType == Int {
+	        let matchers: [Cuckoo.ParameterMatcher<(Int)>] = [wrap(matchable: id) { $0 }]
+	        return cuckoo_manager.verify("getSpecificArticle(id: Int) -> Observable<SpecificArticle>", callMatcher: callMatcher, parameterMatchers: matchers, sourceLocation: sourceLocation)
+	    }
+	    
 	}
 
 }
@@ -93,6 +118,10 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
     
      func getMostPopularArticles(pageNum: Int, category: String)  -> Observable<[Article]> {
         return DefaultValueRegistry.defaultValue(for: Observable<[Article]>.self)
+    }
+    
+     func getSpecificArticle(id: Int)  -> Observable<SpecificArticle> {
+        return DefaultValueRegistry.defaultValue(for: Observable<SpecificArticle>.self)
     }
     
 }

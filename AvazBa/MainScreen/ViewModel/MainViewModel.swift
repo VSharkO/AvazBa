@@ -10,7 +10,6 @@ import Foundation
 import RxSwift
 
 class MainViewModel : MainViewModelProtocol{
-    
     internal var data: [CellItem] = []
     var pageCounter = 1
     var pullToRefreshFlag = false
