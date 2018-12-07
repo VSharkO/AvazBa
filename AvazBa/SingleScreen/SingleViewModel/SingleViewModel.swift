@@ -28,17 +28,14 @@ class SingleViewModel : SingleViewModelProtocol{
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] article in
-                self.data.append(Cell(cellType: SingleArticleCellTypes.title, data: article.title))
                 self.data.append(Cell(cellType: SingleArticleCellTypes.image, data: article.featuredImage.original))
-                
+                self.data.append(Cell(cellType: SingleArticleCellTypes.upperTitle, data: article.upperTitle))
+                self.data.append(Cell(cellType: SingleArticleCellTypes.title, data: article.title))
                 for content in article.content{
-                    if content.type == "text"{
+                    if content.type == constants.text{
                         self.data.append(Cell(cellType: SingleArticleCellTypes.text, data: content.data))
                     }
                 }
-                
-                self.data.append(Cell(cellType: SingleArticleCellTypes.upperTitle, data: article.upperTitle))
-                
                 if let relatedArticles = article.autoRelatedArticles{
                     for article in relatedArticles{
                         self.data.append(Cell(cellType: SingleArticleCellTypes.relatedNews, data: article))

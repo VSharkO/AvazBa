@@ -58,11 +58,18 @@ class SingleScreenTests : QuickSpec{
                 it("data is not empty"){
                     expect(singleViewModel.data.count).toNot(equal(0))
                 }
-                it("data count is equal to desired number of cells(5 currently)"){
-                    expect(singleViewModel.data.count).to(equal(7))
+                it("data count is equal to desired number of cells(8 currently)"){
+                    expect(singleViewModel.data.count).to(equal(8))
                 }
                 it("data order is correct"){
-                    
+                    expect(singleViewModel.data[0].cellType).to(equal(SingleArticleCellTypes.image))
+                    expect(singleViewModel.data[1].cellType).to(equal(SingleArticleCellTypes.upperTitle))
+                    expect(singleViewModel.data[2].cellType).to(equal(SingleArticleCellTypes.title))
+                    expect(singleViewModel.data[3].cellType).to(equal(SingleArticleCellTypes.text))
+                    expect(singleViewModel.data[4].cellType).to(equal(SingleArticleCellTypes.text))
+                    expect(singleViewModel.data[5].cellType).to(equal(SingleArticleCellTypes.relatedNews))
+                    expect(singleViewModel.data[6].cellType).to(equal(SingleArticleCellTypes.relatedNews))
+                    expect(singleViewModel.data[7].cellType).to(equal(SingleArticleCellTypes.relatedNews))
                 }
             }
         }
