@@ -74,8 +74,9 @@ class SingleScreenTests : QuickSpec{
                     testScheduler.start()
                     singleViewModel.getSpecificArticle()
                 }
-                it("sends request"){
+                it("sends request for both specificArticle and mostReadArticle at once"){
                     verify(mockRepository).getSpecificArticle(id: 2)
+                    verify(mockRepository).getMostPopularArticles(pageNum: 1, category: constants.mostRead)
                 }
                 it("data is not empty"){
                     expect(singleViewModel.data.count).toNot(equal(0))
