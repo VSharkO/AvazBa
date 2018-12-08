@@ -32,9 +32,10 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         registerCells()
         setupViews()
+        setupConstraints()
+        initSubscripts()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,10 +44,12 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        return viewModel.data.count
+
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -66,10 +69,27 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     private func setupViews(){
         self.view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
     private func registerCells(){
         self.tableView.register(ImageCell.self, forCellReuseIdentifier: "imageCell")
+    }
+    
+    private func initSubscripts(){
+        viewModel.viewReloadData.observeOn(MainScheduler.instance).subscribe(onNext:{ _ in
+            self.tableView.reloadData()
+        }).disposed(by: disposeBag)
+    }
+    
+    private func setupConstraints(){
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
     }
 }
 

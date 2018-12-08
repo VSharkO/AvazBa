@@ -44,8 +44,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     override func viewDidLoad() {
-        setupViews()
         registerCells()
+        setupViews()
+        setupConstraints()
         initSubscripts()
         setupRefreshControl()
         setupTabBar()
@@ -175,7 +176,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        setupConstraints()
     }
     
     private func setupTabBar(){
