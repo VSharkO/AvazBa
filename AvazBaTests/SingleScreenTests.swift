@@ -128,4 +128,3 @@ class SingleScreenTests : QuickSpec{
         }
     }
 }
-

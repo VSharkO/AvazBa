@@ -9,23 +9,22 @@
 import UIKit
 import RxSwift
 
-class SingleViewController: UIViewController/*, UITableViewDelegate, UITableViewDataSource */{
+class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     var viewModel: SingleViewModelProtocol!
     weak var singleDelegate: CoordinatorDelegate?
     private let disposeBag = DisposeBag()
     
-    let proba: UITextView = {
-        let title = UITextView()
-        title.translatesAutoresizingMaskIntoConstraints = false
-        return title
+    let tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     
     init(viewModel: SingleViewModelProtocol) {
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
         viewModel.initGetingDataFromRepository().disposed(by: self.disposeBag)
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -34,34 +33,43 @@ class SingleViewController: UIViewController/*, UITableViewDelegate, UITableView
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
-        viewModel.getSpecificArticle()
-    }
-    override func viewWillAppear(_ animated: Bool) {
-        
+        registerCells()
+        setupViews()
     }
     
-//    private func registerCells(){
-//        self.tableView.register(SingleImageCell.self, forCellReuseIdentifier: "imageCell")
-//        self.tableView.register(SingleTitleCell.self, forCellReuseIdentifier: "titleCell")
-//        return viewModel.data.count
-//    }
-//
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//
-//    }
-    func setupView(){
-        self.view.addSubview(proba)
-        
-        NSLayoutConstraint.activate([
-            proba.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 5),
-            proba.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 8),
-            proba.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -8),
-            proba.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -5)
-            ])
+    override func viewWillAppear(_ animated: Bool) {
+        viewModel.getSpecificArticle()
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch viewModel.data[indexPath.row].cellType{
+        case SingleArticleCellTypes.image:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as? ImageCell{
+                if let imageLink = viewModel.data[0].data as! String?{
+                    cell.setImage(image: imageLink)
+                }
+                return cell
+            }else{
+                return UITableViewCell()
+            }
+        default: return UITableViewCell()
+        }
+    }
+    
+    private func setupViews(){
+        self.view.addSubview(tableView)
+    }
+    
+    private func registerCells(){
+        self.tableView.register(ImageCell.self, forCellReuseIdentifier: "imageCell")
     }
 }
+

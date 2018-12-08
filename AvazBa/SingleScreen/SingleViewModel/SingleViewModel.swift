@@ -25,9 +25,9 @@ class SingleViewModel : SingleViewModelProtocol{
     
     func initGetingDataFromRepository() -> Disposable {
         return dataRequestTriger.flatMap({ [unowned self] _ -> Observable<(SpecificArticle,[Article])> in
-           let zipedObservables = Observable.zip(self.repository.getSpecificArticle(id: self.id), self.repository.getMostPopularArticles(pageNum: 1, category: constants.mostRead))
+          let observables = Observable.zip(self.repository.getSpecificArticle(id: self.id), self.repository.getMostPopularArticles(pageNum: 1, category: constants.mostRead))
             self.showLoader.onNext(true)
-            return zipedObservables
+            return observables
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] article,arrayOfRelated in
@@ -55,9 +55,5 @@ class SingleViewModel : SingleViewModelProtocol{
     func getSpecificArticle(){
         dataRequestTriger.onNext(true)
     }
-    
-    func getData() -> [Cell]{
-        return data
-    }
-    
+
 }

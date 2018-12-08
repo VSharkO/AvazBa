@@ -10,7 +10,8 @@ import Foundation
 import RxSwift
 
 protocol SingleViewModelProtocol{
+    var data: [Cell]{get}
+    
     func initGetingDataFromRepository() -> Disposable
     func getSpecificArticle()
-    func getData() -> [Cell]
 }
