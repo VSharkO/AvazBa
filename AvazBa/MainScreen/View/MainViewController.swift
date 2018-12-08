@@ -15,7 +15,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     private var viewModel: MainViewModelProtocol!
     private let disposeBag = DisposeBag()
-    var loaderController: UIRefreshControl?
     var loader : UIView?
     var refreshController: UIRefreshControl?
     var mainCoordinatorDelegate: MainCoordinatorDelegate?
@@ -231,7 +230,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             removeLoader(loader: loader)
         }
         hideSpinner()
-        
     }
     
     func hideSpinner(){

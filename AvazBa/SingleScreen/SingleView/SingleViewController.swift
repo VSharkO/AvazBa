@@ -9,11 +9,12 @@
 import UIKit
 import RxSwift
 
-class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource{
+class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, LoaderManager{
     
     var viewModel: SingleViewModelProtocol!
     weak var singleDelegate: CoordinatorDelegate?
     private let disposeBag = DisposeBag()
+    var loader : UIView?
     
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -81,7 +82,17 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         viewModel.viewReloadData.observeOn(MainScheduler.instance).subscribe(onNext:{ _ in
             self.tableView.reloadData()
         }).disposed(by: disposeBag)
+        
+        viewModel.viewShowLoader.observeOn(MainScheduler.instance).subscribe(onNext:{ isActive in
+            if isActive{
+                self.displayLoader()
+            }else{
+                self.hideLoader()
+            }
+        }).disposed(by: disposeBag)
     }
+    
+    
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
@@ -90,6 +101,16 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
             ])
+    }
+    
+    func displayLoader() {
+        loader = displayLoader(onView: self.view)
+    }
+    
+    func hideLoader() {
+        if let loader = loader{
+            removeLoader(loader: loader)
+        }
     }
 }
 

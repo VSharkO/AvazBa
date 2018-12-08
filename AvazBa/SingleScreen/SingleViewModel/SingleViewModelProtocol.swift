@@ -12,6 +12,7 @@ import RxSwift
 protocol SingleViewModelProtocol{
     var data: [Cell]{get}
     var viewReloadData: PublishSubject<Bool>{get}
+    var viewShowLoader: PublishSubject<Bool>{get}
     func initGetingDataFromRepository() -> Disposable
     func getSpecificArticle()
 }
