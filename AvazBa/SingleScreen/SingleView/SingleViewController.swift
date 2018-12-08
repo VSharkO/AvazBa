@@ -37,9 +37,6 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         setupViews()
         setupConstraints()
         initSubscripts()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
         viewModel.getSpecificArticle()
     }
     
@@ -64,6 +61,15 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }else{
                 return UITableViewCell()
             }
+        case SingleArticleCellTypes.upperTitle:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "upperTitle", for: indexPath) as? UpperTitleCell{
+                if let upperTitle = viewModel.data[1].data as! String?{
+                    cell.articleUpperTitle.text = upperTitle
+                }
+                return cell
+            }else{
+                return UITableViewCell()
+            }
         default: return UITableViewCell()
         }
     }
@@ -76,6 +82,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     private func registerCells(){
         self.tableView.register(ImageCell.self, forCellReuseIdentifier: "imageCell")
+        self.tableView.register(UpperTitleCell.self, forCellReuseIdentifier: "upperTitle")
     }
     
     private func initSubscripts(){
@@ -85,14 +92,12 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         viewModel.viewShowLoader.observeOn(MainScheduler.instance).subscribe(onNext:{ isActive in
             if isActive{
-                self.displayLoader()
+                self.showLoader()
             }else{
                 self.hideLoader()
             }
         }).disposed(by: disposeBag)
     }
-    
-    
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
@@ -103,7 +108,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             ])
     }
     
-    func displayLoader() {
+    func showLoader() {
         loader = displayLoader(onView: self.view)
     }
     

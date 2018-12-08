@@ -32,6 +32,7 @@ class SingleViewModel : SingleViewModelProtocol{
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] article,arrayOfRelated in
+                self.data.removeAll()
                 self.data.append(Cell(cellType: SingleArticleCellTypes.image, data: article.featuredImage.original))
                 self.data.append(Cell(cellType: SingleArticleCellTypes.upperTitle, data: article.upperTitle))
                 self.data.append(Cell(cellType: SingleArticleCellTypes.title, data: article.title))
