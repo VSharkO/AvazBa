@@ -30,7 +30,7 @@ class SingleScreenTests : QuickSpec{
                 return nil
             }
         }()
-        
+        let disposeBag = DisposeBag()
         let testBundleSingle = Bundle.init(for: SingleScreenTests.self)
         let supplyListUrlSingle = testBundleSingle.url(forResource: "main_screen_articles_success", withExtension: "json")!
         let supplyListDataSingle = try! Data(contentsOf: supplyListUrlSingle)
@@ -51,7 +51,6 @@ class SingleScreenTests : QuickSpec{
         }()
 
         var singleViewModel: SingleViewModel!
-        let disposeBag = DisposeBag()
         afterSuite {
             singleViewModel = nil
         }
@@ -63,7 +62,7 @@ class SingleScreenTests : QuickSpec{
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getSpecificArticle(id: 2)).thenReturn(Observable.just(supplyListResponse!))
+                        when(mock.getSpecificArticle(id: anyInt())).thenReturn(Observable.just(supplyListResponse!))
                     }
                     stub(mockRepository) { mock in
                         when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.mostRead)).thenReturn(Observable.just(supplyListResponseSingle))
@@ -97,6 +96,33 @@ class SingleScreenTests : QuickSpec{
                     for i in 9...15{
                         expect(singleViewModel.data[i].cellType).to(equal(SingleArticleCellTypes.mostReadNews))
                     }
+                }
+            }
+        }
+        
+        describe("Loaders logic"){
+            context("request sent"){
+                var testScheduler = TestScheduler(initialClock: 0)
+                var mockRepository = MockRepositoryProtocol()
+                let subscriber = testScheduler.createObserver(Bool.self)
+                beforeEach {
+                    mockRepository = MockRepositoryProtocol()
+                    stub(mockRepository) { mock in
+                        when(mock.getSpecificArticle(id: 2)).thenReturn(Observable.just(supplyListResponse!))
+                    }
+                    stub(mockRepository) { mock in
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.mostRead)).thenReturn(Observable.just(supplyListResponseSingle))
+                    }
+                    testScheduler = TestScheduler(initialClock: 0)
+                    singleViewModel = SingleViewModel(repository: mockRepository, id: 2, scheduler: testScheduler)
+                    singleViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
+                    singleViewModel.showLoader.subscribe(subscriber).disposed(by: disposeBag)
+                    testScheduler.start()
+                    singleViewModel.getSpecificArticle()
+                }
+                it("loader shows up on start of request and hide after response"){
+                    expect(subscriber.events.first!.value.element).to(equal(true))
+                    expect(subscriber.events.last!.value.element).to(equal(false))
                 }
             }
         }

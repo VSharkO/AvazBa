@@ -14,6 +14,7 @@ class SingleViewModel : SingleViewModelProtocol{
     let scheduler : SchedulerType
     let repository: RepositoryProtocol
     var dataRequestTriger = PublishSubject<Bool>()
+    var showLoader = PublishSubject<Bool>()
     var data: [Cell] = []
     
     init(repository: RepositoryProtocol, id: Int, scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
@@ -24,7 +25,9 @@ class SingleViewModel : SingleViewModelProtocol{
     
     func initGetingDataFromRepository() -> Disposable {
         return dataRequestTriger.flatMap({ [unowned self] _ -> Observable<(SpecificArticle,[Article])> in
-            Observable.zip(self.repository.getSpecificArticle(id: self.id), self.repository.getMostPopularArticles(pageNum: 1, category: constants.mostRead))
+           let zipedObservables = Observable.zip(self.repository.getSpecificArticle(id: self.id), self.repository.getMostPopularArticles(pageNum: 1, category: constants.mostRead))
+            self.showLoader.onNext(true)
+            return zipedObservables
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] article,arrayOfRelated in
@@ -45,6 +48,7 @@ class SingleViewModel : SingleViewModelProtocol{
                 for i in 0...6{
                     self.data.append(Cell(cellType: SingleArticleCellTypes.mostReadNews, data: arrayOfRelated[i]))
                 }
+                self.showLoader.onNext(false)
             })
     }
 
