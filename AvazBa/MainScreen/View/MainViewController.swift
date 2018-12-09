@@ -96,7 +96,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(viewModel.data.count != 0){
-            if indexPath.row >= viewModel.data.count-1 && isScreenEditing == false{
+            if indexPath.row >= viewModel.data.count-3 && isScreenEditing == false{
                 viewModel.moreDataRequest()
             }
         }
@@ -171,6 +171,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     private func setupViews(){
         self.view.backgroundColor = .white
+        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         self.view.addSubview(tabBar)
         self.view.addSubview(tableView)
         tableView.delegate = self

@@ -19,6 +19,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorInset = UIEdgeInsetsMake(0, 16, 0, 16)
         return tableView
     }()
     
@@ -41,13 +42,24 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
         
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.data.count
-
+        switch section{
+        case 0:
+            return viewModel.data.count-1
+        case 1:
+//            if let arrayOfRelatted: [Article] = viewModel.data.last?.data as! [Article]?{
+//                 return arrayOfRelatted.count
+//                print(arrayOfRelatted.count)
+//                return 0
+//            }else{
+                return 0
+//            }
+        default: return 0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,6 +68,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as? ImageCell{
                 if let imageLink = viewModel.data[0].data as! String?{
                     cell.setImage(image: imageLink)
+                    cell.layoutMargins = UIEdgeInsets.zero
                 }
                 return cell
             }else{
@@ -65,6 +78,27 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if let cell = tableView.dequeueReusableCell(withIdentifier: "upperTitle", for: indexPath) as? UpperTitleCell{
                 if let upperTitle = viewModel.data[1].data as! String?{
                     cell.articleUpperTitle.text = upperTitle
+                }
+                return cell
+            }else{
+                return UITableViewCell()
+            }
+        case SingleArticleCellTypes.title:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath) as? TitleCell{
+                if let title = viewModel.data[2].data as! String?{
+                    cell.articleTitle.text = title
+                    cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0);
+                }
+                return cell
+            }else{
+                return UITableViewCell()
+            }
+            
+        case SingleArticleCellTypes.text:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "text", for: indexPath) as? TextCell{
+                if let text = viewModel.data[3].data as! String?{
+                    cell.articleText.text = text.htmlToString
+                    cell.layoutSubviews()
                 }
                 return cell
             }else{
@@ -83,6 +117,8 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     private func registerCells(){
         self.tableView.register(ImageCell.self, forCellReuseIdentifier: "imageCell")
         self.tableView.register(UpperTitleCell.self, forCellReuseIdentifier: "upperTitle")
+        self.tableView.register(TitleCell.self, forCellReuseIdentifier: "title")
+        self.tableView.register(TextCell.self, forCellReuseIdentifier: "text")
     }
     
     private func initSubscripts(){

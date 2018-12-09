@@ -24,23 +24,23 @@ struct SpecificArticle : Codable{
         case autoRelatedArticles = "auto_related_articles"
         case content = "content"
     }
+}
+
+struct ContentOfRelatedArticle: Codable{
+    var image: FeaturedImage
+    var title: String
+    var description: String
+    var shares: Int
+    var id: Int
+    var category: String
     
-    struct ContentOfRelatedArticle: Codable{
-        var image: FeaturedImage
-        var title: String
-        var description: String
-        var shares: Int
-        var id: Int
-        var category: String
-        
-        enum CodingKeys: String, CodingKey {
-            case image = "featured_image"
-            case title = "uppertitle_raw"
-            case description = "title"
-            case shares = "shares"
-            case id = "id"
-            case category = "category_slug"
-        }
+    enum CodingKeys: String, CodingKey {
+        case image = "featured_image"
+        case title = "uppertitle_raw"
+        case description = "title"
+        case shares = "shares"
+        case id = "id"
+        case category = "category_slug"
     }
 }
 

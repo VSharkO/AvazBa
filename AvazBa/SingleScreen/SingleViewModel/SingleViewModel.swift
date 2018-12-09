@@ -46,9 +46,7 @@ class SingleViewModel : SingleViewModelProtocol{
                     }
                 }
                 self.data.append(Cell(cellType: SingleArticleCellTypes.mostReadTitle, data: constants.mostRead))
-                for i in 0...6{
-                    self.data.append(Cell(cellType: SingleArticleCellTypes.mostReadNews, data: arrayOfRelated[i]))
-                }
+                self.data.append(Cell(cellType: SingleArticleCellTypes.mostReadNews, data: arrayOfRelated))
                 
                 self.viewShowLoader.onNext(false)
                 self.refreshViewControllerTableData()
