@@ -38,6 +38,7 @@ class SingleViewModel : SingleViewModelProtocol{
                 for content in article.content{
                     if content.type == constants.text{
                         self.data.append(Cell(cellType: SingleArticleCellTypes.text, data: content.data))
+                        break
                     }
                 }
                 if let relatedArticles = article.autoRelatedArticles{

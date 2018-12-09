@@ -1,6 +1,5 @@
 PODS:
   - Alamofire (4.8.0)
-  - Atributika (4.6.7)
   - Cuckoo (0.12.0)
   - Kingfisher (4.9.0)
   - MaterialComponents (72.0.1):
@@ -525,7 +524,6 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 4.7)
-  - Atributika
   - Cuckoo
   - Kingfisher (= 4.9.0)
   - MaterialComponents
@@ -539,7 +537,6 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - Atributika
     - Cuckoo
     - Kingfisher
     - MaterialComponents
@@ -558,7 +555,6 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
-  Atributika: 01164ef4e8a0103c879f7499a7de8902385d8bf9
   Cuckoo: d30b6c149e52ffbcfe6b4a9543e4627d08947274
   Kingfisher: 64539b51826b778206daa6ed815d12653caa69dd
   MaterialComponents: fb709eff8adee8021cc55b3de93adb0f1050aa4a
@@ -575,6 +571,6 @@ SPEC CHECKSUMS:
   RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
   RxTest: 19d03286bdc0a3aaea5d61d4cde31fdf4bb8a5ba
 
-PODFILE CHECKSUM: 6bc6b073efd903a8d9493d1f015ff500704ba6af
+PODFILE CHECKSUM: 4d4c1f53cf31b3d8c9d9ac29cc61e790e3bf0f4b
 
 COCOAPODS: 1.5.3
