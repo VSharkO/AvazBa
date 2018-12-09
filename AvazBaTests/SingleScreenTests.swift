@@ -65,7 +65,7 @@ class SingleScreenTests : QuickSpec{
                         when(mock.getSpecificArticle(id: anyInt())).thenReturn(Observable.just(supplyListResponse!))
                     }
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.mostRead)).thenReturn(Observable.just(supplyListResponseSingle))
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.mostReadApi)).thenReturn(Observable.just(supplyListResponseSingle))
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     singleViewModel = SingleViewModel(repository: mockRepository, id: 2, scheduler: testScheduler)
@@ -75,27 +75,21 @@ class SingleScreenTests : QuickSpec{
                 }
                 it("sends request for both specificArticle and mostReadArticle at once"){
                     verify(mockRepository).getSpecificArticle(id: 2)
-                    verify(mockRepository).getMostPopularArticles(pageNum: 1, category: constants.mostRead)
+                    verify(mockRepository).getMostPopularArticles(pageNum: 1, category: constants.mostReadApi)
                 }
                 it("data is not empty"){
                     expect(singleViewModel.data.count).toNot(equal(0))
                 }
-                it("data count is equal to desired number of cells(15 currently)"){
-                    expect(singleViewModel.data.count).to(equal(16))
+                it("data count is equal to desired number of cells(6 currently)"){
+                    expect(singleViewModel.data.count).to(equal(6))
                 }
                 it("data order is correct"){
                     expect(singleViewModel.data[0].cellType).to(equal(SingleArticleCellTypes.image))
                     expect(singleViewModel.data[1].cellType).to(equal(SingleArticleCellTypes.upperTitle))
                     expect(singleViewModel.data[2].cellType).to(equal(SingleArticleCellTypes.title))
                     expect(singleViewModel.data[3].cellType).to(equal(SingleArticleCellTypes.text))
-                    expect(singleViewModel.data[4].cellType).to(equal(SingleArticleCellTypes.text))
-                    expect(singleViewModel.data[5].cellType).to(equal(SingleArticleCellTypes.relatedNews))
-                    expect(singleViewModel.data[6].cellType).to(equal(SingleArticleCellTypes.relatedNews))
-                    expect(singleViewModel.data[7].cellType).to(equal(SingleArticleCellTypes.relatedNews))
-                    expect(singleViewModel.data[8].cellType).to(equal(SingleArticleCellTypes.mostReadTitle))
-                    for i in 9...15{
-                        expect(singleViewModel.data[i].cellType).to(equal(SingleArticleCellTypes.mostReadNews))
-                    }
+                    expect(singleViewModel.data[4].cellType).to(equal(SingleArticleCellTypes.relatedNews))
+                    expect(singleViewModel.data[5].cellType).to(equal(SingleArticleCellTypes.mostReadNews))
                 }
             }
         }
@@ -111,12 +105,12 @@ class SingleScreenTests : QuickSpec{
                         when(mock.getSpecificArticle(id: 2)).thenReturn(Observable.just(supplyListResponse!))
                     }
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.mostRead)).thenReturn(Observable.just(supplyListResponseSingle))
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.mostReadApi)).thenReturn(Observable.just(supplyListResponseSingle))
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     singleViewModel = SingleViewModel(repository: mockRepository, id: 2, scheduler: testScheduler)
                     singleViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
-                    singleViewModel.showLoader.subscribe(subscriber).disposed(by: disposeBag)
+                    singleViewModel.viewShowLoader.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
                     singleViewModel.getSpecificArticle()
                 }

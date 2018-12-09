@@ -31,7 +31,7 @@ class SingleViewModel : SingleViewModelProtocol{
             return observables
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [unowned self] article,arrayOfRelated in
+            .subscribe(onNext: { [unowned self] article,mostRead in
                 self.data.append(Cell(cellType: SingleArticleCellTypes.image, data: article.featuredImage.original))
                 self.data.append(Cell(cellType: SingleArticleCellTypes.upperTitle, data: article.upperTitle))
                 self.data.append(Cell(cellType: SingleArticleCellTypes.title, data: article.title))
@@ -42,13 +42,9 @@ class SingleViewModel : SingleViewModelProtocol{
                     }
                 }
                 if let relatedArticles = article.autoRelatedArticles{
-                    for article in relatedArticles{
-                        self.data.append(Cell(cellType: SingleArticleCellTypes.relatedNews, data: article))
-                    }
+                    self.data.append(Cell(cellType: SingleArticleCellTypes.relatedNews, data: relatedArticles))
                 }
-                self.data.append(Cell(cellType: SingleArticleCellTypes.mostReadTitle, data: constants.mostRead))
-                self.data.append(Cell(cellType: SingleArticleCellTypes.mostReadNews, data: arrayOfRelated))
-                
+                self.data.append(Cell(cellType: SingleArticleCellTypes.mostReadNews, data: mostRead))
                 self.viewShowLoader.onNext(false)
                 self.refreshViewControllerTableData()
             })
