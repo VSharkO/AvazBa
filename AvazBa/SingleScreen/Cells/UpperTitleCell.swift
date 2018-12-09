@@ -20,6 +20,13 @@ class UpperTitleCell: UITableViewCell {
         return upperTitletext
     }()
     
+    let separator: UIView = {
+        let separator = UIView()
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        separator.backgroundColor = UIColor(red:0.95, green:0.95, blue:0.95, alpha:1)
+        return separator
+    }()
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -31,6 +38,7 @@ class UpperTitleCell: UITableViewCell {
     
     private func setupViews(){
         self.contentView.addSubview(articleUpperTitle)
+        self.contentView.addSubview(separator)
         setupConstraints()
     }
     
@@ -39,11 +47,22 @@ class UpperTitleCell: UITableViewCell {
             articleUpperTitle.topAnchor.constraint(equalTo: self.contentView.topAnchor),
             articleUpperTitle.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
             articleUpperTitle.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
-            articleUpperTitle.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+            articleUpperTitle.heightAnchor.constraint(equalToConstant: 35)
+//            articleUpperTitle.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
             ])
-        let articleTitleHeight = articleUpperTitle.heightAnchor.constraint(equalToConstant: 35)
-        articleTitleHeight.priority = .init(999)
-        articleTitleHeight.isActive = true
+//        let articleTitleHeight = articleUpperTitle.heightAnchor.constraint(equalToConstant: 35)
+//        articleTitleHeight.priority = .init(999)
+//        articleTitleHeight.isActive = true
+        
+        NSLayoutConstraint.activate([
+            separator.topAnchor.constraint(equalTo: self.articleUpperTitle.bottomAnchor),
+            separator.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
+            separator.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
+            separator.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+            ])
+                let articleSeparatorHeight = separator.heightAnchor.constraint(equalToConstant: 1)
+                articleSeparatorHeight.priority = .init(999)
+                articleSeparatorHeight.isActive = true
     }
 
 }

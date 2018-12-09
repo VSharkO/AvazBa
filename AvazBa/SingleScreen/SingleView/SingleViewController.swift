@@ -19,7 +19,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorInset = UIEdgeInsetsMake(0, 16, 0, 16)
+        tableView.separatorStyle = .none
         return tableView
     }()
     
@@ -78,6 +78,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if let cell = tableView.dequeueReusableCell(withIdentifier: "upperTitle", for: indexPath) as? UpperTitleCell{
                 if let upperTitle = viewModel.data[1].data as! String?{
                     cell.articleUpperTitle.text = upperTitle
+                    cell.separatorInset = UIEdgeInsetsMake(0, 16, 0, 16);
                 }
                 return cell
             }else{
@@ -87,7 +88,6 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath) as? TitleCell{
                 if let title = viewModel.data[2].data as! String?{
                     cell.articleTitle.text = title
-                    cell.separatorInset = UIEdgeInsetsMake(0, 1000, 0, 0);
                 }
                 return cell
             }else{
