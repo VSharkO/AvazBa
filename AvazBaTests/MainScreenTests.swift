@@ -72,7 +72,7 @@ class MainScreenTests: QuickSpec {
                     testScheduler.start()
                 }
                 it("data is equal to number of articles from repository"){
-                    mainViewModel.dataRequestTriger.onNext(true)
+                    mainViewModel.initialDataRequest()
                     expect(mainViewModel.data.count).to(equal(16))
                 }
             }
@@ -120,7 +120,7 @@ class MainScreenTests: QuickSpec {
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     mainViewModel.dataRequestTriger.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
-                    mainViewModel.initialDataRefresh()
+                    mainViewModel.initialDataRequest()
                 }
                 it("trigeres event for request in viewModel"){
                     expect(subscriber.events.first!.value.element).to(equal(true))

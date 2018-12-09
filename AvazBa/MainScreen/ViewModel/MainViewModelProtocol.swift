@@ -12,8 +12,9 @@ import RxSwift
 protocol MainViewModelProtocol{
     func initGetingDataFromRepository() -> Disposable
     func moreDataRequest()
-    func initialDataRefresh()
+    func initialDataRequest()
     func newTabOpened()
+    func pullToRefreshTrigered()
     
     var data: [CellItem]{get}
     var selectedTab: String{get set}

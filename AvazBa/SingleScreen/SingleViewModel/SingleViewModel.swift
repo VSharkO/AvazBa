@@ -26,8 +26,8 @@ class SingleViewModel : SingleViewModelProtocol{
     
     func initGetingDataFromRepository() -> Disposable {
         return dataRequestTriger.flatMap({ [unowned self] _ -> Observable<(SpecificArticle,[Article])> in
-          let observables = Observable.zip(self.repository.getSpecificArticle(id: self.id), self.repository.getMostPopularArticles(pageNum: 1, category: constants.mostReadApi))
             self.viewShowLoader.onNext(true)
+          let observables = Observable.zip(self.repository.getSpecificArticle(id: self.id), self.repository.getMostPopularArticles(pageNum: 1, category: constants.mostReadApi))
             return observables
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)

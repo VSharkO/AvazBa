@@ -27,6 +27,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
         viewModel.initGetingDataFromRepository().disposed(by: self.disposeBag)
+       
     }
     
     required init?(coder aDecoder: NSCoder) {

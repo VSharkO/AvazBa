@@ -49,8 +49,9 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         initSubscripts()
         setupRefreshControl()
         setupTabBar()
-        viewModel.initialDataRefresh()
+        viewModel.initialDataRequest()
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch viewModel.data[indexPath.row].cellType{
@@ -96,7 +97,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(viewModel.data.count != 0){
-            if indexPath.row >= viewModel.data.count-2 && isScreenEditing == false{
+            if indexPath.row == viewModel.data.count-1 && isScreenEditing == false{
                 viewModel.moreDataRequest()
             }
         }
@@ -238,7 +239,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func refreshData(){
-        viewModel.initialDataRefresh()
+        viewModel.pullToRefreshTrigered()
     }
     
     @objc func moveToSingleScreenWithIndex(clickedNews: Int){
@@ -250,5 +251,4 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }
         mainCoordinatorDelegate?.openNextScreen(ids: ids, focusedItem: clickedNews)
     }
-
 }
