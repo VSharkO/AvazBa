@@ -36,9 +36,12 @@ class ImageCell: UITableViewCell {
                 articleImage.topAnchor.constraint(equalTo: self.contentView.topAnchor),
                 articleImage.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
                 articleImage.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-                articleImage.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-                articleImage.heightAnchor.constraint(equalToConstant: 286)
+                articleImage.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+               
             ])
+        let articleImageHeight = articleImage.heightAnchor.constraint(equalToConstant: 340)
+        articleImageHeight.priority = .init(999)
+        articleImageHeight.isActive = true
     }
     
     func setImage(image: String){

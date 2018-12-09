@@ -96,7 +96,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(viewModel.data.count != 0){
-            if indexPath.row >= viewModel.data.count-3 && isScreenEditing == false{
+            if indexPath.row >= viewModel.data.count-2 && isScreenEditing == false{
                 viewModel.moreDataRequest()
             }
         }

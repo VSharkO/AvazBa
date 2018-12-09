@@ -110,6 +110,8 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     private func setupViews(){
         self.view.addSubview(tableView)
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.estimatedRowHeight = 300
         tableView.delegate = self
         tableView.dataSource = self
     }

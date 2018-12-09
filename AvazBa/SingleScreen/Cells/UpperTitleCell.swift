@@ -37,11 +37,13 @@ class UpperTitleCell: UITableViewCell {
     private func setupConstraints(){
         NSLayoutConstraint.activate([
             articleUpperTitle.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-            articleUpperTitle.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 17),
-            articleUpperTitle.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -17),
-            articleUpperTitle.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-            articleUpperTitle.heightAnchor.constraint(equalToConstant: 35)
+            articleUpperTitle.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
+            articleUpperTitle.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
+            articleUpperTitle.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
             ])
+        let articleTitleHeight = articleUpperTitle.heightAnchor.constraint(equalToConstant: 35)
+        articleTitleHeight.priority = .init(999)
+        articleTitleHeight.isActive = true
     }
 
 }
