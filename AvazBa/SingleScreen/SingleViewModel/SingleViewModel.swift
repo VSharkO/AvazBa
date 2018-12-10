@@ -42,9 +42,13 @@ class SingleViewModel : SingleViewModelProtocol{
                     }
                 }
                 if let relatedArticles = article.autoRelatedArticles{
-                    self.data.append(Cell(cellType: SingleArticleCellTypes.relatedNews, data: relatedArticles))
+                    for article in relatedArticles{
+                        self.data.append(Cell(cellType: SingleArticleCellTypes.relatedNews, data: article))
+                    }
                 }
-                self.data.append(Cell(cellType: SingleArticleCellTypes.mostReadNews, data: mostRead))
+                for i in 0...5{
+                    self.data.append(Cell(cellType: SingleArticleCellTypes.mostReadNews, data: mostRead[i]))
+                }
                 self.viewShowLoader.onNext(false)
                 self.refreshViewControllerTableData()
             })

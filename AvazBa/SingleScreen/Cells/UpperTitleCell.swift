@@ -48,11 +48,7 @@ class UpperTitleCell: UITableViewCell {
             articleUpperTitle.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
             articleUpperTitle.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
             articleUpperTitle.heightAnchor.constraint(equalToConstant: 35)
-//            articleUpperTitle.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
             ])
-//        let articleTitleHeight = articleUpperTitle.heightAnchor.constraint(equalToConstant: 35)
-//        articleTitleHeight.priority = .init(999)
-//        articleTitleHeight.isActive = true
         
         NSLayoutConstraint.activate([
             separator.topAnchor.constraint(equalTo: self.articleUpperTitle.bottomAnchor),

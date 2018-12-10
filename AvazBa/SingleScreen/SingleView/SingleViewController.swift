@@ -27,7 +27,6 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         super.init(nibName: nil, bundle: nil)
         self.viewModel = viewModel
         viewModel.initGetingDataFromRepository().disposed(by: self.disposeBag)
-       
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -43,8 +42,18 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-        
+        return 3
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 0:
+            return 0.0
+        case 1:
+            return 47.0
+        default:
+            return 0.0
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -52,14 +61,27 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         case 0:
             return viewModel.data.count-1
         case 1:
-//            if let arrayOfRelatted: [Article] = viewModel.data.last?.data as! [Article]?{
-//                 return arrayOfRelatted.count
-//                print(arrayOfRelatted.count)
-//                return 0
-//            }else{
+            if let arrayOfRelatted: [Article] = viewModel.data.last?.data as! [Article]?{
+                return arrayOfRelatted.count
+            }else{
                 return 0
-//            }
+            }
         default: return 0
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch section{
+        case 0:
+            return nil
+        case 1:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "relatedTitle", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
+                cell.relatedTitle.text = "Povezano"
+                return cell
+            }else{
+                return UITableViewCell()
+            }
+        default: return nil
         }
     }
 
@@ -105,6 +127,16 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }else{
                 return UITableViewCell()
             }
+        case SingleArticleCellTypes.relatedNews:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "text", for: indexPath) as? TextCell{
+                if let text = viewModel.data[3].data as! String?{
+                    cell.articleText.text = text.htmlToString
+                    cell.layoutSubviews()
+                }
+                return cell
+            }else{
+                return UITableViewCell()
+            }
         default: return UITableViewCell()
         }
     }
@@ -122,6 +154,8 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.register(UpperTitleCell.self, forCellReuseIdentifier: "upperTitle")
         self.tableView.register(TitleCell.self, forCellReuseIdentifier: "title")
         self.tableView.register(TextCell.self, forCellReuseIdentifier: "text")
+        self.tableView.register(RelatedTitleCell.self, forCellReuseIdentifier: "relatedTitle")
+//        self.tableView.register(RelatedCell.self, forCellReuseIdentifier: "relatedNews")
     }
     
     private func initSubscripts(){
@@ -149,6 +183,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func showLoader() {
         loader = displayLoader(onView: self.view)
+        loader?.backgroundColor = .gray
     }
     
     func hideLoader() {
