@@ -132,7 +132,8 @@ class MostReadArticleCell : UITableViewCell{
             ])
         
         NSLayoutConstraint.activate([
-            articleText.topAnchor.constraint(equalTo: self.categoryTextContainer.topAnchor, constant: 11),
+            articleText.topAnchor.constraint(equalTo: self.categoryTextContainer.bottomAnchor
+                , constant: 11),
             articleText.leadingAnchor.constraint(equalTo: self.mostReadImage.trailingAnchor, constant: 16),
             articleText.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -16),
             articleText.heightAnchor.constraint(lessThanOrEqualToConstant: 76)
