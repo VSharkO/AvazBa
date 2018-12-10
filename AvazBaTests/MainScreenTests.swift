@@ -93,7 +93,7 @@ class MainScreenTests: QuickSpec {
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     mainViewModel.viewShowLoader.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
-                    mainViewModel.dataRequestTriger.onNext(true)
+                    mainViewModel.initialDataRequest()
                 }
                 it("loader is shown on start of request"){
                     expect(subscriber.events.first!.value.element).to(equal(true))
@@ -148,9 +148,9 @@ class MainScreenTests: QuickSpec {
                     mainViewModel.dataRequestTriger.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
                     
-                    mainViewModel.dataRequestTriger.onNext(true)
-                    mainViewModel.dataRequestTriger.onNext(true)
-                    mainViewModel.dataRequestTriger.onNext(true)
+                    mainViewModel.initialDataRequest()
+                    mainViewModel.moreDataRequest()
+                    mainViewModel.moreDataRequest()
                 }
                 it("is refreshing data trigered"){
                     expect(subscriber.events.first!.value.element).to(equal(true))
