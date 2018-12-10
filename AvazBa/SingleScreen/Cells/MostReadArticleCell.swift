@@ -42,7 +42,7 @@ class MostReadArticleCell : UITableViewCell{
         let titletext = UILabel()
         titletext.translatesAutoresizingMaskIntoConstraints = false
         titletext.adjustsFontSizeToFitWidth = false
-        titletext.numberOfLines = 4
+        titletext.numberOfLines = 3
         titletext.font = UIFont.init(name: "Roboto-Bold", size: 14)
         titletext.isUserInteractionEnabled = false
         return titletext
