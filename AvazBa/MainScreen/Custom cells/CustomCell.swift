@@ -209,6 +209,7 @@ class CustomCell: UITableViewCell {
         NSLayoutConstraint.activate([
             categoryTextContainer.bottomAnchor.constraint(equalTo: articlePhoto.bottomAnchor, constant: -16.2),
             categoryTextContainer.leadingAnchor.constraint(equalTo: articlePhoto.leadingAnchor, constant: 28),
+            categoryTextContainer.trailingAnchor.constraint(lessThanOrEqualTo: articlePhoto.trailingAnchor, constant: -8),
             categoryTextContainer.heightAnchor.constraint(equalToConstant: 21)
             ])
     }

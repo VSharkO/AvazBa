@@ -41,9 +41,19 @@ class RelatedArticleCell : UITableViewCell{
     let relatedTitle: UITextView = {
         let text = UITextView()
         text.translatesAutoresizingMaskIntoConstraints = false
-        text.font = UIFont.init(name: "Roboto-Bold", size: 14)
+        text.font = UIFont.init(name: "Roboto-Bold", size: 20)
         text.isScrollEnabled = false
         return text
+    }()
+    
+    let articleText: UILabel = {
+        let titletext = UILabel()
+        titletext.translatesAutoresizingMaskIntoConstraints = false
+        titletext.adjustsFontSizeToFitWidth = false
+        titletext.numberOfLines = 4
+        titletext.font = UIFont.init(name: "Roboto-Bold", size: 14)
+        titletext.isUserInteractionEnabled = false
+        return titletext
     }()
     
     let separator: UIView = {
@@ -52,6 +62,8 @@ class RelatedArticleCell : UITableViewCell{
         separator.backgroundColor = UIColor(red:0.95, green:0.95, blue:0.95, alpha:1)
         return separator
     }()
+    
+    
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
@@ -67,12 +79,13 @@ class RelatedArticleCell : UITableViewCell{
         self.relatedImage.addSubview(categoryTextContainer)
         self.categoryTextContainer.addSubview(categoryText)
         self.contentView.addSubview(separator)
+        self.contentView.addSubview(articleText)
         setupConstraints()
     }
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
-            relatedImage.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
+            relatedImage.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
             relatedImage.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
             relatedImage.widthAnchor.constraint(equalToConstant: 112),
             relatedImage.heightAnchor.constraint(equalToConstant: 112)
@@ -88,6 +101,7 @@ class RelatedArticleCell : UITableViewCell{
         NSLayoutConstraint.activate([
             categoryTextContainer.bottomAnchor.constraint(equalTo: relatedImage.bottomAnchor, constant: -8),
             categoryTextContainer.leadingAnchor.constraint(equalTo: relatedImage.leadingAnchor, constant: 8),
+            categoryTextContainer.trailingAnchor.constraint(lessThanOrEqualTo: relatedImage.trailingAnchor, constant: -8),
             categoryTextContainer.heightAnchor.constraint(equalToConstant: 21)
             ])
         
@@ -96,6 +110,13 @@ class RelatedArticleCell : UITableViewCell{
             separator.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
             separator.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
             separator.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+            ])
+        
+        NSLayoutConstraint.activate([
+            articleText.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
+            articleText.leadingAnchor.constraint(equalTo: self.relatedImage.trailingAnchor, constant: 16),
+            articleText.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
+            articleText.heightAnchor.constraint(lessThanOrEqualToConstant: 76)
             ])
         
         let articleSeparatorHeight = separator.heightAnchor.constraint(equalToConstant: 1)

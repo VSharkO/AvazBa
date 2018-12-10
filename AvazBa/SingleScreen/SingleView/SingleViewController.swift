@@ -150,6 +150,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 if let relatedArticle = viewModel.data[indexPath.section][indexPath.row].data as! ContentOfRelatedArticle?{
                     cell.setImage(image: relatedArticle.image.original)
                     cell.categoryText.text = relatedArticle.category
+                    cell.articleText.text = relatedArticle.description
                 }
                 return cell
             }else{
