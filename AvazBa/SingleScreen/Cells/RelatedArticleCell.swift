@@ -56,6 +56,54 @@ class RelatedArticleCell : UITableViewCell{
         return titletext
     }()
     
+    var publishedText : UILabel = {
+        let publishedText = UILabel()
+        publishedText.textColor = .darkGray
+        publishedText.adjustsFontSizeToFitWidth = false
+        publishedText.numberOfLines = 1
+        publishedText.font = UIFont.init(name: "Roboto-Regular", size: 12)
+        publishedText.isUserInteractionEnabled = false
+        return publishedText
+    }()
+    
+    var publishedImage : UIImageView = {
+        let publishedImage = UIImageView()
+        publishedImage.image = UIImage(named: "publishImg")
+        return publishedImage
+    }()
+    
+    var shareNumText : UILabel = {
+        let shareNumText = UILabel()
+        shareNumText.textColor = .darkGray
+        shareNumText.adjustsFontSizeToFitWidth = false
+        shareNumText.numberOfLines = 1
+        shareNumText.font = UIFont.init(name: "Roboto-Regular", size: 12)
+        shareNumText.isUserInteractionEnabled = false
+        return shareNumText
+    }()
+    
+    var shareImage : UIImageView = {
+        let shareImage = UIImageView()
+        shareImage.image = UIImage(named: "shareImg")
+        return shareImage
+    }()
+    
+    var stackForPublished : UIStackView = {
+        let stackForPublished = UIStackView()
+        stackForPublished.translatesAutoresizingMaskIntoConstraints = false
+        stackForPublished.spacing = 4
+        stackForPublished.axis = .horizontal
+        return stackForPublished
+    }()
+    
+    var stackForShares : UIStackView = {
+        let stackForShares = UIStackView()
+        stackForShares.translatesAutoresizingMaskIntoConstraints = false
+        stackForShares.spacing = 4
+        stackForShares.axis = .horizontal
+        return stackForShares
+    }()
+    
     let separator: UIView = {
         let separator = UIView()
         separator.translatesAutoresizingMaskIntoConstraints = false
@@ -80,6 +128,12 @@ class RelatedArticleCell : UITableViewCell{
         self.categoryTextContainer.addSubview(categoryText)
         self.contentView.addSubview(separator)
         self.contentView.addSubview(articleText)
+        stackForPublished.addArrangedSubview(publishedImage)
+        stackForPublished.addArrangedSubview(publishedText)
+        self.contentView.addSubview(stackForPublished)
+        stackForShares.addArrangedSubview(shareNumText)
+        stackForShares.addArrangedSubview(shareImage)
+        self.contentView.addSubview(stackForShares)
         setupConstraints()
     }
     
@@ -123,6 +177,15 @@ class RelatedArticleCell : UITableViewCell{
         articleSeparatorHeight.priority = .init(999)
         articleSeparatorHeight.isActive = true
         
+        NSLayoutConstraint.activate([
+            stackForPublished.bottomAnchor.constraint(equalTo: separator.topAnchor, constant: -16),
+            stackForPublished.leadingAnchor.constraint(equalTo: relatedImage.trailingAnchor, constant: 16)
+            ])
+        
+        NSLayoutConstraint.activate([
+            stackForShares.bottomAnchor.constraint(equalTo: separator.topAnchor, constant: -16),
+            stackForShares.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -31)
+            ])
         
     }
     

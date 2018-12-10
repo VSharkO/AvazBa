@@ -147,6 +147,8 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                     cell.setImage(image: relatedArticle.image.original)
                     cell.categoryText.text = relatedArticle.category.capitalized
                     cell.articleText.text = relatedArticle.description
+                    cell.publishedText.text = DateToBeforeCurrentTimeConverter.toBeforeCurrentTime(dateInPast: relatedArticle.publishedAt.date, currentDate: Date())
+                    cell.shareNumText.text = String(relatedArticle.shares)
                 }
                 return cell
             }else{
