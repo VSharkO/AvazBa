@@ -42,7 +42,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return viewModel.data.count
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -50,6 +50,8 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         case 0:
             return 0.0
         case 1:
+            return 47.0
+        case 2:
             return 47.0
         default:
             return 0.0
@@ -63,8 +65,8 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 return viewModel.data[0].count
             case 1:
                 return viewModel.data[1].count
-//            case 2:
-//                return viewModel.data[2].count
+            case 2:
+                return viewModel.data[2].count
             default: return 0
             }
         }else{
@@ -88,7 +90,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             else{
                 return UITableViewCell()
             }
-        case 3:
+        case 2:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "relatedTitle", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
                 cell.relatedTitle.text = "Najčitanije"
                 return cell
