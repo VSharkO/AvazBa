@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SinglePagerCoordinator : Coordinator, CoordinatorDelegate{
+class SinglePagerCoordinator : Coordinator, CoordinatorDelegate, SingleCoordinatorDelegate{
     
     var childCoordinators = [Coordinator]()
     weak var parentCoordinatorDelegate: ParentCoordinatorDelegate?
@@ -30,11 +30,20 @@ class SinglePagerCoordinator : Coordinator, CoordinatorDelegate{
     func start() {
         presenter.pushViewController(controller, animated: true)
         controller.singleDelegate = self
+        for controller in viewControllers{
+            controller.singleCoordinatorDelegate = self
+        }
     }
     
     func viewHasFinished() {
         childCoordinators.removeAll()
         parentCoordinatorDelegate?.childHasFinished(coordinator: self)
+    }
+    
+    func openSingle(withId: Int) {
+        let singleViewController = SingleViewController.init(viewModel: SingleViewModel.init(repository: Repository(), id: withId))
+        singleViewController.singleCoordinatorDelegate = self
+        presenter.pushViewController(singleViewController, animated: true)
     }
     
 }

@@ -12,7 +12,7 @@ import RxSwift
 class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, LoaderManager{
     
     var viewModel: SingleViewModelProtocol!
-    weak var singleDelegate: CoordinatorDelegate?
+    weak var singleCoordinatorDelegate: SingleCoordinatorDelegate?
     private let disposeBag = DisposeBag()
     var loader : UIView?
     
@@ -170,6 +170,10 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        moveToSingleScreenWithIndex(clickedNewsSection: indexPath.section, clickedNewsRow: indexPath.row)
+    }
+    
     private func setupViews(){
         self.view.addSubview(tableView)
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -219,6 +223,18 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func hideLoader() {
         if let loader = loader{
             removeLoader(loader: loader)
+        }
+    }
+    
+    @objc func moveToSingleScreenWithIndex(clickedNewsSection: Int, clickedNewsRow: Int){
+        var id = -1
+        if let article = viewModel.data[clickedNewsSection][clickedNewsRow].data as? ContentOfRelatedArticle?{
+            id = article!.id
+        }else if let article = viewModel.data[clickedNewsSection][clickedNewsRow].data as? Article?{
+            id = article!.id
+        }
+        if id != -1{
+            singleCoordinatorDelegate?.openSingle(withId: id)
         }
     }
 }
