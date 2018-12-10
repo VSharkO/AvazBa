@@ -50,12 +50,8 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         switch section {
         case 0:
             return 0.0
-        case 1:
-            return 47.0
-        case 2:
-            return 47.0
         default:
-            return 0.0
+            return 47.0
         }
     }
     
@@ -149,7 +145,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if let cell = tableView.dequeueReusableCell(withIdentifier: "relatedNews", for: indexPath) as? RelatedArticleCell{
                 if let relatedArticle = viewModel.data[indexPath.section][indexPath.row].data as! ContentOfRelatedArticle?{
                     cell.setImage(image: relatedArticle.image.original)
-                    cell.categoryText.text = relatedArticle.category
+                    cell.categoryText.text = relatedArticle.category.capitalized
                     cell.articleText.text = relatedArticle.description
                 }
                 return cell

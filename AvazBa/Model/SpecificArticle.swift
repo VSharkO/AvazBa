@@ -42,7 +42,7 @@ struct ContentOfRelatedArticle: Codable{
         case shares = "shares"
         case id = "id"
         case publishedAt = "published_at"
-        case category = "category"
+        case category = "category_slug"
     }
 }
 
