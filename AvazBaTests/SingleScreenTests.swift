@@ -80,19 +80,19 @@ class SingleScreenTests : QuickSpec{
                 it("data is not empty"){
                     expect(singleViewModel.data.count).toNot(equal(0))
                 }
-                it("data count is equal to desired number of cells(6 currently)"){
-                    expect(singleViewModel.data.count).to(equal(13))
+                it("data count is equal to desired number of cells(3 currently)"){
+                    expect(singleViewModel.data.count).to(equal(3))
                 }
                 it("data order is correct"){
-                    expect(singleViewModel.data[0].cellType).to(equal(SingleArticleCellTypes.image))
-                    expect(singleViewModel.data[1].cellType).to(equal(SingleArticleCellTypes.upperTitle))
-                    expect(singleViewModel.data[2].cellType).to(equal(SingleArticleCellTypes.title))
-                    expect(singleViewModel.data[3].cellType).to(equal(SingleArticleCellTypes.text))
-                    for i in 4...6{
-                        expect(singleViewModel.data[i].cellType).to(equal(SingleArticleCellTypes.relatedNews))
+                    expect(singleViewModel.data[0][0].cellType).to(equal(SingleArticleCellTypes.image))
+                    expect(singleViewModel.data[0][1].cellType).to(equal(SingleArticleCellTypes.upperTitle))
+                    expect(singleViewModel.data[0][2].cellType).to(equal(SingleArticleCellTypes.title))
+                    expect(singleViewModel.data[0][3].cellType).to(equal(SingleArticleCellTypes.text))
+                    for i in 0...2{
+                        expect(singleViewModel.data[1][i].cellType).to(equal(SingleArticleCellTypes.relatedNews))
                     }
-                    for i in 7...11{
-                        expect(singleViewModel.data[i].cellType).to(equal(SingleArticleCellTypes.mostReadNews))
+                    for i in 0...4{
+                        expect(singleViewModel.data[2][i].cellType).to(equal(SingleArticleCellTypes.mostReadNews))
                     }
                 }
             }
