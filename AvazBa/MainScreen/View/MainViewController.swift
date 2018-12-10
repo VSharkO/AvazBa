@@ -83,7 +83,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
             default:
                 viewModel.selectedTab = constants.newestApi
             }
-            viewModel.newTabOpened()
+                viewModel.newTabOpened()
         }
     }
 
@@ -97,7 +97,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(viewModel.data.count != 0){
-            if indexPath.row == viewModel.data.count-1 && isScreenEditing == false{
+            if indexPath.row == viewModel.data.count-3 && isScreenEditing == false{
                 viewModel.moreDataRequest()
             }
         }
@@ -127,27 +127,32 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         viewModel.viewInsertRows.observeOn(MainScheduler.instance).subscribe(onNext:{ [unowned self] indexes in
             self.isScreenEditing = true
+            self.tabBar.isUserInteractionEnabled = false
             self.tableView.performBatchUpdates({
                 self.tableView.insertRows(at: indexes, with: .automatic)
             }, completion:{ [unowned self]  isFinished in
                 if isFinished{
                     self.isScreenEditing = false
+                    self.tabBar.isUserInteractionEnabled = true
                 }
             })
         }).disposed(by: disposeBag)
         
         viewModel.viewReloadRows.observeOn(MainScheduler.instance).subscribe(onNext:{ [unowned self] indexes in
             self.isScreenEditing = true
+            self.tabBar.isUserInteractionEnabled = false
             self.tableView.performBatchUpdates({
                  self.tableView.reloadRows(at: indexes, with: .automatic)
             }, completion:{ [unowned self]  isFinished in
                 if isFinished{
                 self.isScreenEditing = false
+                self.tabBar.isUserInteractionEnabled = true
                 }
             })
         }).disposed(by: disposeBag)
         
         viewModel.viewReloadRowsForNewTab.observeOn(MainScheduler.instance).subscribe(onNext:{[unowned self] (numOfArticlesToAdd,numOfArticlesToDelete) in
+            self.tabBar.isUserInteractionEnabled = false
             self.isScreenEditing = true
             self.tableView.performBatchUpdates({
                 var arrayOfIndexPathsToDelete = [IndexPath]()
@@ -164,6 +169,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 if isFinished{
                     let indexPath = IndexPath(row: 0, section:  0)
                     self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+                    self.tabBar.isUserInteractionEnabled = true
                     self.isScreenEditing = false
                 }
             })

@@ -57,10 +57,6 @@ extension Interactor{
                         }
                         do{
                             let decoder = JSONDecoder()
-//                            let formatter = DateFormatter()
-//                            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.000000"
-//                            decoder.keyDecodingStrategy = .convertFromSnakeCase
-//                            decoder.dateDecodingStrategy = .formatted(formatter)
                             let article = try decoder.decode(SpecificArticle.self, from: data)
                             observer.onNext(article)
                         } catch {
