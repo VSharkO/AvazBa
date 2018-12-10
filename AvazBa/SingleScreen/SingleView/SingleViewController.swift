@@ -17,9 +17,10 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     var loader : UIView?
     
     let tableView: UITableView = {
-        let tableView = UITableView()
+        let tableView = UITableView(frame: CGRect(), style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
+        tableView.backgroundColor = .white
         return tableView
     }()
     
