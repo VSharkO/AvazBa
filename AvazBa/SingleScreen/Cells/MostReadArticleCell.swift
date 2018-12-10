@@ -1,15 +1,16 @@
 //
-//  RelatedArticleCell.swift
+//  MostPopularArticleCell.swift
 //  AvazBa
 //
 //  Created by Valentin Šarić on 10/12/2018.
 //  Copyright © 2018 Valentin Šarić. All rights reserved.
 //
+
 import UIKit
 
-class RelatedArticleCell : UITableViewCell{
+class MostReadArticleCell : UITableViewCell{
     
-    var relatedImage: UIImageView = {
+    var mostReadImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
@@ -37,14 +38,6 @@ class RelatedArticleCell : UITableViewCell{
         return container
     }()
     
-    let relatedTitle: UITextView = {
-        let text = UITextView()
-        text.translatesAutoresizingMaskIntoConstraints = false
-        text.font = UIFont.init(name: "Roboto-Bold", size: 20)
-        text.isScrollEnabled = false
-        return text
-    }()
-    
     let articleText: UILabel = {
         let titletext = UILabel()
         titletext.translatesAutoresizingMaskIntoConstraints = false
@@ -53,22 +46,6 @@ class RelatedArticleCell : UITableViewCell{
         titletext.font = UIFont.init(name: "Roboto-Bold", size: 14)
         titletext.isUserInteractionEnabled = false
         return titletext
-    }()
-    
-    var publishedText : UILabel = {
-        let publishedText = UILabel()
-        publishedText.textColor = .darkGray
-        publishedText.adjustsFontSizeToFitWidth = false
-        publishedText.numberOfLines = 1
-        publishedText.font = UIFont.init(name: "Roboto-Regular", size: 12)
-        publishedText.isUserInteractionEnabled = false
-        return publishedText
-    }()
-    
-    var publishedImage : UIImageView = {
-        let publishedImage = UIImageView()
-        publishedImage.image = UIImage(named: "publishImg")
-        return publishedImage
     }()
     
     var shareNumText : UILabel = {
@@ -85,14 +62,6 @@ class RelatedArticleCell : UITableViewCell{
         let shareImage = UIImageView()
         shareImage.image = UIImage(named: "shareImg")
         return shareImage
-    }()
-    
-    var stackForPublished : UIStackView = {
-        let stackForPublished = UIStackView()
-        stackForPublished.translatesAutoresizingMaskIntoConstraints = false
-        stackForPublished.spacing = 4
-        stackForPublished.axis = .horizontal
-        return stackForPublished
     }()
     
     var stackForShares : UIStackView = {
@@ -122,14 +91,11 @@ class RelatedArticleCell : UITableViewCell{
     }
     
     private func setupViews(){
-        self.contentView.addSubview(relatedImage)
-        self.relatedImage.addSubview(categoryTextContainer)
+        self.contentView.addSubview(mostReadImage)
+        self.contentView.addSubview(categoryTextContainer)
         self.categoryTextContainer.addSubview(categoryText)
         self.contentView.addSubview(separator)
         self.contentView.addSubview(articleText)
-        stackForPublished.addArrangedSubview(publishedImage)
-        stackForPublished.addArrangedSubview(publishedText)
-        self.contentView.addSubview(stackForPublished)
         stackForShares.addArrangedSubview(shareNumText)
         stackForShares.addArrangedSubview(shareImage)
         self.contentView.addSubview(stackForShares)
@@ -138,10 +104,10 @@ class RelatedArticleCell : UITableViewCell{
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
-            relatedImage.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
-            relatedImage.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
-            relatedImage.widthAnchor.constraint(equalToConstant: 112),
-            relatedImage.heightAnchor.constraint(equalToConstant: 112)
+            mostReadImage.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
+            mostReadImage.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
+            mostReadImage.widthAnchor.constraint(equalToConstant: 125),
+            mostReadImage.heightAnchor.constraint(equalToConstant: 112)
             ])
         
         NSLayoutConstraint.activate([
@@ -152,34 +118,29 @@ class RelatedArticleCell : UITableViewCell{
             ])
         
         NSLayoutConstraint.activate([
-            categoryTextContainer.bottomAnchor.constraint(equalTo: relatedImage.bottomAnchor, constant: -8),
-            categoryTextContainer.leadingAnchor.constraint(equalTo: relatedImage.leadingAnchor, constant: 8),
-            categoryTextContainer.trailingAnchor.constraint(lessThanOrEqualTo: relatedImage.trailingAnchor, constant: -8),
+            categoryTextContainer.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 16),
+            categoryTextContainer.leadingAnchor.constraint(equalTo: mostReadImage.trailingAnchor, constant: 16),
+            categoryTextContainer.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -16),
             categoryTextContainer.heightAnchor.constraint(equalToConstant: 21)
             ])
         
         NSLayoutConstraint.activate([
-            separator.topAnchor.constraint(equalTo: self.relatedImage.bottomAnchor, constant: 8),
+            separator.topAnchor.constraint(equalTo: self.mostReadImage.bottomAnchor, constant: 8),
             separator.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
             separator.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
             separator.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
             ])
         
         NSLayoutConstraint.activate([
-            articleText.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
-            articleText.leadingAnchor.constraint(equalTo: self.relatedImage.trailingAnchor, constant: 16),
-            articleText.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
+            articleText.topAnchor.constraint(equalTo: self.categoryTextContainer.topAnchor, constant: 11),
+            articleText.leadingAnchor.constraint(equalTo: self.mostReadImage.trailingAnchor, constant: 16),
+            articleText.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -16),
             articleText.heightAnchor.constraint(lessThanOrEqualToConstant: 76)
             ])
         
         let articleSeparatorHeight = separator.heightAnchor.constraint(equalToConstant: 1)
         articleSeparatorHeight.priority = .init(999)
         articleSeparatorHeight.isActive = true
-        
-        NSLayoutConstraint.activate([
-            stackForPublished.bottomAnchor.constraint(equalTo: separator.topAnchor, constant: -16),
-            stackForPublished.leadingAnchor.constraint(equalTo: relatedImage.trailingAnchor, constant: 16)
-            ])
         
         NSLayoutConstraint.activate([
             stackForShares.bottomAnchor.constraint(equalTo: separator.topAnchor, constant: -16),
@@ -190,6 +151,6 @@ class RelatedArticleCell : UITableViewCell{
     
     func setImage(image: String){
         let url = URL(string: constants.baseUrl + image)
-        relatedImage.kf.setImage(with:url)
+        mostReadImage.kf.setImage(with:url)
     }
 }

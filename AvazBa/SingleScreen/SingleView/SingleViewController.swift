@@ -154,7 +154,19 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }else{
                 return UITableViewCell()
             }
-        default: return UITableViewCell()
+            
+        case SingleArticleCellTypes.mostReadNews:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "mostReadNews", for: indexPath) as? MostReadArticleCell{
+                if let mostReadArticle = viewModel.data[indexPath.section][indexPath.row].data as! Article?{
+                    cell.setImage(image: mostReadArticle.image.original)
+                    cell.categoryText.text = mostReadArticle.category.capitalized
+                    cell.articleText.text = mostReadArticle.description
+                    cell.shareNumText.text = String(mostReadArticle.shares)
+                }
+                return cell
+            }else{
+                return UITableViewCell()
+            }
         }
     }
     
@@ -173,6 +185,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.register(TextCell.self, forCellReuseIdentifier: "text")
         self.tableView.register(RelatedTitleCell.self, forCellReuseIdentifier: "relatedTitle")
         self.tableView.register(RelatedArticleCell.self, forCellReuseIdentifier: "relatedNews")
+        self.tableView.register(MostReadArticleCell.self, forCellReuseIdentifier: "mostReadNews")
     }
     
     private func initSubscripts(){

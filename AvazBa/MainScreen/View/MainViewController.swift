@@ -152,8 +152,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         }).disposed(by: disposeBag)
         
         viewModel.viewReloadRowsForNewTab.observeOn(MainScheduler.instance).subscribe(onNext:{[unowned self] (numOfArticlesToAdd,numOfArticlesToDelete) in
-            self.tabBar.isUserInteractionEnabled = false
             self.isScreenEditing = true
+            self.tabBar.isUserInteractionEnabled = false
             self.tableView.performBatchUpdates({
                 var arrayOfIndexPathsToDelete = [IndexPath]()
                 for element in Array(numOfArticlesToAdd..<numOfArticlesToDelete){
@@ -169,8 +169,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 if isFinished{
                     let indexPath = IndexPath(row: 0, section:  0)
                     self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
-                    self.tabBar.isUserInteractionEnabled = true
                     self.isScreenEditing = false
+                    self.tabBar.isUserInteractionEnabled = true
                 }
             })
         }).disposed(by: disposeBag)
