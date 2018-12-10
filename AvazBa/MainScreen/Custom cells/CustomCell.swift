@@ -110,11 +110,18 @@ class CustomCell: UITableViewCell {
         categoryText.numberOfLines = 1
         categoryText.font = UIFont.init(name: "Roboto-Regular", size: 12)
         categoryText.isUserInteractionEnabled = false
-        categoryText.backgroundColor = .red
-        categoryText.layer.cornerRadius = 3
-        categoryText.layer.masksToBounds = true
+        categoryText.backgroundColor = .clear
         categoryText.textAlignment = .justified
         return categoryText
+    }()
+    
+    var categoryTextContainer: UIView = {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.backgroundColor = .red
+        container.layer.cornerRadius = 3
+        container.layer.masksToBounds = true
+        return container
     }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -137,7 +144,8 @@ class CustomCell: UITableViewCell {
         stackForShares.addArrangedSubview(shareNumText)
         stackForShares.addArrangedSubview(shareImage)
         self.rootView.addSubview(stackForShares)
-        self.articlePhoto.addSubview(categoryText)
+        self.articlePhoto.addSubview(categoryTextContainer)
+        self.categoryTextContainer.addSubview(categoryText)
         setupConstraints()
     }
     
@@ -192,9 +200,16 @@ class CustomCell: UITableViewCell {
             ])
         
         NSLayoutConstraint.activate([
-            categoryText.bottomAnchor.constraint(equalTo: articlePhoto.bottomAnchor, constant: -16.2),
-            categoryText.leadingAnchor.constraint(equalTo: articlePhoto.leadingAnchor, constant: 28),
-            categoryText.heightAnchor.constraint(equalToConstant: 21)
+            categoryText.topAnchor.constraint(equalTo: categoryTextContainer.topAnchor),
+            categoryText.bottomAnchor.constraint(equalTo: categoryTextContainer.bottomAnchor),
+            categoryText.leadingAnchor.constraint(equalTo: categoryTextContainer.leadingAnchor, constant: 7),
+            categoryText.trailingAnchor.constraint(equalTo: categoryTextContainer.trailingAnchor, constant: -7)
+            ])
+        
+        NSLayoutConstraint.activate([
+            categoryTextContainer.bottomAnchor.constraint(equalTo: articlePhoto.bottomAnchor, constant: -16.2),
+            categoryTextContainer.leadingAnchor.constraint(equalTo: articlePhoto.leadingAnchor, constant: 28),
+            categoryTextContainer.heightAnchor.constraint(equalToConstant: 21)
             ])
     }
     

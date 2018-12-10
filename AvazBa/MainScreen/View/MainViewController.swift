@@ -63,7 +63,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.articleTitle.text = article.title
                 cell.publishedText.text = DateToBeforeCurrentTimeConverter.toBeforeCurrentTime(dateInPast: article.publishedAt.date, currentDate: Date())
                 cell.shareNumText.text = String(article.shares)
-                cell.categoryText.text = "  " + article.category.capitalized + "  "
+                cell.categoryText.text = article.category.capitalized
                 return cell
             }else{
                 return UITableViewCell()

@@ -149,6 +149,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if let cell = tableView.dequeueReusableCell(withIdentifier: "relatedNews", for: indexPath) as? RelatedArticleCell{
                 if let relatedArticle = viewModel.data[indexPath.section][indexPath.row].data as! ContentOfRelatedArticle?{
                     cell.setImage(image: relatedArticle.image.original)
+                    cell.categoryText.text = relatedArticle.category
                 }
                 return cell
             }else{

@@ -33,6 +33,7 @@ struct ContentOfRelatedArticle: Codable{
     var shares: Int
     var id: Int
     var category: String
+    var publishedAt: PublishedAt
     
     enum CodingKeys: String, CodingKey {
         case image = "featured_image"
@@ -40,7 +41,8 @@ struct ContentOfRelatedArticle: Codable{
         case description = "title"
         case shares = "shares"
         case id = "id"
-        case category = "category_slug"
+        case publishedAt = "published_at"
+        case category = "category"
     }
 }
 

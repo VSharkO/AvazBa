@@ -24,11 +24,18 @@ class RelatedArticleCell : UITableViewCell{
         categoryText.numberOfLines = 1
         categoryText.font = UIFont.init(name: "Roboto-Regular", size: 12)
         categoryText.isUserInteractionEnabled = false
-        categoryText.backgroundColor = .red
-        categoryText.layer.cornerRadius = 3
-        categoryText.layer.masksToBounds = true
+        categoryText.backgroundColor = .clear
         categoryText.textAlignment = .justified
         return categoryText
+    }()
+    
+    var categoryTextContainer: UIView = {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.backgroundColor = .red
+        container.layer.cornerRadius = 3
+        container.layer.masksToBounds = true
+        return container
     }()
     
     let relatedTitle: UITextView = {
@@ -57,6 +64,8 @@ class RelatedArticleCell : UITableViewCell{
     
     private func setupViews(){
         self.contentView.addSubview(relatedImage)
+        self.relatedImage.addSubview(categoryTextContainer)
+        self.categoryTextContainer.addSubview(categoryText)
         self.contentView.addSubview(separator)
         setupConstraints()
     }
@@ -65,20 +74,35 @@ class RelatedArticleCell : UITableViewCell{
         NSLayoutConstraint.activate([
             relatedImage.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
             relatedImage.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
-            relatedImage.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
             relatedImage.widthAnchor.constraint(equalToConstant: 112),
             relatedImage.heightAnchor.constraint(equalToConstant: 112)
             ])
         
         NSLayoutConstraint.activate([
-            separator.topAnchor.constraint(equalTo: self.relatedImage.bottomAnchor),
+            categoryText.topAnchor.constraint(equalTo: categoryTextContainer.topAnchor),
+            categoryText.bottomAnchor.constraint(equalTo: categoryTextContainer.bottomAnchor),
+            categoryText.leadingAnchor.constraint(equalTo: categoryTextContainer.leadingAnchor, constant: 7),
+            categoryText.trailingAnchor.constraint(equalTo: categoryTextContainer.trailingAnchor, constant: -7)
+            ])
+        
+        NSLayoutConstraint.activate([
+            categoryTextContainer.bottomAnchor.constraint(equalTo: relatedImage.bottomAnchor, constant: -8),
+            categoryTextContainer.leadingAnchor.constraint(equalTo: relatedImage.leadingAnchor, constant: 8),
+            categoryTextContainer.heightAnchor.constraint(equalToConstant: 21)
+            ])
+        
+        NSLayoutConstraint.activate([
+            separator.topAnchor.constraint(equalTo: self.relatedImage.bottomAnchor, constant: 8),
             separator.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
             separator.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
             separator.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
             ])
+        
         let articleSeparatorHeight = separator.heightAnchor.constraint(equalToConstant: 1)
         articleSeparatorHeight.priority = .init(999)
         articleSeparatorHeight.isActive = true
+        
+        
     }
     
     func setImage(image: String){
