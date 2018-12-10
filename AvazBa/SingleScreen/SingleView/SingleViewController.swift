@@ -62,29 +62,43 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             case 0:
                 return viewModel.data[0].count
             case 1:
-                    return viewModel.data[1].count
-                //        case 2:
-            //            return viewModel.data[2].count
+                return viewModel.data[1].count
+//            case 2:
+//                return viewModel.data[2].count
             default: return 0
             }
         }else{
             return 0
         }
-       
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if viewModel.data.count > 0{
         switch section{
         case 0:
             return nil
         case 1:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "relatedTitle", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
+            if viewModel.data[section][0].cellType == SingleArticleCellTypes.relatedNews, let cell = tableView.dequeueReusableCell(withIdentifier: "relatedTitle", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
                 cell.relatedTitle.text = "Povezano"
+                return cell
+            }else if let cell = tableView.dequeueReusableCell(withIdentifier: "relatedTitle", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
+                cell.relatedTitle.text = "Najčitanije"
+                return cell
+            }
+            else{
+                return UITableViewCell()
+            }
+        case 3:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "relatedTitle", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
+                cell.relatedTitle.text = "Najčitanije"
                 return cell
             }else{
                 return UITableViewCell()
             }
         default: return nil
+            }
+        }else{
+            return UITableViewCell()
         }
     }
 
@@ -123,22 +137,20 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             if let cell = tableView.dequeueReusableCell(withIdentifier: "text", for: indexPath) as? TextCell{
                 if let text = viewModel.data[indexPath.section][indexPath.row].data as! String?{
                     cell.articleText.text = text.htmlToString
-                    cell.layoutSubviews()
                 }
                 return cell
             }else{
                 return UITableViewCell()
             }
-//        case SingleArticleCellTypes.relatedNews:
-//            if let cell = tableView.dequeueReusableCell(withIdentifier: "relatedNews", for: indexPath) as? RelatedArticleCell{
-//                if let relatedArticle = viewModel.data[indexPath.section][indexPath.row].data as! Article?{
-//                    cell.setImage(image: relatedArticle.image.original)
-//                    cell.layoutSubviews()
-//                }
-//                return cell
-//            }else{
-//                return UITableViewCell()
-//            }
+        case SingleArticleCellTypes.relatedNews:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "relatedNews", for: indexPath) as? RelatedArticleCell{
+                if let relatedArticle = viewModel.data[indexPath.section][indexPath.row].data as! ContentOfRelatedArticle?{
+                    cell.setImage(image: relatedArticle.image.original)
+                }
+                return cell
+            }else{
+                return UITableViewCell()
+            }
         default: return UITableViewCell()
         }
     }

@@ -52,7 +52,13 @@ class SingleViewModel : SingleViewModelProtocol{
                 for i in 0...5{
                     mostReadSecton.append(Cell(cellType: SingleArticleCellTypes.mostReadNews, data: mostRead[i]))
                 }
-                self.data.append(contentsOf: [articleSecton,relatedSection,mostReadSecton]) 
+                //add section content
+                self.data.append(articleSecton)
+                if relatedSection.count > 0{
+                    self.data.append(relatedSection)
+                }
+                self.data.append(mostReadSecton)
+                
                 self.viewShowLoader.onNext(false)
                 self.refreshViewControllerTableData()
             })
