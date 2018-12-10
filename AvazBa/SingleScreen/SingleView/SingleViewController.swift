@@ -59,13 +59,17 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section{
         case 0:
-            return viewModel.data.count-1
-        case 1:
-            if let arrayOfRelatted: [Article] = viewModel.data.last?.data as! [Article]?{
-                return arrayOfRelatted.count
+            if viewModel.data.count > 0{
+                return 4
             }else{
                 return 0
             }
+//        case 1:
+//            if let arrayOfRelatted: [Article] = viewModel.data.last?.data as! [Article]?{
+//                return arrayOfRelatted.count
+//            }else{
+//                return 0
+//            }
         default: return 0
         }
     }
