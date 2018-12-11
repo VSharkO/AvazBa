@@ -51,7 +51,6 @@ class ImageCell: UITableViewCell {
     
     private func setupViews(){
         self.contentView.addSubview(articleImage)
-        
         setupConstraints()
     }
 

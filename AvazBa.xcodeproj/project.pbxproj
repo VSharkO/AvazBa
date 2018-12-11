@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B7B2FA0A40F751BDAEE14888 /* Pods_AvazBa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F49A77D87C1099CCB85723B /* Pods_AvazBa.framework */; };
 		C1828320723B55274748A23B /* Pods_AvazBaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5937AAF90F1C1F9BE294EA13 /* Pods_AvazBaTests.framework */; };
+		D502FEB521C033D600E4D6FF /* TitleRowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D502FEB421C033D600E4D6FF /* TitleRowCell.swift */; };
 		D50A0C7721AEC33800261511 /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50A0C7621AEC33800261511 /* GeneratedMocks.swift */; };
 		D5206D6B21BA5BDB00068F54 /* SingleArticleCellTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5206D6A21BA5BDB00068F54 /* SingleArticleCellTypes.swift */; };
 		D520BA0321A2F5AA0065361C /* MainScreenTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57D623A219DBA0D00A8479F /* MainScreenTests.swift */; };
@@ -74,6 +75,7 @@
 		5937AAF90F1C1F9BE294EA13 /* Pods_AvazBaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AvazBaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		62FEDC6E800B8DBF1D759572 /* Pods-AvazBa.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvazBa.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AvazBa/Pods-AvazBa.debug.xcconfig"; sourceTree = "<group>"; };
 		793C02A025C65463D7A0209F /* Pods-AvazBa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvazBa.release.xcconfig"; path = "Pods/Target Support Files/Pods-AvazBa/Pods-AvazBa.release.xcconfig"; sourceTree = "<group>"; };
+		D502FEB421C033D600E4D6FF /* TitleRowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleRowCell.swift; sourceTree = "<group>"; };
 		D50A0C7621AEC33800261511 /* GeneratedMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.swift; sourceTree = "<group>"; };
 		D5206D6A21BA5BDB00068F54 /* SingleArticleCellTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleArticleCellTypes.swift; sourceTree = "<group>"; };
 		D520BA0521A2F93F0065361C /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
@@ -387,6 +389,7 @@
 				D5EAC7A821BC43BC00893A7F /* ImageCell.swift */,
 				D5EAC7AA21BC6D2300893A7F /* UpperTitleCell.swift */,
 				D5EAC7AC21BC7A5000893A7F /* TitleCell.swift */,
+				D502FEB421C033D600E4D6FF /* TitleRowCell.swift */,
 				D5EAC7AE21BC8E0A00893A7F /* TextCell.swift */,
 				D5263AAA21BDED69001E37AC /* RelatedTitleCell.swift */,
 				D5EDA9C521BE678C0069E301 /* RelatedArticleCell.swift */,
@@ -640,6 +643,7 @@
 				D56F23B1219ED2E8009B17B6 /* Coordinator.swift in Sources */,
 				D5EA7C9E21B7C31800BF762E /* MainCoordinatorDelegate.swift in Sources */,
 				D55B415721A6A64300923984 /* Interactor.swift in Sources */,
+				D502FEB521C033D600E4D6FF /* TitleRowCell.swift in Sources */,
 				D5EAC7AF21BC8E0A00893A7F /* TextCell.swift in Sources */,
 				D5263AA921BDBE1B001E37AC /* States.swift in Sources */,
 				D56F23BB219EDA19009B17B6 /* MainViewModelProtocol.swift in Sources */,

@@ -10,6 +10,23 @@ import UIKit
 
 class CustomCell: UITableViewCell {
 
+//    var gallery: Bool?
+//    var video: Bool?
+    
+    var hasGallery: Bool = false{
+        didSet{
+//            self.gallery = hasGallery
+            setupGallery(isTrue: hasGallery)
+        }
+    }
+    
+    var hasVideo: Bool = false{
+        didSet{
+//            self.gallery = hasGallery
+            setupVideo(isTrue: hasVideo)
+        }
+    }
+    
     var rootView : UIView = {
         let view = UIView()
         view.layer.cornerRadius = 7
@@ -102,6 +119,17 @@ class CustomCell: UITableViewCell {
         return stackForShares
     }()
     
+   
+    
+    var categoryContainer: UIView = {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.backgroundColor = .red
+        container.layer.cornerRadius = 3
+        container.layer.masksToBounds = true
+        return container
+    }()
+    
     var categoryText : UILabel = {
         let categoryText = UILabel()
         categoryText.translatesAutoresizingMaskIntoConstraints = false
@@ -115,51 +143,22 @@ class CustomCell: UITableViewCell {
         return categoryText
     }()
     
-    var categoryTextContainer: UIView = {
-        let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
-        container.backgroundColor = .red
-        container.layer.cornerRadius = 3
-        container.layer.masksToBounds = true
-        return container
-    }()
-    
     var galleryImage : UIImageView = {
         let galleryImage = UIImageView()
         galleryImage.translatesAutoresizingMaskIntoConstraints = false
-        galleryImage.image = UIImage(named: "cameraImg")
         return galleryImage
-    }()
-    
-    var galleryImageContainer: UIView = {
-        let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
-        container.backgroundColor = .red
-        container.layer.cornerRadius = 3
-        container.layer.masksToBounds = true
-        return container
     }()
     
     var videoImage : UIImageView = {
-        let galleryImage = UIImageView()
-        galleryImage.translatesAutoresizingMaskIntoConstraints = false
-        galleryImage.image = UIImage(named: "playImg")
-        return galleryImage
-    }()
-    
-    var videoImageContainer: UIView = {
-        let container = UIView()
-        container.translatesAutoresizingMaskIntoConstraints = false
-        container.backgroundColor = .red
-        container.layer.cornerRadius = 3
-        container.layer.masksToBounds = true
-        return container
+        let videoImage = UIImageView()
+        videoImage.translatesAutoresizingMaskIntoConstraints = false
+        return videoImage
     }()
     
     var stackForCategory : UIStackView = {
         let stackForCategory = UIStackView()
         stackForCategory.translatesAutoresizingMaskIntoConstraints = false
-        stackForCategory.spacing = -5
+        stackForCategory.spacing = 8
         stackForCategory.axis = .horizontal
         return stackForCategory
     }()
@@ -184,9 +183,9 @@ class CustomCell: UITableViewCell {
         stackForShares.addArrangedSubview(shareNumText)
         stackForShares.addArrangedSubview(shareImage)
         self.rootView.addSubview(stackForShares)
-        articlePhoto.addSubview(stackForCategory)
-        self.categoryTextContainer.addSubview(categoryText)
-        self.stackForCategory.addArrangedSubview(categoryTextContainer)
+        self.categoryContainer.addSubview(stackForCategory)
+        self.stackForCategory.addArrangedSubview(categoryText)
+        articlePhoto.addSubview(categoryContainer)
         setupConstraints()
     }
     
@@ -239,21 +238,17 @@ class CustomCell: UITableViewCell {
             shareImage.heightAnchor.constraint(equalToConstant: 16),
             shareImage.widthAnchor.constraint(equalToConstant: 16)
             ])
-        
-        NSLayoutConstraint.activate([
-            categoryText.topAnchor.constraint(equalTo: categoryTextContainer.topAnchor),
-            categoryText.bottomAnchor.constraint(equalTo: categoryTextContainer.bottomAnchor),
-            categoryText.leadingAnchor.constraint(equalTo: categoryTextContainer.leadingAnchor, constant: 8),
-            categoryText.trailingAnchor.constraint(equalTo: categoryTextContainer.trailingAnchor, constant: -8)
-            ])
-        
-        NSLayoutConstraint.activate([
-            categoryTextContainer.heightAnchor.constraint(equalToConstant: 21)
-            ])
 
         NSLayoutConstraint.activate([
-            stackForCategory.bottomAnchor.constraint(equalTo: articlePhoto.bottomAnchor, constant: -9),
-            stackForCategory.leadingAnchor.constraint(equalTo: articlePhoto.leadingAnchor, constant: 16)
+            stackForCategory.bottomAnchor.constraint(equalTo: categoryContainer.bottomAnchor, constant: -4),
+            stackForCategory.leadingAnchor.constraint(equalTo: categoryContainer.leadingAnchor, constant: 8),
+            stackForCategory.trailingAnchor.constraint(equalTo: categoryContainer.trailingAnchor, constant: -8),
+            stackForCategory.topAnchor.constraint(equalTo: categoryContainer.topAnchor, constant: 4)
+            ])
+        
+        NSLayoutConstraint.activate([
+            categoryContainer.bottomAnchor.constraint(equalTo: articlePhoto.bottomAnchor, constant: -16),
+            categoryContainer.leadingAnchor.constraint(equalTo: articlePhoto.leadingAnchor, constant: 16)
             ])
     }
     
@@ -262,27 +257,23 @@ class CustomCell: UITableViewCell {
         articlePhoto.kf.setImage(with:url)
     }
     
-    func setCameraImage(){
-        self.videoImageContainer.addSubview(videoImage)
-        self.stackForCategory.addArrangedSubview(videoImageContainer)
-        
-        NSLayoutConstraint.activate([
-            videoImage.topAnchor.constraint(equalTo: videoImageContainer.topAnchor, constant: 4),
-            videoImage.leadingAnchor.constraint(equalTo: videoImageContainer.leadingAnchor, constant: 8),
-            videoImage.trailingAnchor.constraint(equalTo: videoImageContainer.trailingAnchor, constant: -6),
-            videoImage.bottomAnchor.constraint(equalTo: videoImageContainer.bottomAnchor, constant: -4)
-            ])
+    func setupGallery(isTrue: Bool){
+        if isTrue{
+            galleryImage.image = UIImage(named: "cameraImg")
+            self.stackForCategory.addArrangedSubview(galleryImage)
+        }else if !isTrue {
+            galleryImage.image = nil
+            self.stackForCategory.removeArrangedSubview(galleryImage)
+        }
     }
     
-    func setGalleryImage(){
-        self.galleryImageContainer.addSubview(galleryImage)
-        self.stackForCategory.addArrangedSubview(galleryImageContainer)
-        
-        NSLayoutConstraint.activate([
-            galleryImage.topAnchor.constraint(equalTo: galleryImageContainer.topAnchor, constant: 4),
-            galleryImage.leadingAnchor.constraint(equalTo: galleryImageContainer.leadingAnchor, constant: 8),
-            galleryImage.trailingAnchor.constraint(equalTo: galleryImageContainer.trailingAnchor, constant: -6),
-            galleryImage.bottomAnchor.constraint(equalTo: galleryImageContainer.bottomAnchor, constant: -4)
-            ])
+    func setupVideo(isTrue: Bool){
+        if isTrue{
+            videoImage.image = UIImage(named: "playImg")
+            self.stackForCategory.addArrangedSubview(videoImage)
+        }else if !isTrue {
+            videoImage.image = nil
+            self.stackForCategory.removeArrangedSubview(videoImage)
+        }
     }
 }

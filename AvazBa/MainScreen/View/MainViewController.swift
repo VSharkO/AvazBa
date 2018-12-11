@@ -71,11 +71,10 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.publishedText.text = DateToBeforeCurrentTimeConverter.toBeforeCurrentTime(dateInPast: article.publishedAt.date, currentDate: Date())
                 cell.shareNumText.text = String(article.shares)
                 cell.categoryText.text = article.category.capitalized
+                cell.hasGallery = article.hasGallery
+                cell.hasVideo = article.hasVideo
                 if article.hasVideo{
-                    cell.setCameraImage()
-                }
-                if article.hasGallery{
-                    cell.setGalleryImage()
+                    
                 }
                 return cell
             }else{
@@ -172,7 +171,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 self.tableView.reloadRows(at: arrayOfIndexPathsToAdd, with: .automatic)
             }, completion: {[unowned self] isFinished in
                 if isFinished{
-                    let indexPath = IndexPath(row: 0, section:  0)
+                    let indexPath = IndexPath(row: 0, section: 0)
                     self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
                     self.isScreenEditing = false
                     self.tabBar.isUserInteractionEnabled = true

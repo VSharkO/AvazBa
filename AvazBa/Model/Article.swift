@@ -12,6 +12,7 @@ struct Article: Codable,CellItem {
     var cellType: CellType = .article
     var image: FeaturedImage
     var title: String
+    var titleRaw: String
     var description: String
     var shares: Int
     var publishedAt: PublishedAt
@@ -23,6 +24,7 @@ struct Article: Codable,CellItem {
     enum CodingKeys: String, CodingKey {
         case image = "featured_image"
         case title = "uppertitle_raw"
+        case titleRaw = "title_raw"
         case description = "title"
         case shares = "shares"
         case publishedAt = "published_at"
