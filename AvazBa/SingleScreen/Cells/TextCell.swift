@@ -35,7 +35,7 @@ class TextCell: UITableViewCell {
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
-            articleText.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
+            articleText.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 32),
             articleText.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
             articleText.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
             articleText.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)

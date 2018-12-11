@@ -167,6 +167,15 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }else{
                 return UITableViewCell()
             }
+        case SingleArticleCellTypes.titleRow:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(TitleRowCell.self)", for: indexPath) as? TitleRowCell{
+                if let rowTitle = viewModel.data[indexPath.section][indexPath.row].data as! String?{
+                    cell.articleTitle.text = rowTitle
+                }
+                return cell
+            }else{
+                return UITableViewCell()
+            }
         }
     }
     
@@ -176,8 +185,6 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     private func setupViews(){
         self.view.addSubview(tableView)
-        tableView.rowHeight = UITableViewAutomaticDimension
-        tableView.estimatedRowHeight = 300
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -190,6 +197,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.register(RelatedTitleCell.self, forCellReuseIdentifier: "\(RelatedTitleCell.self)")
         self.tableView.register(RelatedArticleCell.self, forCellReuseIdentifier: "\(RelatedArticleCell.self)")
         self.tableView.register(MostReadArticleCell.self, forCellReuseIdentifier: "\(MostReadArticleCell.self)")
+        self.tableView.register(TitleRowCell.self, forCellReuseIdentifier: "\(TitleRowCell.self)")
     }
     
     private func initSubscripts(){

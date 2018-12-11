@@ -9,14 +9,23 @@
 import UIKit
 
 class TitleRowCell : UITableViewCell{
+    
     let articleTitle: UILabel = {
         let titletext = UILabel()
         titletext.translatesAutoresizingMaskIntoConstraints = false
         titletext.adjustsFontSizeToFitWidth = false
         titletext.numberOfLines = 5
         titletext.font = UIFont.init(name: "Roboto-Regular", size: 14)
+        titletext.textColor = UIColor(red:0, green:0, blue:0, alpha:0.6)
         titletext.isUserInteractionEnabled = false
         return titletext
+    }()
+    
+    let separator: UIView = {
+        let separator = UIView()
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        separator.backgroundColor = UIColor(red:0.95, green:0.95, blue:0.95, alpha:1)
+        return separator
     }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
@@ -30,6 +39,7 @@ class TitleRowCell : UITableViewCell{
     
     private func setupViews(){
         self.contentView.addSubview(articleTitle)
+        self.contentView.addSubview(separator)
         setupConstraints()
     }
     
@@ -40,5 +50,16 @@ class TitleRowCell : UITableViewCell{
             articleTitle.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
             articleTitle.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
             ])
+        
+        NSLayoutConstraint.activate([
+            separator.topAnchor.constraint(equalTo: self.articleTitle.bottomAnchor, constant: 16),
+            separator.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
+            separator.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
+            ])
+        let articleSeparatorHeight = separator.heightAnchor.constraint(equalToConstant: 1)
+        articleSeparatorHeight.priority = .init(999)
+        articleSeparatorHeight.isActive = true
     }
+    
+    
 }

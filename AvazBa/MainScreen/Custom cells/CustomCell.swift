@@ -9,20 +9,15 @@
 import UIKit
 
 class CustomCell: UITableViewCell {
-
-//    var gallery: Bool?
-//    var video: Bool?
     
     var hasGallery: Bool = false{
         didSet{
-//            self.gallery = hasGallery
             setupGallery(isTrue: hasGallery)
         }
     }
     
     var hasVideo: Bool = false{
         didSet{
-//            self.gallery = hasGallery
             setupVideo(isTrue: hasVideo)
         }
     }
@@ -118,8 +113,6 @@ class CustomCell: UITableViewCell {
         stackForShares.axis = .horizontal
         return stackForShares
     }()
-    
-   
     
     var categoryContainer: UIView = {
         let container = UIView()

@@ -11,6 +11,7 @@ import Foundation
 struct SpecificArticle : Codable{
     let id: Int
     let title: String
+    var titleRaw: String
     let upperTitle: String
     let featuredImage: FeaturedImage
     let autoRelatedArticles: [ContentOfRelatedArticle]?
@@ -19,6 +20,7 @@ struct SpecificArticle : Codable{
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case title = "title"
+        case titleRaw = "title_raw"
         case upperTitle = "uppertitle"
         case featuredImage = "featured_image"
         case autoRelatedArticles = "auto_related_articles"
