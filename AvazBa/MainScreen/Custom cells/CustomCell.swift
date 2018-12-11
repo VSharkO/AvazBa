@@ -158,7 +158,7 @@ class CustomCell: UITableViewCell {
     var stackForCategory : UIStackView = {
         let stackForCategory = UIStackView()
         stackForCategory.translatesAutoresizingMaskIntoConstraints = false
-        stackForCategory.spacing = 8
+        stackForCategory.spacing = 10
         stackForCategory.axis = .horizontal
         return stackForCategory
     }()
