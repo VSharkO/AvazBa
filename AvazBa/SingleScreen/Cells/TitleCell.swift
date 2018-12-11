@@ -14,7 +14,7 @@ class TitleCell: UITableViewCell {
         let titletext = UILabel()
         titletext.translatesAutoresizingMaskIntoConstraints = false
         titletext.adjustsFontSizeToFitWidth = false
-        titletext.numberOfLines = 3
+        titletext.numberOfLines = 5
         titletext.font = UIFont.init(name: "RobotoSlab-Regular", size: 26)
         titletext.isUserInteractionEnabled = false
         return titletext
