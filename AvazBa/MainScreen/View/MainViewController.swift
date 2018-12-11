@@ -189,14 +189,17 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         tabBar.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         tabBar.sizeToFit()
         tabBar.items = [
-            UITabBarItem(title: constants.newest, image: nil, tag: 0),
-            UITabBarItem(title: constants.mostRead, image: nil, tag: 0),
+            UITabBarItem(title: constants.newest.capitalized, image: nil, tag: 0),
+            UITabBarItem(title: constants.mostRead.capitalized, image: nil, tag: 0)
         ]
         tabBar.itemAppearance = .titles
         tabBar.barTintColor = UIColor.white
         tabBar.tintColor = UIColor.red
+        tabBar.titleTextTransform = .none
         tabBar.alignment = .justified
-        tabBar.setTitleColor(UIColor.black, for: .normal)
+        tabBar.selectedItemTitleFont = UIFont.init(name: "RobotoSlab-Bold", size: 20)!
+        tabBar.unselectedItemTitleFont = UIFont.init(name: "RobotoSlab-Bold", size: 20)!
+        tabBar.setTitleColor(UIColor(red:0.61, green:0.61, blue:0.61, alpha:1), for: .normal)
         tabBar.setTitleColor(UIColor.black, for: .selected)
         tabBar.delegate = self
         self.tabBar.addSubview(tabBar)
@@ -205,8 +208,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     private func setupConstraints(){
         NSLayoutConstraint.activate([
             tabBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tabBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-            tabBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16),
+            tabBar.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 24),
+            tabBar.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -24),
             tabBar.heightAnchor.constraint(equalToConstant: 48)
             ])
         

@@ -15,7 +15,7 @@ class UpperTitleCell: UITableViewCell {
         upperTitletext.translatesAutoresizingMaskIntoConstraints = false
         upperTitletext.adjustsFontSizeToFitWidth = false
         upperTitletext.numberOfLines = 1
-        upperTitletext.font = UIFont.init(name: "Roboto-Bold", size: 14)
+        upperTitletext.font = UIFont.init(name: "RobotoSlab-Bold", size: 14)
         upperTitletext.isUserInteractionEnabled = false
         return upperTitletext
     }()

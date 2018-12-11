@@ -13,7 +13,7 @@ class RelatedTitleCell : UITableViewCell{
     let relatedTitle: UITextView = {
         let text = UITextView()
         text.translatesAutoresizingMaskIntoConstraints = false
-        text.font = UIFont.init(name: "Roboto-Bold", size: 20)
+        text.font = UIFont.init(name: "RobotoSlab-Bold", size: 20)
         text.isScrollEnabled = false
         return text
     }()
