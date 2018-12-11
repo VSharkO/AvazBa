@@ -77,19 +77,19 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         case 0:
             return nil
         case 1:
-            if viewModel.data[section][0].cellType == SingleArticleCellTypes.relatedNews, let cell = tableView.dequeueReusableCell(withIdentifier: "relatedTitle", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
-                cell.relatedTitle.text = "Povezano"
+            if viewModel.data[section][0].cellType == SingleArticleCellTypes.relatedNews, let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedTitleCell.self)", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
+                cell.relatedTitle.text = constants.related
                 return cell
-            }else if let cell = tableView.dequeueReusableCell(withIdentifier: "relatedTitle", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
-                cell.relatedTitle.text = "Najčitanije"
+            }else if let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedTitleCell.self)", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
+                cell.relatedTitle.text = constants.mostRead
                 return cell
             }
             else{
                 return nil
             }
         case 2:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "relatedTitle", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
-                cell.relatedTitle.text = "Najčitanije"
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedTitleCell.self)", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
+                cell.relatedTitle.text = constants.mostRead
                 return cell
             }else{
                 return UITableViewCell()
@@ -104,7 +104,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch viewModel.data[indexPath.section][indexPath.row].cellType{
         case SingleArticleCellTypes.image:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell", for: indexPath) as? ImageCell{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(ImageCell.self)", for: indexPath) as? ImageCell{
                 if let imageLink = viewModel.data[indexPath.section][indexPath.row].data as! String?{
                     cell.setImage(image: imageLink)
                     cell.layoutMargins = UIEdgeInsets.zero
@@ -114,7 +114,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 return UITableViewCell()
             }
         case SingleArticleCellTypes.upperTitle:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "upperTitle", for: indexPath) as? UpperTitleCell{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(UpperTitleCell.self)", for: indexPath) as? UpperTitleCell{
                 if let upperTitle = viewModel.data[indexPath.section][indexPath.row].data as! String?{
                     cell.articleUpperTitle.text = upperTitle
                     cell.separatorInset = UIEdgeInsetsMake(0, 16, 0, 16);
@@ -124,7 +124,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 return UITableViewCell()
             }
         case SingleArticleCellTypes.title:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "title", for: indexPath) as? TitleCell{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(TitleCell.self)", for: indexPath) as? TitleCell{
                 if let title = viewModel.data[indexPath.section][indexPath.row].data as! String?{
                     cell.articleTitle.text = title
                 }
@@ -133,7 +133,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 return UITableViewCell()
             }
         case SingleArticleCellTypes.text:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "text", for: indexPath) as? TextCell{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedTitleCell.self)", for: indexPath) as? TextCell{
                 if let text = viewModel.data[indexPath.section][indexPath.row].data as! String?{
                     cell.articleText.text = text.htmlToString
                 }
@@ -142,7 +142,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 return UITableViewCell()
             }
         case SingleArticleCellTypes.relatedNews:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "relatedNews", for: indexPath) as? RelatedArticleCell{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedArticleCell.self)", for: indexPath) as? RelatedArticleCell{
                 if let relatedArticle = viewModel.data[indexPath.section][indexPath.row].data as! ContentOfRelatedArticle?{
                     cell.setImage(image: relatedArticle.image.xl)
                     cell.categoryText.text = relatedArticle.category.capitalized
@@ -156,7 +156,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
             
         case SingleArticleCellTypes.mostReadNews:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "mostReadNews", for: indexPath) as? MostReadArticleCell{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(MostReadArticleCell.self)", for: indexPath) as? MostReadArticleCell{
                 if let mostReadArticle = viewModel.data[indexPath.section][indexPath.row].data as! Article?{
                     cell.setImage(image: mostReadArticle.image.xl)
                     cell.categoryText.text = mostReadArticle.category.capitalized
@@ -183,13 +183,13 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     private func registerCells(){
-        self.tableView.register(ImageCell.self, forCellReuseIdentifier: "imageCell")
-        self.tableView.register(UpperTitleCell.self, forCellReuseIdentifier: "upperTitle")
-        self.tableView.register(TitleCell.self, forCellReuseIdentifier: "title")
-        self.tableView.register(TextCell.self, forCellReuseIdentifier: "text")
-        self.tableView.register(RelatedTitleCell.self, forCellReuseIdentifier: "relatedTitle")
-        self.tableView.register(RelatedArticleCell.self, forCellReuseIdentifier: "relatedNews")
-        self.tableView.register(MostReadArticleCell.self, forCellReuseIdentifier: "mostReadNews")
+        self.tableView.register(ImageCell.self, forCellReuseIdentifier: "\(ImageCell.self)")
+        self.tableView.register(UpperTitleCell.self, forCellReuseIdentifier: "\(UpperTitleCell.self)")
+        self.tableView.register(TitleCell.self, forCellReuseIdentifier: "\(TitleCell.self)")
+        self.tableView.register(TextCell.self, forCellReuseIdentifier: "\(TextCell.self)")
+        self.tableView.register(RelatedTitleCell.self, forCellReuseIdentifier: "\(RelatedTitleCell.self)")
+        self.tableView.register(RelatedArticleCell.self, forCellReuseIdentifier: "\(RelatedArticleCell.self)")
+        self.tableView.register(MostReadArticleCell.self, forCellReuseIdentifier: "\(MostReadArticleCell.self)")
     }
     
     private func initSubscripts(){

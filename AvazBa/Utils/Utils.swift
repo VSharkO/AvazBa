@@ -20,6 +20,7 @@ struct constants{
     static let newestApi = "najnovije"
     static let mostReadApi = "najcitanije"
     static let text = "text"
+    static let related = "Povezano"
 }
 
 protocol LoaderManager{
