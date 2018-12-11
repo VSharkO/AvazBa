@@ -133,7 +133,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 return UITableViewCell()
             }
         case SingleArticleCellTypes.text:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedTitleCell.self)", for: indexPath) as? TextCell{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(TextCell.self)", for: indexPath) as? TextCell{
                 if let text = viewModel.data[indexPath.section][indexPath.row].data as! String?{
                     cell.articleText.text = text.htmlToString
                 }
