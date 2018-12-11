@@ -17,6 +17,8 @@ struct Article: Codable,CellItem {
     var publishedAt: PublishedAt
     var id: Int
     var category: String
+    var hasVideo: Bool
+    var hasGallery: Bool
     
     enum CodingKeys: String, CodingKey {
         case image = "featured_image"
@@ -26,6 +28,8 @@ struct Article: Codable,CellItem {
         case publishedAt = "published_at"
         case id = "id"
         case category = "category_slug"
+        case hasVideo = "has_video"
+        case hasGallery = "has_gallery"
     }
 }
 

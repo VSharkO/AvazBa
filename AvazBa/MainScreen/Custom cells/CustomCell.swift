@@ -143,7 +143,7 @@ class CustomCell: UITableViewCell {
         return container
     }()
     
-    var playImage : UIImageView = {
+    var videoImage : UIImageView = {
         let galleryImage = UIImageView()
         galleryImage.translatesAutoresizingMaskIntoConstraints = false
         galleryImage.image = UIImage(named: "playImg")
@@ -187,17 +187,9 @@ class CustomCell: UITableViewCell {
         stackForShares.addArrangedSubview(shareNumText)
         stackForShares.addArrangedSubview(shareImage)
         self.rootView.addSubview(stackForShares)
+        articlePhoto.addSubview(stackForCategory)
         self.categoryTextContainer.addSubview(categoryText)
         self.stackForCategory.addArrangedSubview(categoryTextContainer)
-        if hasGallery{
-            self.galleryImageContainer.addSubview(galleryImage)
-            self.stackForCategory.addArrangedSubview(galleryImageContainer)
-        }
-        if hasVideo{
-            self.videoImageContainer.addSubview(playImage)
-            self.stackForCategory.addArrangedSubview(videoImageContainer)
-        }
-        articlePhoto.addSubview(stackForCategory)
         setupConstraints()
     }
     
@@ -261,25 +253,7 @@ class CustomCell: UITableViewCell {
         NSLayoutConstraint.activate([
             categoryTextContainer.heightAnchor.constraint(equalToConstant: 21)
             ])
-        
-        if hasGallery{
-        NSLayoutConstraint.activate([
-            galleryImage.topAnchor.constraint(equalTo: galleryImageContainer.topAnchor, constant: 4),
-            galleryImage.leadingAnchor.constraint(equalTo: galleryImageContainer.leadingAnchor, constant: 8),
-            galleryImage.trailingAnchor.constraint(equalTo: galleryImageContainer.trailingAnchor, constant: -6),
-            galleryImage.bottomAnchor.constraint(equalTo: galleryImageContainer.bottomAnchor, constant: -4)
-            ])
-        }
-        
-        if hasVideo{
-        NSLayoutConstraint.activate([
-            playImage.topAnchor.constraint(equalTo: videoImageContainer.topAnchor, constant: 4),
-            playImage.leadingAnchor.constraint(equalTo: videoImageContainer.leadingAnchor, constant: 8),
-            playImage.trailingAnchor.constraint(equalTo: videoImageContainer.trailingAnchor, constant: -6),
-            playImage.bottomAnchor.constraint(equalTo: videoImageContainer.bottomAnchor, constant: -4)
-            ])
-        }
-        
+
         NSLayoutConstraint.activate([
             stackForCategory.bottomAnchor.constraint(equalTo: articlePhoto.bottomAnchor, constant: -9),
             stackForCategory.leadingAnchor.constraint(equalTo: articlePhoto.leadingAnchor, constant: 16)
@@ -289,5 +263,29 @@ class CustomCell: UITableViewCell {
     func setMainPicture(image: String){
         let url = URL(string: constants.baseUrl + image)
         articlePhoto.kf.setImage(with:url)
+    }
+    
+    func setCameraImage(){
+        self.videoImageContainer.addSubview(videoImage)
+        self.stackForCategory.addArrangedSubview(videoImageContainer)
+        
+        NSLayoutConstraint.activate([
+            videoImage.topAnchor.constraint(equalTo: videoImageContainer.topAnchor, constant: 4),
+            videoImage.leadingAnchor.constraint(equalTo: videoImageContainer.leadingAnchor, constant: 8),
+            videoImage.trailingAnchor.constraint(equalTo: videoImageContainer.trailingAnchor, constant: -6),
+            videoImage.bottomAnchor.constraint(equalTo: videoImageContainer.bottomAnchor, constant: -4)
+            ])
+    }
+    
+    func setGalleryImage(){
+        self.galleryImageContainer.addSubview(galleryImage)
+        self.stackForCategory.addArrangedSubview(galleryImageContainer)
+        
+        NSLayoutConstraint.activate([
+            galleryImage.topAnchor.constraint(equalTo: galleryImageContainer.topAnchor, constant: 4),
+            galleryImage.leadingAnchor.constraint(equalTo: galleryImageContainer.leadingAnchor, constant: 8),
+            galleryImage.trailingAnchor.constraint(equalTo: galleryImageContainer.trailingAnchor, constant: -6),
+            galleryImage.bottomAnchor.constraint(equalTo: galleryImageContainer.bottomAnchor, constant: -4)
+            ])
     }
 }
