@@ -85,7 +85,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 return cell
             }
             else{
-                return UITableViewCell()
+                return nil
             }
         case 2:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "relatedTitle", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
@@ -97,7 +97,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         default: return nil
             }
         }else{
-            return UITableViewCell()
+            return nil
         }
     }
 
@@ -144,7 +144,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         case SingleArticleCellTypes.relatedNews:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "relatedNews", for: indexPath) as? RelatedArticleCell{
                 if let relatedArticle = viewModel.data[indexPath.section][indexPath.row].data as! ContentOfRelatedArticle?{
-                    cell.setImage(image: relatedArticle.image.original)
+                    cell.setImage(image: relatedArticle.image.xl)
                     cell.categoryText.text = relatedArticle.category.capitalized
                     cell.articleText.text = relatedArticle.description
                     cell.publishedText.text = DateToBeforeCurrentTimeConverter.toBeforeCurrentTime(dateInPast: relatedArticle.publishedAt.date, currentDate: Date())
@@ -158,7 +158,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         case SingleArticleCellTypes.mostReadNews:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "mostReadNews", for: indexPath) as? MostReadArticleCell{
                 if let mostReadArticle = viewModel.data[indexPath.section][indexPath.row].data as! Article?{
-                    cell.setImage(image: mostReadArticle.image.original)
+                    cell.setImage(image: mostReadArticle.image.xl)
                     cell.categoryText.text = mostReadArticle.category.capitalized
                     cell.articleText.text = mostReadArticle.description
                     cell.shareNumText.text = String(mostReadArticle.shares)

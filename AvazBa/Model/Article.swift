@@ -43,6 +43,8 @@ struct PublishedAt: Codable{
 
 struct FeaturedImage: Codable {
     var original: String
+    var xxl: String
+    var xl: String
 }
 
 struct Response : Codable {

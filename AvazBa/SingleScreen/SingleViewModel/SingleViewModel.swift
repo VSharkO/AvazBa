@@ -35,7 +35,8 @@ class SingleViewModel : SingleViewModelProtocol{
                 var articleSecton = [Cell]()
                 var relatedSection = [Cell]()
                 var mostReadSecton = [Cell]()
-                articleSecton.append(Cell(cellType: SingleArticleCellTypes.image, data: article.featuredImage.original))
+                //Add content in sections
+                articleSecton.append(Cell(cellType: SingleArticleCellTypes.image, data: article.featuredImage.xxl))
                 articleSecton.append(Cell(cellType: SingleArticleCellTypes.upperTitle, data: article.upperTitle))
                 articleSecton.append(Cell(cellType: SingleArticleCellTypes.title, data: article.title))
                 for content in article.content{
@@ -52,7 +53,8 @@ class SingleViewModel : SingleViewModelProtocol{
                 for i in 0...5{
                     mostReadSecton.append(Cell(cellType: SingleArticleCellTypes.mostReadNews, data: mostRead[i]))
                 }
-                //add section content
+                
+                //Add sections to sectionArray
                 self.data.append(articleSecton)
                 if relatedSection.count > 0{
                     self.data.append(relatedSection)

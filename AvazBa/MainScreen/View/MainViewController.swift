@@ -52,6 +52,13 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         viewModel.initialDataRequest()
     }
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return viewModel.data.count
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch viewModel.data[indexPath.row].cellType{
@@ -72,28 +79,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 return LoaderCell()
         }
     }
-    
-    func tabBar(_ tabBar: MDCTabBar, didSelect item: UITabBarItem) {
-        if let title = item.title{
-            switch title {
-            case constants.newest:
-                viewModel.selectedTab = constants.newestApi
-            case constants.mostRead:
-                viewModel.selectedTab = constants.mostReadApi
-            default:
-                viewModel.selectedTab = constants.newestApi
-            }
-                viewModel.newTabOpened()
-        }
-    }
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.data.count
-    }
 
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if(viewModel.data.count != 0){
@@ -105,6 +90,20 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         moveToSingleScreenWithIndex(clickedNews: indexPath.row)
+    }
+    
+    func tabBar(_ tabBar: MDCTabBar, didSelect item: UITabBarItem) {
+        if let title = item.title{
+            switch title {
+            case constants.newest:
+                viewModel.selectedTab = constants.newestApi
+            case constants.mostRead:
+                viewModel.selectedTab = constants.mostReadApi
+            default:
+                viewModel.selectedTab = constants.newestApi
+            }
+            viewModel.newTabOpened()
+        }
     }
     
     private func registerCells(){

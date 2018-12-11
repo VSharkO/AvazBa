@@ -16,6 +16,30 @@ class ImageCell: UITableViewCell {
         return image
     }()
     
+    var categoryText : UILabel = {
+        let categoryText = UILabel()
+        categoryText.translatesAutoresizingMaskIntoConstraints = false
+        categoryText.textColor = .white
+        categoryText.adjustsFontSizeToFitWidth = false
+        categoryText.numberOfLines = 1
+        categoryText.font = UIFont.init(name: "Roboto-Regular", size: 12)
+        categoryText.isUserInteractionEnabled = false
+        categoryText.backgroundColor = .clear
+        categoryText.textAlignment = .justified
+        return categoryText
+    }()
+    
+    var categoryTextContainer: UIView = {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.backgroundColor = .red
+        container.layer.cornerRadius = 3
+        container.layer.masksToBounds = true
+        return container
+    }()
+    
+    
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
         setupViews()
@@ -39,7 +63,7 @@ class ImageCell: UITableViewCell {
                 articleImage.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
                
             ])
-        let articleImageHeight = articleImage.heightAnchor.constraint(equalToConstant: 340)
+        let articleImageHeight = articleImage.heightAnchor.constraint(equalToConstant: 286)
         articleImageHeight.priority = .init(999)
         articleImageHeight.isActive = true
     }
