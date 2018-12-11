@@ -9,10 +9,7 @@
 import UIKit
 
 class CustomCell: UITableViewCell {
-    
-    var hasGallery = false
-    var hasVideo = false
-    
+
     var rootView : UIView = {
         let view = UIView()
         view.layer.cornerRadius = 7
