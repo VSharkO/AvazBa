@@ -38,7 +38,7 @@ class CustomCell: UITableViewCell {
         articleTitle.textColor = .darkGray
         articleTitle.adjustsFontSizeToFitWidth = false
         articleTitle.numberOfLines = 2
-        articleTitle.font = UIFont.init(name: "Roboto-Bold", size: 14)
+        articleTitle.font = UIFont.init(name: "RobotoSlab-Bold", size: 14)
         articleTitle.isUserInteractionEnabled = false
         return articleTitle
     }()
