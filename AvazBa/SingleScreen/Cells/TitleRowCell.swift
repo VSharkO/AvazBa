@@ -47,14 +47,14 @@ class TitleRowCell : UITableViewCell{
         NSLayoutConstraint.activate([
             articleTitle.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
             articleTitle.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
-            articleTitle.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
-            articleTitle.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
+            articleTitle.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
             ])
         
         NSLayoutConstraint.activate([
             separator.topAnchor.constraint(equalTo: self.articleTitle.bottomAnchor, constant: 16),
             separator.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
-            separator.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
+            separator.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16),
+            separator.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
             ])
         let articleSeparatorHeight = separator.heightAnchor.constraint(equalToConstant: 1)
         articleSeparatorHeight.priority = .init(999)
