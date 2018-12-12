@@ -24,6 +24,9 @@ class SingleScreenTests : QuickSpec{
         {
             do{
                 let decoder = JSONDecoder()
+                let formatter = DateFormatter()
+                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.000000"
+                decoder.dateDecodingStrategy = .formatted(formatter)
                 let responce = try decoder.decode(SpecificArticle.self, from: supplyListData)
                 return responce
             }catch{
@@ -40,7 +43,6 @@ class SingleScreenTests : QuickSpec{
                 let decoder = JSONDecoder()
                 let formatter = DateFormatter()
                 formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.000000"
-                //                            decoder.keyDecodingStrategy = .convertFromSnakeCase
                 decoder.dateDecodingStrategy = .formatted(formatter)
                 let responce = try decoder.decode(Response.self, from: supplyListDataSingle)
                 return responce.articles
@@ -87,7 +89,8 @@ class SingleScreenTests : QuickSpec{
                     expect(singleViewModel.data[0][0].cellType).to(equal(SingleArticleCellTypes.image))
                     expect(singleViewModel.data[0][1].cellType).to(equal(SingleArticleCellTypes.upperTitle))
                     expect(singleViewModel.data[0][2].cellType).to(equal(SingleArticleCellTypes.title))
-                    expect(singleViewModel.data[0][3].cellType).to(equal(SingleArticleCellTypes.text))
+                    expect(singleViewModel.data[0][3].cellType).to(equal(SingleArticleCellTypes.titleRow))
+                    expect(singleViewModel.data[0][4].cellType).to(equal(SingleArticleCellTypes.text))
                     for i in 0...2{
                         expect(singleViewModel.data[1][i].cellType).to(equal(SingleArticleCellTypes.relatedNews))
                     }
