@@ -9,7 +9,7 @@
 import UIKit
 
 class TitleCell: UITableViewCell {
-
+    
     let articleTitle: UILabel = {
         let titletext = UILabel()
         titletext.translatesAutoresizingMaskIntoConstraints = false
@@ -42,6 +42,5 @@ class TitleCell: UITableViewCell {
             articleTitle.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
             ])
     }
-
-
+    
 }

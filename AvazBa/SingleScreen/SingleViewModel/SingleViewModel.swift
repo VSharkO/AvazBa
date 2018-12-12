@@ -36,7 +36,7 @@ class SingleViewModel : SingleViewModelProtocol{
                 var relatedSection = [Cell]()
                 var mostReadSecton = [Cell]()
                 //Add content in sections
-                articleSecton.append(Cell(cellType: SingleArticleCellTypes.image, data: article.featuredImage.xxl))
+                articleSecton.append(Cell(cellType: SingleArticleCellTypes.image, data: article))
                 articleSecton.append(Cell(cellType: SingleArticleCellTypes.upperTitle, data: article.upperTitle))
                 articleSecton.append(Cell(cellType: SingleArticleCellTypes.title, data: article.title))
                 articleSecton.append(Cell(cellType: SingleArticleCellTypes.titleRow, data: article.titleRaw))

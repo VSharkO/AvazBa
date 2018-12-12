@@ -105,9 +105,9 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         switch viewModel.data[indexPath.section][indexPath.row].cellType{
         case SingleArticleCellTypes.image:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(ImageCell.self)", for: indexPath) as? ImageCell{
-                if let imageLink = viewModel.data[indexPath.section][indexPath.row].data as! String?{
-                    cell.setImage(image: imageLink)
-                    cell.layoutMargins = UIEdgeInsets.zero
+                if let article = viewModel.data[indexPath.section][indexPath.row].data as! SpecificArticle?{
+                    cell.setImage(image: article.featuredImage.xxl)
+                    cell.categoryText.text = article.category.capitalized
                 }
                 return cell
             }else{
@@ -226,6 +226,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func showLoader() {
         loader = displayLoader(onView: self.view)
         loader?.backgroundColor = .gray
+        loader?.alpha = 0.3
     }
     
     func hideLoader() {

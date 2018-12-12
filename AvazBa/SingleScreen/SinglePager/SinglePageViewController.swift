@@ -16,9 +16,10 @@ class SinglePageViewController: UIPageViewController, UIPageViewControllerDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setViewControllers([pages[focusedItem]],direction: .forward , animated: true, completion: nil)
         self.dataSource = self
         self.delegate = self
+        setViewControllers([pages[focusedItem]],direction: .forward , animated: true, completion: nil)
+       
     }
     
     init(arrayOfViewControllers: [SingleViewController], focusedNews: Int) {

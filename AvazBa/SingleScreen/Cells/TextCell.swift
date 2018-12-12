@@ -15,6 +15,7 @@ class TextCell: UITableViewCell {
         text.translatesAutoresizingMaskIntoConstraints = false
         text.font = UIFont.init(name: "Roboto-Regular", size: 14)
         text.textColor = .gray
+        text.textAlignment = .left
         text.isScrollEnabled = false
         return text
     }()

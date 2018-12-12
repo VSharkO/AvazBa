@@ -10,6 +10,18 @@ import UIKit
 
 class ImageCell: UITableViewCell {
     
+//    var hasSource: Bool = false{
+//        didSet{
+//            setupSource(isTrue: hasSource)
+//        }
+//    }
+//
+//    var HasDecription: Bool = false{
+//        didSet{
+//            setupDescripton(isTrue: HasDecription)
+//        }
+//    }
+    
     let articleImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -25,8 +37,37 @@ class ImageCell: UITableViewCell {
         categoryText.font = UIFont.init(name: "Roboto-Regular", size: 12)
         categoryText.isUserInteractionEnabled = false
         categoryText.backgroundColor = .clear
-        categoryText.textAlignment = .justified
+        categoryText.text = "dasdasdasd dasda "
+        categoryText.textAlignment = .center
         return categoryText
+    }()
+    
+    var sourceText : UILabel = {
+        let sourceText = UILabel()
+        sourceText.translatesAutoresizingMaskIntoConstraints = false
+        sourceText.textColor = .white
+        sourceText.adjustsFontSizeToFitWidth = false
+        sourceText.numberOfLines = 1
+        sourceText.font = UIFont.init(name: "Roboto-Regular", size: 12)
+        sourceText.isUserInteractionEnabled = false
+        sourceText.backgroundColor = .clear
+        sourceText.text = "dasdasdasd dasda "
+        sourceText.textAlignment = .center
+        return sourceText
+    }()
+    
+    var descriptionText : UILabel = {
+        let descriptionText = UILabel()
+        descriptionText.translatesAutoresizingMaskIntoConstraints = false
+        descriptionText.textColor = .white
+        descriptionText.adjustsFontSizeToFitWidth = false
+        descriptionText.numberOfLines = 1
+        descriptionText.font = UIFont.init(name: "Roboto-Regular", size: 12)
+        descriptionText.isUserInteractionEnabled = false
+        descriptionText.backgroundColor = .clear
+        descriptionText.text = "dasdasdasd dasda "
+        descriptionText.textAlignment = .center
+        return descriptionText
     }()
     
     var categoryTextContainer: UIView = {
@@ -38,7 +79,33 @@ class ImageCell: UITableViewCell {
         return container
     }()
     
+    var bookmarksImage: UIImageView = {
+        let bookmarksImage = UIImageView()
+        bookmarksImage.translatesAutoresizingMaskIntoConstraints = false
+        bookmarksImage.image = UIImage(named: "bookmarkImg")
+        return bookmarksImage
+    }()
     
+    var bookmarkImageContainer: UIView = {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        return container
+    }()
+    
+    var stackViewForCategory: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 12
+        stackView.axis = .horizontal
+        return stackView
+    }()
+    
+    var stackViewForAll: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.spacing = 8
+        return stackView
+    }()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
@@ -51,6 +118,12 @@ class ImageCell: UITableViewCell {
     
     private func setupViews(){
         self.contentView.addSubview(articleImage)
+        self.categoryTextContainer.addSubview(categoryText)
+        self.stackViewForCategory.addArrangedSubview(categoryTextContainer)
+        self.bookmarkImageContainer.addSubview(bookmarksImage)
+        self.stackViewForCategory.addArrangedSubview(bookmarkImageContainer)
+        self.stackViewForAll.addArrangedSubview(stackViewForCategory)
+        self.articleImage.addSubview(stackViewForAll)
         setupConstraints()
     }
 
@@ -60,15 +133,38 @@ class ImageCell: UITableViewCell {
                 articleImage.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
                 articleImage.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
                 articleImage.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor)
-               
             ])
         let articleImageHeight = articleImage.heightAnchor.constraint(equalToConstant: 286)
         articleImageHeight.priority = .init(999)
         articleImageHeight.isActive = true
+        
+        NSLayoutConstraint.activate([
+            categoryText.topAnchor.constraint(equalTo: self.categoryTextContainer.topAnchor),
+            categoryText.leadingAnchor.constraint(equalTo: self.categoryTextContainer.leadingAnchor, constant: 6),
+            categoryText.trailingAnchor.constraint(equalTo: self.categoryTextContainer.trailingAnchor, constant: -5),
+            categoryText.bottomAnchor.constraint(equalTo: self.categoryTextContainer.bottomAnchor)
+            ])
+        
+        NSLayoutConstraint.activate([
+            categoryTextContainer.heightAnchor.constraint(equalToConstant: 22)
+            ])
+        
+        NSLayoutConstraint.activate([
+            bookmarksImage.topAnchor.constraint(equalTo: self.bookmarkImageContainer.topAnchor, constant: 2),
+            bookmarksImage.bottomAnchor.constraint(equalTo: self.bookmarkImageContainer.bottomAnchor, constant: -2),
+            bookmarksImage.leadingAnchor.constraint(equalTo: self.bookmarkImageContainer.leadingAnchor, constant: 3),
+            bookmarksImage.trailingAnchor.constraint(equalTo: self.bookmarkImageContainer.trailingAnchor, constant: 3)
+            ])
+        
+        NSLayoutConstraint.activate([
+            stackViewForAll.leadingAnchor.constraint(equalTo: self.articleImage.leadingAnchor, constant: 16),
+            stackViewForAll.bottomAnchor.constraint(equalTo: self.articleImage.bottomAnchor, constant: -16)
+            ])
     }
     
     func setImage(image: String){
         let url = URL(string: constants.baseUrl + image)
         articleImage.kf.setImage(with:url)
     }
+
 }
