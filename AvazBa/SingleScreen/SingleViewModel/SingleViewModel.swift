@@ -61,7 +61,6 @@ class SingleViewModel : SingleViewModelProtocol{
                     self.data.append(relatedSection)
                 }
                 self.data.append(mostReadSecton)
-                
                 self.viewShowLoader.onNext(false)
                 self.refreshViewControllerTableData()
             })
