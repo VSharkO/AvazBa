@@ -90,7 +90,8 @@ class SingleScreenTests : QuickSpec{
                     expect(singleViewModel.data[0][1].cellType).to(equal(SingleArticleCellTypes.upperTitle))
                     expect(singleViewModel.data[0][2].cellType).to(equal(SingleArticleCellTypes.title))
                     expect(singleViewModel.data[0][3].cellType).to(equal(SingleArticleCellTypes.titleRow))
-                    expect(singleViewModel.data[0][4].cellType).to(equal(SingleArticleCellTypes.text))
+                    expect(singleViewModel.data[0][4].cellType).to(equal(SingleArticleCellTypes.publishedCell))
+                    expect(singleViewModel.data[0][5].cellType).to(equal(SingleArticleCellTypes.text))
                     for i in 0...2{
                         expect(singleViewModel.data[1][i].cellType).to(equal(SingleArticleCellTypes.relatedNews))
                     }
