@@ -78,9 +78,9 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if viewModel.data.count > 0{
         switch section{
-        case 0:
+        case Section.thisSpecificArticle.rawValue:
             return nil
-        case 1:
+        case Section.relatedArticles.rawValue:
             if viewModel.data[section][0].cellType == SingleArticleCellTypes.relatedNews, let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedTitleCell.self)", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
                 cell.relatedTitle.text = constants.related
                 return cell
@@ -91,7 +91,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             else{
                 return nil
             }
-        case 2:
+        case Section.mostReadArticles.rawValue:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedTitleCell.self)", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
                 cell.relatedTitle.text = constants.mostRead
                 return cell
@@ -202,12 +202,6 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         moveToSingleScreenWithIndex(clickedNewsSection: indexPath.section, clickedNewsRow: indexPath.row)
     }
     
-    private func setupViews(){
-        self.view.addSubview(tableView)
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
-    
     private func registerCells(){
         self.tableView.register(ImageCell.self, forCellReuseIdentifier: "\(ImageCell.self)")
         self.tableView.register(UpperTitleCell.self, forCellReuseIdentifier: "\(UpperTitleCell.self)")
@@ -218,6 +212,21 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.register(MostReadArticleCell.self, forCellReuseIdentifier: "\(MostReadArticleCell.self)")
         self.tableView.register(TitleRowCell.self, forCellReuseIdentifier: "\(TitleRowCell.self)")
         self.tableView.register(PublishedCell.self, forCellReuseIdentifier: "\(PublishedCell.self)")
+    }
+    
+    private func setupViews(){
+        tableView.delegate = self
+        tableView.dataSource = self
+        self.view.addSubview(tableView)
+    }
+    
+    private func setupConstraints(){
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            ])
     }
     
     private func initSubscripts(){
@@ -234,22 +243,13 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }).disposed(by: disposeBag)
     }
     
-    private func setupConstraints(){
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-            ])
-    }
-    
-    func showLoader() {
+    private func showLoader() {
         loader = displayLoader(onView: self.view)
         loader?.backgroundColor = .gray
         loader?.alpha = 0.3
     }
     
-    func hideLoader() {
+    private func hideLoader() {
         if let loader = loader{
             removeLoader(loader: loader)
         }

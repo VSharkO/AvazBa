@@ -19,7 +19,6 @@ class SinglePageViewController: UIPageViewController, UIPageViewControllerDataSo
         self.dataSource = self
         self.delegate = self
         setViewControllers([pages[focusedItem]],direction: .forward , animated: true, completion: nil)
-       
     }
     
     init(arrayOfViewControllers: [SingleViewController], focusedNews: Int) {
