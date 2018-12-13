@@ -25,7 +25,7 @@ class ImageCell: UITableViewCell {
         categoryText.font = UIFont.init(name: "Roboto-Regular", size: 12)
         categoryText.isUserInteractionEnabled = false
         categoryText.backgroundColor = .clear
-        categoryText.textAlignment = .center
+        categoryText.textAlignment = .left
         return categoryText
     }()
     
@@ -34,11 +34,11 @@ class ImageCell: UITableViewCell {
         sourceText.translatesAutoresizingMaskIntoConstraints = false
         sourceText.textColor = .white
         sourceText.adjustsFontSizeToFitWidth = false
-        sourceText.numberOfLines = 3
+        sourceText.numberOfLines = 1
         sourceText.font = UIFont.init(name: "Roboto-Regular", size: 12)
         sourceText.isUserInteractionEnabled = false
         sourceText.backgroundColor = .clear
-        sourceText.textAlignment = .center
+        sourceText.textAlignment = .left
         return sourceText
     }()
     
@@ -47,7 +47,7 @@ class ImageCell: UITableViewCell {
         descriptionText.translatesAutoresizingMaskIntoConstraints = false
         descriptionText.textColor = .white
         descriptionText.adjustsFontSizeToFitWidth = false
-        descriptionText.numberOfLines = 1
+        descriptionText.numberOfLines = 3
         descriptionText.font = UIFont.init(name: "Roboto-Regular", size: 12)
         descriptionText.isUserInteractionEnabled = false
         descriptionText.backgroundColor = .clear
