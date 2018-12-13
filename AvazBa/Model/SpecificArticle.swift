@@ -15,6 +15,8 @@ struct SpecificArticle : Codable{
     let upperTitle: String
     let category: String
     let featuredImage: FeaturedImage
+    var publishedAt: PublishedAt
+    var publishedAtHumans: String
     let imageDescription: String?
     let imageSource: String?
     let autoRelatedArticles: [ContentOfRelatedArticle]?
@@ -27,10 +29,12 @@ struct SpecificArticle : Codable{
         case upperTitle = "uppertitle"
         case featuredImage = "featured_image"
         case autoRelatedArticles = "auto_related_articles"
+        case publishedAt = "published_at"
         case content = "content"
         case category = "category_slug"
         case imageDescription = "featured_image_source"
         case imageSource = "featured_image_caption"
+        case publishedAtHumans = "published_at_humans"
     }
 }
 

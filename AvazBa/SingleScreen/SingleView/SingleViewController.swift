@@ -178,6 +178,17 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }else{
                 return UITableViewCell()
             }
+            
+        case SingleArticleCellTypes.publishedCell:
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(PublishedCell.self)", for: indexPath) as? PublishedCell{
+                if let article = viewModel.data[indexPath.section][indexPath.row].data as! SpecificArticle?{
+                    cell.publishedBeforeText.text = DateToBeforeCurrentTimeConverter.toBeforeCurrentTime(dateInPast: article.publishedAt.date, currentDate: Date())
+                    cell.publishedDateText.text = constants.published + article.publishedAtHumans.split(separator: " ")[0] + "."
+                }
+                return cell
+            }else{
+                return UITableViewCell()
+            }
         }
     }
     
@@ -200,6 +211,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
         self.tableView.register(RelatedArticleCell.self, forCellReuseIdentifier: "\(RelatedArticleCell.self)")
         self.tableView.register(MostReadArticleCell.self, forCellReuseIdentifier: "\(MostReadArticleCell.self)")
         self.tableView.register(TitleRowCell.self, forCellReuseIdentifier: "\(TitleRowCell.self)")
+        self.tableView.register(PublishedCell.self, forCellReuseIdentifier: "\(PublishedCell.self)")
     }
     
     private func initSubscripts(){

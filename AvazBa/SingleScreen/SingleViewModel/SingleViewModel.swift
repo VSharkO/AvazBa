@@ -40,6 +40,7 @@ class SingleViewModel : SingleViewModelProtocol{
                 articleSecton.append(Cell(cellType: SingleArticleCellTypes.upperTitle, data: article.upperTitle))
                 articleSecton.append(Cell(cellType: SingleArticleCellTypes.title, data: article.title))
                 articleSecton.append(Cell(cellType: SingleArticleCellTypes.titleRow, data: article.titleRaw))
+                articleSecton.append(Cell(cellType: SingleArticleCellTypes.publishedCell, data: article))
                 for content in article.content{
                     if content.type == constants.text{
                         articleSecton.append(Cell(cellType: SingleArticleCellTypes.text, data: content.data))
