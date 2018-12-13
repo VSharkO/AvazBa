@@ -63,7 +63,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch viewModel.data[indexPath.row].cellType{
         case CellType.article:
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(CustomCell.self)", for: indexPath) as? CustomCell{
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(ArticleCell.self)", for: indexPath) as? ArticleCell{
                 let article = viewModel.data[indexPath.row] as! Article
                 cell.articleText.text = article.description
                 cell.setMainPicture(image: article.image.original)
@@ -112,7 +112,7 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     private func registerCells(){
-        self.tableView.register(CustomCell.self, forCellReuseIdentifier: "\(CustomCell.self)")
+        self.tableView.register(ArticleCell.self, forCellReuseIdentifier: "\(ArticleCell.self)")
         self.tableView.register(LoaderCell.self, forCellReuseIdentifier: "\(LoaderCell.self)")
     }
     

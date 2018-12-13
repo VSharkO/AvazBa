@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CustomCell: UITableViewCell {
+class ArticleCell: UITableViewCell {
     
     var rootView : UIView = {
         let view = UIView()
