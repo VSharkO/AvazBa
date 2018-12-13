@@ -184,6 +184,8 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 if let article = viewModel.data[indexPath.section][indexPath.row].data as! SpecificArticle?{
                     cell.publishedBeforeText.text = DateToBeforeCurrentTimeConverter.toBeforeCurrentTime(dateInPast: article.publishedAt.date, currentDate: Date())
                     cell.publishedDateText.text = constants.published + article.publishedAtHumans.split(separator: " ")[0] + "."
+                    cell.authorText.text = article.author
+                    cell.shareNumText.text = String(article.shares)
                 }
                 return cell
             }else{

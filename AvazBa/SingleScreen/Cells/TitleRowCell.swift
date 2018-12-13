@@ -45,7 +45,7 @@ class TitleRowCell : UITableViewCell{
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
-            articleTitle.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 8),
+            articleTitle.topAnchor.constraint(equalTo: self.contentView.topAnchor, constant: 16),
             articleTitle.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor, constant: 16),
             articleTitle.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor, constant: -16)
             ])

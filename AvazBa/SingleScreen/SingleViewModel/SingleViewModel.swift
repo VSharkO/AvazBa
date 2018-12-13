@@ -13,7 +13,7 @@ class SingleViewModel : SingleViewModelProtocol{
     let id: Int!
     let scheduler : SchedulerType
     let repository: RepositoryProtocol
-    var dataRequestTriger = PublishSubject<Bool>()
+    var dataRequestTriger = ReplaySubject<Bool>.create(bufferSize: 1)
     var viewShowLoader = PublishSubject<Bool>()
     var viewReloadData = PublishSubject<Bool>()
     var data: [[Cell]] = []

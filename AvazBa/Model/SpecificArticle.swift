@@ -10,6 +10,7 @@ import Foundation
 
 struct SpecificArticle : Codable{
     let id: Int
+    let author: String
     let title: String
     var titleRaw: String
     let upperTitle: String
@@ -19,6 +20,7 @@ struct SpecificArticle : Codable{
     var publishedAtHumans: String
     let imageDescription: String?
     let imageSource: String?
+    let shares: Int
     let autoRelatedArticles: [ContentOfRelatedArticle]?
     let content: [ArticleContent]
     
@@ -35,6 +37,8 @@ struct SpecificArticle : Codable{
         case imageDescription = "featured_image_source"
         case imageSource = "featured_image_caption"
         case publishedAtHumans = "published_at_humans"
+        case author = "author"
+        case shares = "shares"
     }
 }
 
