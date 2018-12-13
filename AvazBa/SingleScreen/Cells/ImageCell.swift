@@ -10,18 +10,6 @@ import UIKit
 
 class ImageCell: UITableViewCell {
     
-//    var hasSource: Bool = false{
-//        didSet{
-//            setupSource(isTrue: hasSource)
-//        }
-//    }
-//
-//    var HasDecription: Bool = false{
-//        didSet{
-//            setupDescripton(isTrue: HasDecription)
-//        }
-//    }
-    
     let articleImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
@@ -37,7 +25,6 @@ class ImageCell: UITableViewCell {
         categoryText.font = UIFont.init(name: "Roboto-Regular", size: 12)
         categoryText.isUserInteractionEnabled = false
         categoryText.backgroundColor = .clear
-        categoryText.text = "dasdasdasd dasda "
         categoryText.textAlignment = .center
         return categoryText
     }()
@@ -47,11 +34,10 @@ class ImageCell: UITableViewCell {
         sourceText.translatesAutoresizingMaskIntoConstraints = false
         sourceText.textColor = .white
         sourceText.adjustsFontSizeToFitWidth = false
-        sourceText.numberOfLines = 1
+        sourceText.numberOfLines = 3
         sourceText.font = UIFont.init(name: "Roboto-Regular", size: 12)
         sourceText.isUserInteractionEnabled = false
         sourceText.backgroundColor = .clear
-        sourceText.text = "dasdasdasd dasda "
         sourceText.textAlignment = .center
         return sourceText
     }()
@@ -103,9 +89,16 @@ class ImageCell: UITableViewCell {
     var stackViewForAll: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .leading
         stackView.spacing = 8
         return stackView
     }()
+    
+    override func prepareForReuse() {
+        self.stackViewForAll.removeArrangedSubview(sourceText)
+        self.stackViewForAll.removeArrangedSubview(descriptionText)
+    }
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super .init(style: style, reuseIdentifier: reuseIdentifier)
@@ -158,6 +151,7 @@ class ImageCell: UITableViewCell {
         
         NSLayoutConstraint.activate([
             stackViewForAll.leadingAnchor.constraint(equalTo: self.articleImage.leadingAnchor, constant: 16),
+            stackViewForAll.trailingAnchor.constraint(lessThanOrEqualTo: self.articleImage.trailingAnchor, constant: -50),
             stackViewForAll.bottomAnchor.constraint(equalTo: self.articleImage.bottomAnchor, constant: -16)
             ])
     }
@@ -167,4 +161,22 @@ class ImageCell: UITableViewCell {
         articleImage.kf.setImage(with:url)
     }
 
+    
+    func setupImageDescription(description: String?){
+        if let description = description{
+            if !description.isEmpty{
+                self.descriptionText.text = description
+                self.stackViewForAll.addArrangedSubview(descriptionText)
+            }
+        }
+    }
+    
+    func setupImageSource(description: String?){
+        if let description = description{
+            if !description.isEmpty{
+                self.sourceText.text = "Source: " +  description
+                self.stackViewForAll.addArrangedSubview(sourceText)
+            }
+        }
+    }
 }

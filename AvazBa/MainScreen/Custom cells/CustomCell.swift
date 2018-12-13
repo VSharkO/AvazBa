@@ -233,6 +233,13 @@ class CustomCell: UITableViewCell {
             ])
     }
     
+    override func prepareForReuse() {
+        galleryImage.image = nil
+        videoImage.image = nil
+        self.stackForCategory.removeArrangedSubview(galleryImage)
+        self.stackForCategory.removeArrangedSubview(videoImage)
+    }
+    
     func setMainPicture(image: String){
         let url = URL(string: constants.baseUrl + image)
         articlePhoto.kf.setImage(with:url)
@@ -242,9 +249,6 @@ class CustomCell: UITableViewCell {
         if isTrue{
             galleryImage.image = UIImage(named: "cameraImg")
             self.stackForCategory.addArrangedSubview(galleryImage)
-        }else if !isTrue {
-            galleryImage.image = nil
-            self.stackForCategory.removeArrangedSubview(galleryImage)
         }
     }
     
@@ -252,9 +256,6 @@ class CustomCell: UITableViewCell {
         if isTrue{
             videoImage.image = UIImage(named: "playImg")
             self.stackForCategory.addArrangedSubview(videoImage)
-        }else if !isTrue {
-            videoImage.image = nil
-            self.stackForCategory.removeArrangedSubview(videoImage)
         }
     }
 }

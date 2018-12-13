@@ -108,6 +108,8 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 if let article = viewModel.data[indexPath.section][indexPath.row].data as! SpecificArticle?{
                     cell.setImage(image: article.featuredImage.xxl)
                     cell.categoryText.text = article.category.capitalized
+                    cell.setupImageSource(description: article.imageSource)
+                    cell.setupImageDescription(description: article.imageDescription)
                 }
                 return cell
             }else{

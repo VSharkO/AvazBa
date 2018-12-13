@@ -71,8 +71,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.publishedText.text = DateToBeforeCurrentTimeConverter.toBeforeCurrentTime(dateInPast: article.publishedAt.date, currentDate: Date())
                 cell.shareNumText.text = String(article.shares)
                 cell.categoryText.text = article.category.capitalized
-//                cell.hasGallery = article.hasGallery
-//                cell.hasVideo = article.hasVideo
                 cell.setupGallery(isTrue: article.hasGallery)
                 cell.setupVideo(isTrue: article.hasVideo)
                 if article.hasVideo{
