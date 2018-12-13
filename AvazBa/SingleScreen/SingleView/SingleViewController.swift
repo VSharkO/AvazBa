@@ -16,6 +16,10 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     private let disposeBag = DisposeBag()
     var loader : UIView?
     
+    enum Section: Int{
+        case thisSpecificArticle = 0 ,relatedArticles, mostReadArticles
+    }
+    
     let tableView: UITableView = {
         let tableView = UITableView(frame: CGRect(), style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -48,7 +52,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-        case 0:
+        case Section.thisSpecificArticle.rawValue:
             return 0.0
         default:
             return 47.0
@@ -58,11 +62,11 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if viewModel.data.count > 0{
             switch section{
-            case 0:
+            case Section.thisSpecificArticle.rawValue:
                 return viewModel.data[0].count
-            case 1:
+            case Section.relatedArticles.rawValue:
                 return viewModel.data[1].count
-            case 2:
+            case Section.mostReadArticles.rawValue:
                 return viewModel.data[2].count
             default: return 0
             }
