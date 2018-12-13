@@ -25,7 +25,7 @@ class ImageCell: UITableViewCell {
         categoryText.font = UIFont.init(name: "Roboto-Regular", size: 12)
         categoryText.isUserInteractionEnabled = false
         categoryText.backgroundColor = .clear
-        categoryText.textAlignment = .left
+        categoryText.textAlignment = .center
         return categoryText
     }()
     
@@ -52,7 +52,7 @@ class ImageCell: UITableViewCell {
         descriptionText.isUserInteractionEnabled = false
         descriptionText.backgroundColor = .clear
         descriptionText.text = "dasdasdasd dasda "
-        descriptionText.textAlignment = .center
+        descriptionText.textAlignment = .left
         return descriptionText
     }()
     
