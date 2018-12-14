@@ -33,12 +33,13 @@ class MainViewModel : MainViewModelProtocol{
     func initGetingDataFromRepository() -> Disposable {
         return dataRequestTriger.flatMap({ [unowned self] _ -> Observable<[Article]> in
             print(self.pageCounter)
-            if self.state == State.initialRequest{
+            switch self.state{
+            case State.initialRequest:
                 self.viewShowLoader.onNext(true)
-            }
-            if self.state == State.moreArticles {
+            case State.moreArticles:
                 self.data.append(LoaderCellType())
                 self.viewInsertRows.onNext([IndexPath(item: self.data.count-1, section: 0)])
+            default: print("Error, invalid state in MainViewModel when request is trigered.")
             }
             return self.repository.getMostPopularArticles(pageNum: self.pageCounter, category: self.selectedTab)
         }).subscribeOn(scheduler)
