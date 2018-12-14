@@ -27,7 +27,7 @@ class SingleViewModel : SingleViewModelProtocol{
     func initGetingDataFromRepository() -> Disposable {
         return dataRequestTriger.flatMap({ [unowned self] _ -> Observable<(SpecificArticle,[Article])> in
             self.viewShowLoader.onNext(true)
-          let observables = Observable.zip(self.repository.getSpecificArticle(id: self.id), self.repository.getMostPopularArticles(pageNum: 1, category: constants.mostReadApi))
+          let observables = Observable.zip(self.repository.getSpecificArticle(id: self.id), self.repository.getMostPopularArticles(pageNum: 1, category: Constants.mostReadApi))
             return observables
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
@@ -42,7 +42,7 @@ class SingleViewModel : SingleViewModelProtocol{
                 articleSecton.append(Cell(cellType: SingleArticleCellTypes.titleRow, data: article.titleRaw))
                 articleSecton.append(Cell(cellType: SingleArticleCellTypes.publishedCell, data: article))
                 for content in article.content{
-                    if content.type == constants.text{
+                    if content.type == Constants.text{
                         articleSecton.append(Cell(cellType: SingleArticleCellTypes.text, data: content.data))
                         break
                     }

@@ -67,7 +67,7 @@ class SingleScreenTests : QuickSpec{
                         when(mock.getSpecificArticle(id: anyInt())).thenReturn(Observable.just(supplyListResponse!))
                     }
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.mostReadApi)).thenReturn(Observable.just(supplyListResponseSingle))
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: Constants.mostReadApi)).thenReturn(Observable.just(supplyListResponseSingle))
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     singleViewModel = SingleViewModel(repository: mockRepository, id: 2, scheduler: testScheduler)
@@ -77,7 +77,7 @@ class SingleScreenTests : QuickSpec{
                 }
                 it("sends request for both specificArticle and mostReadArticle at once"){
                     verify(mockRepository).getSpecificArticle(id: 2)
-                    verify(mockRepository).getMostPopularArticles(pageNum: 1, category: constants.mostReadApi)
+                    verify(mockRepository).getMostPopularArticles(pageNum: 1, category: Constants.mostReadApi)
                 }
                 it("data is not empty"){
                     expect(singleViewModel.data.count).toNot(equal(0))
@@ -113,7 +113,7 @@ class SingleScreenTests : QuickSpec{
                         when(mock.getSpecificArticle(id: 2)).thenReturn(Observable.just(supplyListResponse!))
                     }
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.mostReadApi)).thenReturn(Observable.just(supplyListResponseSingle))
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: Constants.mostReadApi)).thenReturn(Observable.just(supplyListResponseSingle))
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     singleViewModel = SingleViewModel(repository: mockRepository, id: 2, scheduler: testScheduler)

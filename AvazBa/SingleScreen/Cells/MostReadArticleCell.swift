@@ -151,7 +151,7 @@ class MostReadArticleCell : UITableViewCell{
     }
     
     func setImage(image: String){
-        let url = URL(string: constants.baseUrl + image)
+        let url = URL(string: Constants.baseUrl + image)
         mostReadImage.kf.setImage(with:url)
     }
 }

@@ -100,12 +100,12 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     func tabBar(_ tabBar: MDCTabBar, didSelect item: UITabBarItem) {
         if let title = item.title{
             switch title {
-            case constants.newest:
-                viewModel.selectedTab = constants.newestApi
-            case constants.mostRead:
-                viewModel.selectedTab = constants.mostReadApi
+            case Constants.newest:
+                viewModel.selectedTab = Constants.newestApi
+            case Constants.mostRead:
+                viewModel.selectedTab = Constants.mostReadApi
             default:
-                viewModel.selectedTab = constants.newestApi
+                viewModel.selectedTab = Constants.newestApi
             }
             viewModel.newTabOpened()
         }
@@ -194,8 +194,8 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         tabBar.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         tabBar.sizeToFit()
         tabBar.items = [
-            UITabBarItem(title: constants.newest.capitalized, image: nil, tag: 0),
-            UITabBarItem(title: constants.mostRead.capitalized, image: nil, tag: 0)
+            UITabBarItem(title: Constants.newest.capitalized, image: nil, tag: 0),
+            UITabBarItem(title: Constants.mostRead.capitalized, image: nil, tag: 0)
         ]
         tabBar.itemAppearance = .titles
         tabBar.barTintColor = UIColor.white

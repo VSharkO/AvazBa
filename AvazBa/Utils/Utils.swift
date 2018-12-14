@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct constants{
+struct Constants{
     static let baseUrl = "http://api.avaz.ba/"
     static let api = "api/"
     static let article = "clanak/"

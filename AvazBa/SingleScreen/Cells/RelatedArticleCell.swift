@@ -189,7 +189,7 @@ class RelatedArticleCell : UITableViewCell{
     }
     
     func setImage(image: String){
-        let url = URL(string: constants.baseUrl + image)
+        let url = URL(string: Constants.baseUrl + image)
         relatedImage.kf.setImage(with:url)
     }
 }

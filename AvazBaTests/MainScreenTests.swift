@@ -45,7 +45,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     let mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
+                        when(mock.getMostPopularArticles(pageNum: 1, category: Constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
                     }
                     let testScheduler = TestScheduler(initialClock: 0)
                     mainViewModel = MainViewModel(repository: mockRepository, scheduler: testScheduler)
@@ -64,7 +64,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
+                        when(mock.getMostPopularArticles(pageNum: 1, category: Constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
                     }
                     let testScheduler = TestScheduler(initialClock: 0)
                     mainViewModel = MainViewModel(repository: mockRepository, scheduler: testScheduler)
@@ -85,7 +85,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     let mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
+                        when(mock.getMostPopularArticles(pageNum: 1, category: Constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Bool.self)
@@ -112,7 +112,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: 1, category: constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
+                        when(mock.getMostPopularArticles(pageNum: 1, category: Constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Bool.self)
@@ -126,7 +126,7 @@ class MainScreenTests: QuickSpec {
                     expect(subscriber.events.first!.value.element).to(equal(true))
                 }
                 it("is calling viewModel to send request for first page"){
-                    verify(mockRepository, times(1)).getMostPopularArticles(pageNum: 1, category: constants.newestApi)
+                    verify(mockRepository, times(1)).getMostPopularArticles(pageNum: 1, category: Constants.newestApi)
                 }
             }
         }
@@ -139,7 +139,7 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: Constants.newestApi)).thenReturn(Observable.just(supplyListResponse))
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Bool.self)
@@ -158,9 +158,9 @@ class MainScreenTests: QuickSpec {
                     expect(subscriber.events.last!.value.element).to(equal(true))
                 }
                 it("is calling repository method to get more data"){
-                    verify(mockRepository).getMostPopularArticles(pageNum: 1, category: constants.newestApi)
-                    verify(mockRepository).getMostPopularArticles(pageNum: 2, category: constants.newestApi)
-                    verify(mockRepository).getMostPopularArticles(pageNum: 3, category: constants.newestApi)
+                    verify(mockRepository).getMostPopularArticles(pageNum: 1, category: Constants.newestApi)
+                    verify(mockRepository).getMostPopularArticles(pageNum: 2, category: Constants.newestApi)
+                    verify(mockRepository).getMostPopularArticles(pageNum: 3, category: Constants.newestApi)
                 }
                 it("last item is not loader"){
                     expect(mainViewModel.data[mainViewModel.data.count-1].cellType).notTo(equal(CellType.loader))
@@ -181,10 +181,10 @@ class MainScreenTests: QuickSpec {
                 beforeEach {
                     mockRepository = MockRepositoryProtocol()
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.newest)).thenReturn(Observable.just(supplyListResponse))
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: Constants.newest)).thenReturn(Observable.just(supplyListResponse))
                     }
                     stub(mockRepository) { mock in
-                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: constants.mostRead)).thenReturn(Observable.just(supplyListResponse))
+                        when(mock.getMostPopularArticles(pageNum: anyInt(), category: Constants.mostRead)).thenReturn(Observable.just(supplyListResponse))
                     }
                     testScheduler = TestScheduler(initialClock: 0)
                     subscriber = testScheduler.createObserver(Bool.self)
@@ -192,16 +192,16 @@ class MainScreenTests: QuickSpec {
                     mainViewModel.initGetingDataFromRepository().disposed(by: disposeBag)
                     mainViewModel.dataRequestTriger.subscribe(subscriber).disposed(by: disposeBag)
                     testScheduler.start()
-                    mainViewModel.selectedTab = constants.mostRead
+                    mainViewModel.selectedTab = Constants.mostRead
                     mainViewModel.newTabOpened()
-                    mainViewModel.selectedTab = constants.newest
+                    mainViewModel.selectedTab = Constants.newest
                     mainViewModel.newTabOpened()
-                    mainViewModel.selectedTab = constants.mostRead
+                    mainViewModel.selectedTab = Constants.mostRead
                     mainViewModel.newTabOpened()
                 }
                 it("send request with new category in api call"){
-                    verify(mockRepository,times(2)).getMostPopularArticles(pageNum: 1, category: constants.mostRead)
-                    verify(mockRepository).getMostPopularArticles(pageNum: 1, category: constants.newest)
+                    verify(mockRepository,times(2)).getMostPopularArticles(pageNum: 1, category: Constants.mostRead)
+                    verify(mockRepository).getMostPopularArticles(pageNum: 1, category: Constants.newest)
                 }
             }
         }

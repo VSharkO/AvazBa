@@ -17,7 +17,7 @@ class MainViewModel : MainViewModelProtocol{
     
     let repository: RepositoryProtocol
     let scheduler : SchedulerType
-    var selectedTab: String = constants.newestApi
+    var selectedTab: String = Constants.newestApi
     var dataRequestTriger = ReplaySubject<Bool>.create(bufferSize: 1)
     var viewShowLoader = PublishSubject<Bool>()
     var viewReloadData = PublishSubject<Bool>()

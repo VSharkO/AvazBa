@@ -241,7 +241,7 @@ class ArticleCell: UITableViewCell {
     }
     
     func setMainPicture(image: String){
-        let url = URL(string: constants.baseUrl + image)
+        let url = URL(string: Constants.baseUrl + image)
         articlePhoto.kf.setImage(with:url)
     }
     

@@ -12,10 +12,10 @@ import RxSwift
 class Repository : RepositoryProtocol,Interactor{
     
     func getSpecificArticle(id: Int) -> Observable<SpecificArticle> {
-        return getSpecificArticleFromURL(link: constants.baseUrl + constants.api + constants.article + String(id) + constants.apiToken)
+        return getSpecificArticleFromURL(link: Constants.baseUrl + Constants.api + Constants.article + String(id) + Constants.apiToken)
     }
 
     func getMostPopularArticles(pageNum: Int, category: String) -> Observable<[Article]> {
-        return getArticlesFromURL(link: constants.baseUrl + constants.api + category + constants.num + constants.apiToken + constants.pageNumber + String(pageNum))
+        return getArticlesFromURL(link: Constants.baseUrl + Constants.api + category + Constants.num + Constants.apiToken + Constants.pageNumber + String(pageNum))
     }
 }
