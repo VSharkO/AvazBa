@@ -64,17 +64,15 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
         switch viewModel.data[indexPath.row].cellType{
         case CellType.article:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(ArticleCell.self)", for: indexPath) as? ArticleCell{
-                let article = viewModel.data[indexPath.row] as! Article
-                cell.articleText.text = article.description
-                cell.setMainPicture(image: article.image.original)
-                cell.articleTitle.text = article.title
-                cell.publishedText.text = DateToBeforeCurrentTimeConverter.toBeforeCurrentTime(dateInPast: article.publishedAt.date, currentDate: Date())
-                cell.shareNumText.text = String(article.shares)
-                cell.categoryText.text = article.category.capitalized
-                cell.setupGallery(isTrue: article.hasGallery)
-                cell.setupVideo(isTrue: article.hasVideo)
-                if article.hasVideo{
-                    
+                if let article = viewModel.data[indexPath.row] as? Article{
+                    cell.articleText.text = article.description
+                    cell.setMainPicture(image: article.image.original)
+                    cell.articleTitle.text = article.title
+                    cell.publishedText.text = DateToBeforeCurrentTimeConverter.toBeforeCurrentTime(dateInPast: article.publishedAt.date, currentDate: Date())
+                    cell.shareNumText.text = String(article.shares)
+                    cell.categoryText.text = article.category.capitalized
+                    cell.setupGallery(isTrue: article.hasGallery)
+                    cell.setupVideo(isTrue: article.hasVideo)
                 }
                 return cell
             }else{
