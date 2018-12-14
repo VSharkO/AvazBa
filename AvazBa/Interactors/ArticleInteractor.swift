@@ -10,12 +10,12 @@ import Foundation
 import Alamofire
 import RxSwift
 
-protocol Interactor{
+protocol ArticleInteractor{
     func getArticlesFromURL(link: String) -> Observable<[Article]>
     func getSpecificArticleFromURL(link: String) -> Observable<SpecificArticle>
 }
 
-extension Interactor{
+extension ArticleInteractor{
     func getArticlesFromURL(link: String) -> Observable<[Article]>{
         return Observable.deferred({
             return Observable.create{ observer -> Disposable in

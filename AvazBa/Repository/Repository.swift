@@ -9,7 +9,7 @@
 import Foundation
 import RxSwift
 
-class Repository : RepositoryProtocol,Interactor{
+class Repository : RepositoryProtocol,ArticleInteractor{
     
     func getSpecificArticle(id: Int) -> Observable<SpecificArticle> {
         return getSpecificArticleFromURL(link: Constants.baseUrl + Constants.api + Constants.article + String(id) + Constants.apiToken)
