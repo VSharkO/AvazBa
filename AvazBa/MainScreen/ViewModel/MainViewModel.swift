@@ -102,7 +102,17 @@ class MainViewModel : MainViewModelProtocol{
         dataRequestTrigered()
     }
     
-   private func dataRequestTrigered(){
+    func getIDs() -> [Int] {
+        var ids : [Int] = []
+        for article in data{
+            if let currentArticle = article as? Article{
+                ids.append(currentArticle.id)
+            }
+        }
+        return ids
+    }
+    
+    private func dataRequestTrigered(){
         if !requestInProgress{
             requestInProgress = true
             dataRequestTriger.onNext(true)
@@ -112,4 +122,5 @@ class MainViewModel : MainViewModelProtocol{
     private func refreshViewControllerTableData() {
         viewReloadData.onNext(true)
     }
+  
 }

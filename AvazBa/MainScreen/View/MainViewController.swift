@@ -254,12 +254,6 @@ class MainViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     @objc func moveToSingleScreenWithIndex(clickedNews: Int){
-        var ids : [Int] = []
-        for article in viewModel.data{
-            if let currentArticle = article as? Article{
-                ids.append(currentArticle.id)
-            }
-        }
-        mainCoordinatorDelegate?.openNextScreen(ids: ids, focusedItem: clickedNews)
+        mainCoordinatorDelegate?.openNextScreen(ids: viewModel.getIDs(), focusedItem: clickedNews)
     }
 }

@@ -15,6 +15,7 @@ protocol MainViewModelProtocol{
     func initialDataRequest()
     func newTabOpened()
     func pullToRefreshTrigered()
+    func getIDs() -> [Int]
     
     var data: [CellItem]{get}
     var selectedTab: String{get set}
