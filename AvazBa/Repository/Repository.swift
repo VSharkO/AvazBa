@@ -10,8 +10,7 @@ import Foundation
 import RxSwift
 
 class Repository : RepositoryProtocol,ArticleInteractor{
-    
-    let decoder: JSONDecoder!
+    var decoder: JSONDecoder!
     
     init(decoder: JSONDecoder) {
         self.decoder = decoder

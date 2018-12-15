@@ -47,36 +47,48 @@ class MainViewModel : MainViewModelProtocol{
             .subscribe(onNext: { [unowned self] articles in
                 switch self.state{
                 case .moreArticles:
-                    var arrayOfIndexPaths = [IndexPath]()
-                    for element in Array(self.data.count..<self.data.count+articles.count-1){
-                        arrayOfIndexPaths.append(IndexPath.init(row: element, section: 0))
-                    }
-                    self.data.remove(at: self.data.count-1)
-                    self.data.append(contentsOf: articles)
-                    self.viewInsertRows.onNext(arrayOfIndexPaths)
-                    self.viewReloadRows.onNext([IndexPath(item: self.data.count-articles.count, section: 0)])
-                    self.viewShowLoader.onNext(false)
-                    self.pageCounter += 1
-                    self.requestInProgress = false
+                    self.moreArticles(articles: articles)
                     self.state = .idle
                 case .initialRequest, .pullToRefresh:
-                    self.data = articles
-                    self.refreshViewControllerTableData()
-                    self.viewShowLoader.onNext(false)
-                    self.pageCounter += 1
-                    self.requestInProgress = false
+                    self.restartTableData(with: articles)
                     self.state = .idle
                 case State.newTabOpened:
-                    let oldNumOfData = self.data.count
-                    self.data = articles
-                    self.viewReloadRowsForNewTab.onNext((self.data.count, oldNumOfData))
-                    self.viewShowLoader.onNext(false)
-                    self.pageCounter += 1
-                    self.requestInProgress = false
+                    self.setupNewTab(with: articles)
                     self.state = State.idle
                 default: return
                 }
             })
+    }
+    
+    private func setupNewTab(with articles: [Article]){
+        let oldNumOfData = self.data.count
+        self.data = articles
+        self.viewReloadRowsForNewTab.onNext((self.data.count, oldNumOfData))
+        self.viewShowLoader.onNext(false)
+        self.pageCounter += 1
+        self.requestInProgress = false
+    }
+    
+    private func moreArticles(articles: [Article]){
+        var arrayOfIndexPaths = [IndexPath]()
+        for element in Array(self.data.count..<self.data.count+articles.count-1){
+            arrayOfIndexPaths.append(IndexPath.init(row: element, section: 0))
+        }
+        self.data.remove(at: self.data.count-1)
+        self.data.append(contentsOf: articles)
+        self.viewInsertRows.onNext(arrayOfIndexPaths)
+        self.viewReloadRows.onNext([IndexPath(item: self.data.count-articles.count, section: 0)])
+        self.viewShowLoader.onNext(false)
+        self.pageCounter += 1
+        self.requestInProgress = false
+    }
+    
+    private func restartTableData(with articles: [Article]){
+        self.data = articles
+        self.refreshViewControllerTableData()
+        self.viewShowLoader.onNext(false)
+        self.pageCounter += 1
+        self.requestInProgress = false
     }
     
     func moreDataRequest() {
@@ -122,5 +134,5 @@ class MainViewModel : MainViewModelProtocol{
     private func refreshViewControllerTableData() {
         viewReloadData.onNext(true)
     }
-  
+    
 }
