@@ -11,64 +11,23 @@ import Alamofire
 import RxSwift
 
 protocol ArticleInteractor{
-    func getArticlesFromURL(link: String) -> Observable<[Article]>
-    func getSpecificArticleFromURL(link: String) -> Observable<SpecificArticle>
+    func getArticlesFromURL(link: String, decoder: JSONDecoder) -> Observable<[Article]>
+    func getSpecificArticleFromURL(link: String, decoder: JSONDecoder) -> Observable<SpecificArticle>
 }
 
 extension ArticleInteractor{
-    func getArticlesFromURL(link: String) -> Observable<[Article]>{
-        return Observable.deferred({
-            return Observable.create{ observer -> Disposable in
-                let request = Alamofire.request(link)
-                    .validate()
-                    .responseJSON{response in
-                        guard let data = response.data else{
-                            observer.onError(response.error!)
-                            return
-                        }
-                        do{
-                            let decoder = JSONDecoder()
-                            let formatter = DateFormatter()
-                            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.000000"
-                            decoder.dateDecodingStrategy = .formatted(formatter)
-                            let articles = try decoder.decode(Response.self, from: data)
-                            observer.onNext(articles.articles)
-                        } catch {
-                            observer.onError(error)
-                        }
-                }
-                return Disposables.create{
-                    request.cancel()
-                }
-            }
-            }
-        )}
-    
-    func getSpecificArticleFromURL(link: String) -> Observable<SpecificArticle>{
-        return Observable.deferred({
-            return Observable.create{ observer -> Disposable in
-                let request = Alamofire.request(link)
-                    .validate()
-                    .responseJSON{response in
-                        guard let data = response.data else{
-                            observer.onError(response.error!)
-                            return
-                        }
-                        do{
-                            let decoder = JSONDecoder()
-                            let formatter = DateFormatter()
-                            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.000000"
-                            decoder.dateDecodingStrategy = .formatted(formatter)
-                            let article = try decoder.decode(SpecificArticle.self, from: data)
-                            observer.onNext(article)
-                        } catch {
-                            observer.onError(error)
-                        }
-                }
-                return Disposables.create{
-                    request.cancel()
-                }
-            }
-            }
-        )}
+    func getArticlesFromURL(link: String, decoder: JSONDecoder) -> Observable<[Article]>{
+        return NetworkHelper.GetDataFromApi(with: link).map({ data -> [Article] in
+            let articles = try decoder.decode(Response.self, from: data)
+            return articles.articles
+        })
+    }
+
+    func getSpecificArticleFromURL(link: String, decoder: JSONDecoder) -> Observable<SpecificArticle>{
+        return NetworkHelper.GetDataFromApi(with: link).map({ data -> SpecificArticle in
+            let article = try decoder.decode(SpecificArticle.self, from: data)
+            return article
+        })
+        
+    }
 }

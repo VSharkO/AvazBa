@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import RxSwift
+import Alamofire
 
 struct Constants{
     static let baseUrl = "http://api.avaz.ba/"
@@ -30,7 +32,6 @@ protocol LoaderManager{
 }
 
 extension LoaderManager {
-    
     func displayLoader(onView : UIView) -> UIView {
         let loaderView = UIView.init(frame: onView.bounds)
         loaderView.backgroundColor = UIColor.init(red: 0.7, green: 0.7, blue: 0.7, alpha: 0.9)
@@ -64,5 +65,35 @@ extension String {
     }
     var htmlToString: String {
         return htmlToAttributedString?.string ?? ""
+    }
+}
+
+// jel bolje možda extenziju na već postojeći DataFormatter?
+struct ArticleDateFormatter{
+    static func getFormater() -> DateFormatter {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.000000"
+        return formatter
+    }
+}
+
+class NetworkHelper{
+    static func GetDataFromApi(with link: String) -> Observable<Data>{
+        return Observable.deferred({
+            return Observable.create{ observer -> Disposable in
+                let request = Alamofire.request(link)
+                    .validate()
+                    .responseJSON{response in
+                        guard let data = response.data else{
+                            observer.onError(response.error!)
+                            return
+                        }
+                        observer.onNext(data)
+                }
+                return Disposables.create{
+                    request.cancel()
+                }
+            }
+        })
     }
 }

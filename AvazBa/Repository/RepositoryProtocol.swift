@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 
 protocol RepositoryProtocol{
+    let decoder: JSONDecoder!
     func getMostPopularArticles(pageNum: Int, category: String) -> Observable<[Article]>
     func getSpecificArticle(id: Int) -> Observable<SpecificArticle>
 }
