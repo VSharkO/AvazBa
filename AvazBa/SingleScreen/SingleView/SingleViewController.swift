@@ -99,7 +99,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         case SingleArticleCellTypes.upperTitle:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(UpperTitleCell.self)", for: indexPath) as? UpperTitleCell{
-                if let upperTitle = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as! String?{
+                if let upperTitle = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as? String{
                     cell.articleUpperTitle.text = upperTitle
                     cell.separatorInset = UIEdgeInsetsMake(0, 16, 0, 16);
                 }
@@ -109,7 +109,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         case SingleArticleCellTypes.title:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(TitleCell.self)", for: indexPath) as? TitleCell{
-                if let title = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as! String?{
+                if let title = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as? String{
                     cell.articleTitle.text = title
                 }
                 return cell
@@ -118,7 +118,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         case SingleArticleCellTypes.text:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(TextCell.self)", for: indexPath) as? TextCell{
-                if let text = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as! String?{
+                if let text = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as? String{
                     cell.articleText.text = text.htmlToString
                 }
                 return cell
@@ -127,7 +127,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         case SingleArticleCellTypes.relatedNews:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedArticleCell.self)", for: indexPath) as? RelatedArticleCell{
-                if let relatedArticle = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as! ContentOfRelatedArticle?{
+                if let relatedArticle = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as? ContentOfRelatedArticle{
                     cell.setImage(image: relatedArticle.image.xl)
                     cell.categoryText.text = relatedArticle.category.capitalized
                     cell.articleText.text = relatedArticle.description
@@ -141,7 +141,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         case SingleArticleCellTypes.mostReadNews:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(MostReadArticleCell.self)", for: indexPath) as? MostReadArticleCell{
-                if let mostReadArticle = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as! Article?{
+                if let mostReadArticle = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as? Article{
                     cell.setImage(image: mostReadArticle.image.xl)
                     cell.categoryText.text = mostReadArticle.category.capitalized
                     cell.articleText.text = mostReadArticle.description
@@ -153,7 +153,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         case SingleArticleCellTypes.titleRow:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(TitleRowCell.self)", for: indexPath) as? TitleRowCell{
-                if let rowTitle = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as! String?{
+                if let rowTitle = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as? String{
                     cell.articleTitle.text = rowTitle
                 }
                 return cell
@@ -163,7 +163,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         case SingleArticleCellTypes.publishedCell:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(PublishedCell.self)", for: indexPath) as? PublishedCell{
-                if let article = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as! SpecificArticle?{
+                if let article = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as? SpecificArticle{
                     cell.publishedBeforeText.text = DateToBeforeCurrentTimeConverter.toBeforeCurrentTime(dateInPast: article.publishedAt.date, currentDate: Date())
                     cell.publishedDateText.text = Constants.published + article.publishedAtHumans.split(separator: " ")[0] + "."
                     cell.authorText.text = article.author
