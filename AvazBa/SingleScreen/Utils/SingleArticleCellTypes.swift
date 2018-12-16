@@ -19,6 +19,7 @@ enum SingleArticleCellTypes {
     case mostReadNews
     case titleRow
     case publishedCell
+    case noCell
 }
 
 protocol CellProtocol{

@@ -16,7 +16,7 @@ class SingleViewModel : SingleViewModelProtocol{
     var dataRequestTriger = ReplaySubject<Bool>.create(bufferSize: 1)
     var viewShowLoader = PublishSubject<Bool>()
     var viewReloadData = PublishSubject<Bool>()
-    var data: [[Cell]] = []
+    var data = SingleData()
     
     init(repository: RepositoryProtocol, id: Int, scheduler: SchedulerType = ConcurrentDispatchQueueScheduler(qos: .background)) {
         self.id = id
@@ -32,39 +32,31 @@ class SingleViewModel : SingleViewModelProtocol{
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] article,mostRead in
-                var articleSecton = [Cell]()
-                var relatedSection = [Cell]()
-                var mostReadSecton = [Cell]()
-                //Add content in sections
-                articleSecton.append(Cell(cellType: SingleArticleCellTypes.image, data: article))
-                articleSecton.append(Cell(cellType: SingleArticleCellTypes.upperTitle, data: article.upperTitle))
-                articleSecton.append(Cell(cellType: SingleArticleCellTypes.title, data: article.title))
-                articleSecton.append(Cell(cellType: SingleArticleCellTypes.titleRow, data: article.titleRaw))
-                articleSecton.append(Cell(cellType: SingleArticleCellTypes.publishedCell, data: article))
+                //Add data
+                self.data.addItem(item: Cell(cellType: SingleArticleCellTypes.image, data: article))
+                self.data.addItem(item: Cell(cellType: SingleArticleCellTypes.upperTitle, data: article.upperTitle))
+                self.data.addItem(item: Cell(cellType: SingleArticleCellTypes.title, data: article.title))
+                self.data.addItem(item: Cell(cellType: SingleArticleCellTypes.titleRow, data: article.titleRaw))
+                self.data.addItem(item: Cell(cellType: SingleArticleCellTypes.publishedCell, data: article))
                 for content in article.content{
                     if content.type == Constants.text{
-                        articleSecton.append(Cell(cellType: SingleArticleCellTypes.text, data: content.data))
+                        self.data.addItem(item: Cell(cellType: SingleArticleCellTypes.text, data: content.data))
                         break
                     }
                 }
                 if let relatedArticles = article.autoRelatedArticles{
                     for article in relatedArticles{
-                        relatedSection.append(Cell(cellType: SingleArticleCellTypes.relatedNews, data: article))
+                        self.data.addItem(item: Cell(cellType: SingleArticleCellTypes.relatedNews, data: article))
                     }
                 }
                 for i in 0...5{
-                    mostReadSecton.append(Cell(cellType: SingleArticleCellTypes.mostReadNews, data: mostRead[i]))
+                    self.data.addItem(item: Cell(cellType: SingleArticleCellTypes.mostReadNews, data: mostRead[i]))
                 }
                 
-                //Add sections to sectionArray
-                self.data.append(articleSecton)
-                if relatedSection.count > 0{
-                    self.data.append(relatedSection)
-                }
-                self.data.append(mostReadSecton)
                 self.viewShowLoader.onNext(false)
                 self.refreshViewControllerTableData()
             })
+        
     }
 
     func getSpecificArticle(){

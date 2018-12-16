@@ -15,11 +15,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     weak var singleCoordinatorDelegate: SingleCoordinatorDelegate?
     private let disposeBag = DisposeBag()
     var loader : UIView?
-    
-    enum Section: Int{
-        case thisSpecificArticle = 0 ,relatedArticles, mostReadArticles
-    }
-    
+
     let tableView: UITableView = {
         let tableView = UITableView(frame: CGRect(), style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -47,12 +43,12 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return viewModel.data.count
+        return viewModel.data.getNumberOfSections()
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-        case Section.thisSpecificArticle.rawValue:
+        case 0:
             return 0.0
         default:
             return 47.0
@@ -60,38 +56,22 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if viewModel.data.count > 0{
-            switch section{
-            case Section.thisSpecificArticle.rawValue:
-                return viewModel.data[0].count
-            case Section.relatedArticles.rawValue:
-                return viewModel.data[1].count
-            case Section.mostReadArticles.rawValue:
-                return viewModel.data[2].count
-            default: return 0
-            }
-        }else{
-            return 0
-        }
+            return viewModel.data.getNumberOfItemsInSection(section: section)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        if viewModel.data.count > 0{
         switch section{
-        case Section.thisSpecificArticle.rawValue:
+        case 0:
             return nil
-        case Section.relatedArticles.rawValue:
-            if viewModel.data[section][0].cellType == SingleArticleCellTypes.relatedNews, let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedTitleCell.self)", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
+        case 1:
+            if viewModel.data.getNumberOfSections() > 2, let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedTitleCell.self)", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
                 cell.relatedTitle.text = Constants.related
                 return cell
             }else if let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedTitleCell.self)", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
                 cell.relatedTitle.text = Constants.mostRead
                 return cell
             }
-            else{
-                return nil
-            }
-        case Section.mostReadArticles.rawValue:
+        case 2:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedTitleCell.self)", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
                 cell.relatedTitle.text = Constants.mostRead
                 return cell
@@ -100,16 +80,14 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         default: return nil
             }
-        }else{
-            return nil
-        }
+        return nil
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch viewModel.data[indexPath.section][indexPath.row].cellType{
+        switch viewModel.data.getItem(section: indexPath.section, row: indexPath.row).cellType{
         case SingleArticleCellTypes.image:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(ImageCell.self)", for: indexPath) as? ImageCell{
-                if let article = viewModel.data[indexPath.section][indexPath.row].data as! SpecificArticle?{
+                if let article = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as? SpecificArticle{
                     cell.setImage(image: article.featuredImage.xxl)
                     cell.categoryText.text = article.category.capitalized
                     cell.setupImageSource(description: article.imageSource)
@@ -121,7 +99,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         case SingleArticleCellTypes.upperTitle:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(UpperTitleCell.self)", for: indexPath) as? UpperTitleCell{
-                if let upperTitle = viewModel.data[indexPath.section][indexPath.row].data as! String?{
+                if let upperTitle = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as! String?{
                     cell.articleUpperTitle.text = upperTitle
                     cell.separatorInset = UIEdgeInsetsMake(0, 16, 0, 16);
                 }
@@ -131,7 +109,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         case SingleArticleCellTypes.title:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(TitleCell.self)", for: indexPath) as? TitleCell{
-                if let title = viewModel.data[indexPath.section][indexPath.row].data as! String?{
+                if let title = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as! String?{
                     cell.articleTitle.text = title
                 }
                 return cell
@@ -140,7 +118,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         case SingleArticleCellTypes.text:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(TextCell.self)", for: indexPath) as? TextCell{
-                if let text = viewModel.data[indexPath.section][indexPath.row].data as! String?{
+                if let text = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as! String?{
                     cell.articleText.text = text.htmlToString
                 }
                 return cell
@@ -149,7 +127,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         case SingleArticleCellTypes.relatedNews:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedArticleCell.self)", for: indexPath) as? RelatedArticleCell{
-                if let relatedArticle = viewModel.data[indexPath.section][indexPath.row].data as! ContentOfRelatedArticle?{
+                if let relatedArticle = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as! ContentOfRelatedArticle?{
                     cell.setImage(image: relatedArticle.image.xl)
                     cell.categoryText.text = relatedArticle.category.capitalized
                     cell.articleText.text = relatedArticle.description
@@ -163,7 +141,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         case SingleArticleCellTypes.mostReadNews:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(MostReadArticleCell.self)", for: indexPath) as? MostReadArticleCell{
-                if let mostReadArticle = viewModel.data[indexPath.section][indexPath.row].data as! Article?{
+                if let mostReadArticle = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as! Article?{
                     cell.setImage(image: mostReadArticle.image.xl)
                     cell.categoryText.text = mostReadArticle.category.capitalized
                     cell.articleText.text = mostReadArticle.description
@@ -175,7 +153,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         case SingleArticleCellTypes.titleRow:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(TitleRowCell.self)", for: indexPath) as? TitleRowCell{
-                if let rowTitle = viewModel.data[indexPath.section][indexPath.row].data as! String?{
+                if let rowTitle = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as! String?{
                     cell.articleTitle.text = rowTitle
                 }
                 return cell
@@ -185,7 +163,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
         case SingleArticleCellTypes.publishedCell:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(PublishedCell.self)", for: indexPath) as? PublishedCell{
-                if let article = viewModel.data[indexPath.section][indexPath.row].data as! SpecificArticle?{
+                if let article = viewModel.data.getItem(section: indexPath.section, row: indexPath.row).data as! SpecificArticle?{
                     cell.publishedBeforeText.text = DateToBeforeCurrentTimeConverter.toBeforeCurrentTime(dateInPast: article.publishedAt.date, currentDate: Date())
                     cell.publishedDateText.text = Constants.published + article.publishedAtHumans.split(separator: " ")[0] + "."
                     cell.authorText.text = article.author
@@ -195,6 +173,8 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             }else{
                 return UITableViewCell()
             }
+        case .noCell:
+            return UITableViewCell()
         }
     }
     
@@ -257,9 +237,9 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @objc func moveToSingleScreenWithIndex(clickedNewsSection: Int, clickedNewsRow: Int){
         var id = -1
-        if let article = viewModel.data[clickedNewsSection][clickedNewsRow].data as? ContentOfRelatedArticle?{
+        if let article = viewModel.data.getItem(section: clickedNewsSection, row: clickedNewsRow).data as? ContentOfRelatedArticle?{
             id = article!.id
-        }else if let article = viewModel.data[clickedNewsSection][clickedNewsRow].data as? Article?{
+        }else if let article = viewModel.data.getItem(section: clickedNewsSection, row: clickedNewsRow).data as? Article?{
             id = article!.id
         }
         if id != -1{
