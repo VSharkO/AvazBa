@@ -16,11 +16,10 @@ struct ArticleDateFormatter{
     }
 }
 
-class ArticlesDecoder : JSONDecoder{
-    
-    override init() {
-        super.init()
-        self.dateDecodingStrategy = .formatted(ArticleDateFormatter.getFormater())
+class ArticlesDecoderFactory{
+    static func getDecoder() -> JSONDecoder{
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .formatted(ArticleDateFormatter.getFormater())
+        return decoder
     }
-    
 }

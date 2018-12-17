@@ -22,12 +22,7 @@ class MainScreenTests: QuickSpec {
         let supplyListResponse: [Article] =
         {
             do{
-                let decoder = JSONDecoder()
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.000000"
-                //                            decoder.keyDecodingStrategy = .convertFromSnakeCase
-                decoder.dateDecodingStrategy = .formatted(formatter)
-                let responce = try decoder.decode(Response.self, from: supplyListData)
+                let responce = try ArticlesDecoderFactory.getDecoder().decode(Response.self, from: supplyListData)
                 return responce.articles
             }catch{
                 return []

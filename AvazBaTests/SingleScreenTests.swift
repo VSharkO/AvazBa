@@ -23,11 +23,7 @@ class SingleScreenTests : QuickSpec{
         let supplyListResponse: SpecificArticle? =
         {
             do{
-                let decoder = JSONDecoder()
-                let formatter = DateFormatter()
-                formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.000000"
-                decoder.dateDecodingStrategy = .formatted(formatter)
-                let responce = try decoder.decode(SpecificArticle.self, from: supplyListData)
+                let responce = try ArticlesDecoderFactory.getDecoder().decode(SpecificArticle.self, from: supplyListData)
                 return responce
             }catch{
                 return nil
