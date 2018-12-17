@@ -33,8 +33,8 @@ class SingleViewModel : SingleViewModelProtocol{
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [unowned self] article,mostRead in
                 var articleSecton = Section(sectionType: SectionType.article, data: [Cell]())
-                var relatedSection = Section(sectionType: SectionType.article, data: [Cell]())
-                var mostReadSecton = Section(sectionType: SectionType.article, data: [Cell]())
+                var relatedSection = Section(sectionType: SectionType.related, data: [Cell]())
+                var mostReadSecton = Section(sectionType: SectionType.mostRead, data: [Cell]())
                 //Add content in sections
                 articleSecton.data.append(Cell(cellType: SingleArticleCellTypes.image, data: article))
                 articleSecton.data.append(Cell(cellType: SingleArticleCellTypes.upperTitle, data: article.upperTitle))
