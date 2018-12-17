@@ -28,6 +28,6 @@ extension ArticleInteractor{
             let article = try decoder.decode(SpecificArticle.self, from: data)
             return article
         })
-        
     }
+    
 }

@@ -1,4 +1,4 @@
-// MARK: - Mocks generated from file: AvazBa/Repository/RepositoryProtocol.swift at 2018-12-13 02:36:21 +0000
+// MARK: - Mocks generated from file: AvazBa/Repository/RepositoryProtocol.swift at 2018-12-17 06:53:48 +0000
 
 //
 //  RepositoryProtocol.swift
@@ -27,11 +27,34 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
     }
 
     
-
+    
+     var decoder: JSONDecoder! {
+        get {
+            return cuckoo_manager.getter("decoder",
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.decoder)
+        }
+        
+        set {
+            cuckoo_manager.setter("decoder",
+                value: newValue,
+                superclassCall:
+                    
+                    Cuckoo.MockManager.crashOnProtocolSuperclassCall()
+                    ,
+                defaultCall: __defaultImplStub!.decoder = newValue)
+        }
+        
+    }
     
 
     
-    // ["name": "getMostPopularArticles", "returnSignature": " -> Observable<[Article]>", "fullyQualifiedName": "getMostPopularArticles(pageNum: Int, category: String) -> Observable<[Article]>", "parameterSignature": "pageNum: Int, category: String", "parameterSignatureWithoutNames": "pageNum: Int, category: String", "inputTypes": "Int, String", "isThrowing": false, "isInit": false, "isOverriding": false, "hasClosureParams": false, "@type": "ProtocolMethod", "accessibility": "", "parameterNames": "pageNum, category", "call": "pageNum: pageNum, category: category", "parameters": [CuckooGeneratorFramework.MethodParameter(label: Optional("pageNum"), name: "pageNum", type: "Int", range: CountableRange(253..<265), nameRange: CountableRange(253..<260)), CuckooGeneratorFramework.MethodParameter(label: Optional("category"), name: "category", type: "String", range: CountableRange(267..<283), nameRange: CountableRange(267..<275))], "returnType": "Observable<[Article]>", "isOptional": false, "escapingParameterNames": "pageNum, category", "stubFunction": "Cuckoo.ProtocolStubFunction"]
+
+    
+    // ["name": "getMostPopularArticles", "returnSignature": " -> Observable<[Article]>", "fullyQualifiedName": "getMostPopularArticles(pageNum: Int, category: String) -> Observable<[Article]>", "parameterSignature": "pageNum: Int, category: String", "parameterSignatureWithoutNames": "pageNum: Int, category: String", "inputTypes": "Int, String", "isThrowing": false, "isInit": false, "isOverriding": false, "hasClosureParams": false, "@type": "ProtocolMethod", "accessibility": "", "parameterNames": "pageNum, category", "call": "pageNum: pageNum, category: category", "parameters": [CuckooGeneratorFramework.MethodParameter(label: Optional("pageNum"), name: "pageNum", type: "Int", range: CountableRange(292..<304), nameRange: CountableRange(292..<299)), CuckooGeneratorFramework.MethodParameter(label: Optional("category"), name: "category", type: "String", range: CountableRange(306..<322), nameRange: CountableRange(306..<314))], "returnType": "Observable<[Article]>", "isOptional": false, "escapingParameterNames": "pageNum, category", "stubFunction": "Cuckoo.ProtocolStubFunction"]
      func getMostPopularArticles(pageNum: Int, category: String)  -> Observable<[Article]> {
         
             return cuckoo_manager.call("getMostPopularArticles(pageNum: Int, category: String) -> Observable<[Article]>",
@@ -45,7 +68,7 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
         
     }
     
-    // ["name": "getSpecificArticle", "returnSignature": " -> Observable<SpecificArticle>", "fullyQualifiedName": "getSpecificArticle(id: Int) -> Observable<SpecificArticle>", "parameterSignature": "id: Int", "parameterSignatureWithoutNames": "id: Int", "inputTypes": "Int", "isThrowing": false, "isInit": false, "isOverriding": false, "hasClosureParams": false, "@type": "ProtocolMethod", "accessibility": "", "parameterNames": "id", "call": "id: id", "parameters": [CuckooGeneratorFramework.MethodParameter(label: Optional("id"), name: "id", type: "Int", range: CountableRange(338..<345), nameRange: CountableRange(338..<340))], "returnType": "Observable<SpecificArticle>", "isOptional": false, "escapingParameterNames": "id", "stubFunction": "Cuckoo.ProtocolStubFunction"]
+    // ["name": "getSpecificArticle", "returnSignature": " -> Observable<SpecificArticle>", "fullyQualifiedName": "getSpecificArticle(id: Int) -> Observable<SpecificArticle>", "parameterSignature": "id: Int", "parameterSignatureWithoutNames": "id: Int", "inputTypes": "Int", "isThrowing": false, "isInit": false, "isOverriding": false, "hasClosureParams": false, "@type": "ProtocolMethod", "accessibility": "", "parameterNames": "id", "call": "id: id", "parameters": [CuckooGeneratorFramework.MethodParameter(label: Optional("id"), name: "id", type: "Int", range: CountableRange(377..<384), nameRange: CountableRange(377..<379))], "returnType": "Observable<SpecificArticle>", "isOptional": false, "escapingParameterNames": "id", "stubFunction": "Cuckoo.ProtocolStubFunction"]
      func getSpecificArticle(id: Int)  -> Observable<SpecificArticle> {
         
             return cuckoo_manager.call("getSpecificArticle(id: Int) -> Observable<SpecificArticle>",
@@ -65,6 +88,10 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
 	
 	    init(manager: Cuckoo.MockManager) {
 	        self.cuckoo_manager = manager
+	    }
+	    
+	    var decoder: Cuckoo.ProtocolToBeStubbedProperty<MockRepositoryProtocol, JSONDecoder?> {
+	        return .init(manager: cuckoo_manager, name: "decoder")
 	    }
 	    
 	    
@@ -92,6 +119,10 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
 	    }
 	
 	    
+	    var decoder: Cuckoo.VerifyProperty<JSONDecoder?> {
+	        return .init(manager: cuckoo_manager, name: "decoder", callMatcher: callMatcher, sourceLocation: sourceLocation)
+	    }
+	    
 	
 	    
 	    @discardableResult
@@ -111,6 +142,15 @@ class MockRepositoryProtocol: RepositoryProtocol, Cuckoo.ProtocolMock {
 }
 
  class RepositoryProtocolStub: RepositoryProtocol {
+    
+     var decoder: JSONDecoder! {
+        get {
+            return DefaultValueRegistry.defaultValue(for: (JSONDecoder!).self)
+        }
+        
+        set { }
+        
+    }
     
 
     
