@@ -246,8 +246,8 @@
 		D56F23BE219EDF8F009B17B6 /* Repository */ = {
 			isa = PBXGroup;
 			children = (
-				D56F23BF219EDFA8009B17B6 /* RepositoryProtocol.swift */,
 				D56F608021A18C9A00DDE70D /* Repository.swift */,
+				D56F23BF219EDFA8009B17B6 /* RepositoryProtocol.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";

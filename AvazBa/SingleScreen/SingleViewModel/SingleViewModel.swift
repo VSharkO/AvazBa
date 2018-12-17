@@ -25,7 +25,7 @@ class SingleViewModel : SingleViewModelProtocol{
     }
     
     func initGetingDataFromRepository() -> Disposable {
-        return dataRequestTriger.flatMap({ [unowned self] _ -> Observable<(SpecificArticle,[Article])> in
+        return dataRequestTriger.flatMap({ [unowned self] _ -> Observable<(SpecificArticle,Response)> in
             self.viewShowLoader.onNext(true)
           let observables = Observable.zip(self.repository.getSpecificArticle(id: self.id), self.repository.getMostPopularArticles(pageNum: 1, category: Constants.mostReadApi))
             return observables
@@ -53,7 +53,7 @@ class SingleViewModel : SingleViewModelProtocol{
                     }
                 }
                 for i in 0...5{
-                    mostReadSecton.data.append(Cell(cellType: SingleArticleCellTypes.mostReadNews, data: mostRead[i]))
+                    mostReadSecton.data.append(Cell(cellType: SingleArticleCellTypes.mostReadNews, data: mostRead.articles[i]))
                 }
                 
                 //Add sections to sectionArray

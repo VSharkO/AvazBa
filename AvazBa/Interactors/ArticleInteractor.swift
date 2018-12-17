@@ -11,23 +11,17 @@ import Alamofire
 import RxSwift
 
 protocol ArticleInteractor{
-    func getArticlesFromURL(link: String) -> Observable<[Article]>
+    func getArticlesFromURL(link: String) -> Observable<Response>
     func getSpecificArticleFromURL(link: String) -> Observable<SpecificArticle>
 }
 
 extension ArticleInteractor{
-    func getArticlesFromURL(link: String) -> Observable<[Article]>{
-        return NetworkHelper.GetDataFromApi(with: link).map({ data -> [Article] in
-            let articles = try ArticlesDecoderFactory.getDecoder().decode(Response.self, from: data)
-            return articles.articles
-        })
+    func getArticlesFromURL(link: String) -> Observable<Response>{
+        return NetworkHelper.GetDataFromApi(with: link, ofType: Response.self)
     }
 
     func getSpecificArticleFromURL(link: String) -> Observable<SpecificArticle>{
-        return NetworkHelper.GetDataFromApi(with: link).map({ data -> SpecificArticle in
-            let article = try ArticlesDecoderFactory.getDecoder().decode(SpecificArticle.self, from: data)
-            return article
-        })
+        return NetworkHelper.GetDataFromApi(with: link, ofType: SpecificArticle.self)
     }
     
 }

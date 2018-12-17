@@ -31,7 +31,7 @@ class MainViewModel : MainViewModelProtocol{
     }
     
     func initGetingDataFromRepository() -> Disposable {
-        return dataRequestTriger.flatMap({ [unowned self] _ -> Observable<[Article]> in
+        return dataRequestTriger.flatMap({ [unowned self] _ -> Observable<Response> in
             switch self.state{
             case State.initialRequest:
                 self.viewShowLoader.onNext(true)
@@ -44,16 +44,16 @@ class MainViewModel : MainViewModelProtocol{
             return self.repository.getMostPopularArticles(pageNum: self.pageCounter, category: self.selectedTab)
         }).subscribeOn(scheduler)
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { [unowned self] articles in
+            .subscribe(onNext: { [unowned self] response in
                 switch self.state{
                 case .moreArticles:
-                    self.moreArticles(articles: articles)
+                    self.moreArticles(articles: response.articles)
                     self.state = .idle
                 case .initialRequest, .pullToRefresh:
-                    self.restartTableData(with: articles)
+                    self.restartTableData(with: response.articles)
                     self.state = .idle
                 case State.newTabOpened:
-                    self.setupNewTab(with: articles)
+                    self.setupNewTab(with: response.articles)
                     self.state = State.idle
                 default: return
                 }

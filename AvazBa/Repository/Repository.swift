@@ -11,7 +11,7 @@ import RxSwift
 
 class Repository : RepositoryProtocol,ArticleInteractor{
     
-    func getMostPopularArticles(pageNum: Int, category: String) -> Observable<[Article]> {
+    func getMostPopularArticles(pageNum: Int, category: String) -> Observable<Response> {
         return getArticlesFromURL(link: Constants.baseUrl + Constants.api + category + Constants.num + Constants.apiToken + Constants.pageNumber + String(pageNum))
     }
     
