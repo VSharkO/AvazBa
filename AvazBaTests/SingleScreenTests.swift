@@ -82,17 +82,17 @@ class SingleScreenTests : QuickSpec{
                     expect(singleViewModel.data.count).to(equal(3))
                 }
                 it("data order is correct"){
-                    expect(singleViewModel.data[0][0].cellType).to(equal(SingleArticleCellTypes.image))
-                    expect(singleViewModel.data[0][1].cellType).to(equal(SingleArticleCellTypes.upperTitle))
-                    expect(singleViewModel.data[0][2].cellType).to(equal(SingleArticleCellTypes.title))
-                    expect(singleViewModel.data[0][3].cellType).to(equal(SingleArticleCellTypes.titleRow))
-                    expect(singleViewModel.data[0][4].cellType).to(equal(SingleArticleCellTypes.publishedCell))
-                    expect(singleViewModel.data[0][5].cellType).to(equal(SingleArticleCellTypes.text))
+                    expect(singleViewModel.data[0].data[0].cellType).to(equal(SingleArticleCellTypes.image))
+                    expect(singleViewModel.data[0].data[1].cellType).to(equal(SingleArticleCellTypes.upperTitle))
+                    expect(singleViewModel.data[0].data[2].cellType).to(equal(SingleArticleCellTypes.title))
+                    expect(singleViewModel.data[0].data[3].cellType).to(equal(SingleArticleCellTypes.titleRow))
+                    expect(singleViewModel.data[0].data[4].cellType).to(equal(SingleArticleCellTypes.publishedCell))
+                    expect(singleViewModel.data[0].data[5].cellType).to(equal(SingleArticleCellTypes.text))
                     for i in 0...2{
-                        expect(singleViewModel.data[1][i].cellType).to(equal(SingleArticleCellTypes.relatedNews))
+                        expect(singleViewModel.data[1].data[i].cellType).to(equal(SingleArticleCellTypes.relatedNews))
                     }
                     for i in 0...4{
-                        expect(singleViewModel.data[2][i].cellType).to(equal(SingleArticleCellTypes.mostReadNews))
+                        expect(singleViewModel.data[2].data[i].cellType).to(equal(SingleArticleCellTypes.mostReadNews))
                     }
                 }
             }
