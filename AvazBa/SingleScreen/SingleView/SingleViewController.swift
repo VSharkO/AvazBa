@@ -16,10 +16,6 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     private let disposeBag = DisposeBag()
     var loader : UIView?
     
-    enum Section: Int{
-        case thisSpecificArticle = 0 ,relatedArticles, mostReadArticles
-    }
-    
     let tableView: UITableView = {
         let tableView = UITableView(frame: CGRect(), style: .grouped)
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,7 +48,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         switch section {
-        case Section.thisSpecificArticle.rawValue:
+        case 0:
             return 0.0
         default:
             return 47.0
@@ -70,9 +66,9 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if viewModel.data.count > 0{
         switch section{
-        case Section.thisSpecificArticle.rawValue:
+        case 0:
             return nil
-        case Section.relatedArticles.rawValue:
+        case 1:
             if viewModel.data[section][0].cellType == SingleArticleCellTypes.relatedNews, let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedTitleCell.self)", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
                 cell.relatedTitle.text = Constants.related
                 return cell
@@ -83,7 +79,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
             else{
                 return nil
             }
-        case Section.mostReadArticles.rawValue:
+        case 2:
             if let cell = tableView.dequeueReusableCell(withIdentifier: "\(RelatedTitleCell.self)", for: IndexPath(item: 0, section: section)) as? RelatedTitleCell{
                 cell.relatedTitle.text = Constants.mostRead
                 return cell
