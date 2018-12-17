@@ -61,15 +61,7 @@ class SingleViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if viewModel.data.count > 0{
-            switch section{
-            case Section.thisSpecificArticle.rawValue:
-                return viewModel.data[0].count
-            case Section.relatedArticles.rawValue:
-                return viewModel.data[1].count
-            case Section.mostReadArticles.rawValue:
-                return viewModel.data[2].count
-            default: return 0
-            }
+            return viewModel.data[section].count
         }else{
             return 0
         }
