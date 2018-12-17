@@ -15,3 +15,12 @@ struct ArticleDateFormatter{
         return formatter
     }
 }
+
+class ArticlesDecoder : JSONDecoder{
+    
+    override init() {
+        super.init()
+        self.dateDecodingStrategy = .formatted(ArticleDateFormatter.getFormater())
+    }
+    
+}

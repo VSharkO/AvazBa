@@ -18,7 +18,7 @@ class MainScreenCoordinator : Coordinator, ParentCoordinatorDelegate, MainCoordi
     init(presenter: UINavigationController) {
         self.presenter = presenter
         self.presenter.navigationBar.isTranslucent = false
-        controller = MainViewController(viewModel: MainViewModel(repository: Repository(decoder: JSONDecoder())))
+        controller = MainViewController(viewModel: MainViewModel(repository: Repository()))
     }
     
     func start() {

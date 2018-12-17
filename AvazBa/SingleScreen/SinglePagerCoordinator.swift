@@ -20,7 +20,7 @@ class SinglePagerCoordinator : Coordinator, CoordinatorDelegate, SingleCoordinat
     init(presenter: UINavigationController, ids: [Int], focusedArticle: Int) {
         self.presenter = presenter
         for id in ids{
-            let viewModel = SingleViewModel(repository: Repository(decoder: JSONDecoder()), id: id)
+            let viewModel = SingleViewModel(repository: Repository(), id: id)
             let viewController = SingleViewController(viewModel: viewModel)
             viewControllers.append(viewController)
         }
@@ -41,7 +41,7 @@ class SinglePagerCoordinator : Coordinator, CoordinatorDelegate, SingleCoordinat
     }
     
     func openSingle(withId: Int) {
-        let singleViewController = SingleViewController.init(viewModel: SingleViewModel.init(repository: Repository(decoder: JSONDecoder()), id: withId))
+        let singleViewController = SingleViewController.init(viewModel: SingleViewModel.init(repository: Repository(), id: withId))
         singleViewController.singleCoordinatorDelegate = self
         presenter.pushViewController(singleViewController, animated: true)
     }

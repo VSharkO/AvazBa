@@ -10,13 +10,8 @@ import Foundation
 import RxSwift
 
 class Repository : RepositoryProtocol,ArticleInteractor{
-    var decoder: JSONDecoder!
-    
-    init(decoder: JSONDecoder) {
-        self.decoder = decoder
-        decoder.dateDecodingStrategy = .formatted(ArticleDateFormatter.getFormater())
-    }
-    
+    var decoder = ArticlesDecoder()
+ 
     func getMostPopularArticles(pageNum: Int, category: String) -> Observable<[Article]> {
         return getArticlesFromURL(link: Constants.baseUrl + Constants.api + category + Constants.num + Constants.apiToken + Constants.pageNumber + String(pageNum), decoder: decoder)
     }
@@ -24,5 +19,4 @@ class Repository : RepositoryProtocol,ArticleInteractor{
     func getSpecificArticle(id: Int) -> Observable<SpecificArticle> {
          return getSpecificArticleFromURL(link: Constants.baseUrl + Constants.api + Constants.article + String(id) + Constants.apiToken, decoder: decoder)
     }
-
 }
