@@ -19,13 +19,13 @@ class MainScreenTests: QuickSpec {
         let testBundle = Bundle.init(for: MainScreenTests.self)
         let supplyListUrl = testBundle.url(forResource: "main_screen_articles_success", withExtension: "json")!
         let supplyListData = try! Data(contentsOf: supplyListUrl)
-        let supplyListResponse: [Article] =
+        let supplyListResponse: Response =
         {
             do{
                 let responce = try ArticlesDecoderFactory.getDecoder().decode(Response.self, from: supplyListData)
-                return responce.articles
+                return responce
             }catch{
-                return []
+                return Response(name: "", slug: "", category_id: "", articles: [])
             }
             
         }()

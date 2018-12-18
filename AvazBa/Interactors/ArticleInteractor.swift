@@ -17,11 +17,10 @@ protocol ArticleInteractor{
 
 extension ArticleInteractor{
     func getArticlesFromURL(link: String) -> Observable<Response>{
-        return NetworkHelper.GetDataFromApi(with: link, ofType: Response.self)
+        return NetworkHelper.getDataFromApi(with: link)
     }
 
     func getSpecificArticleFromURL(link: String) -> Observable<SpecificArticle>{
-        return NetworkHelper.GetDataFromApi(with: link, ofType: SpecificArticle.self)
+        return NetworkHelper.getDataFromApi(with: link)
     }
-    
 }

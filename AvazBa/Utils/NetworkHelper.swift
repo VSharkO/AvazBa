@@ -11,7 +11,7 @@ import RxSwift
 import Alamofire
 
 class NetworkHelper{
-    static func GetDataFromApi<T: Codable>(with link: String, ofType: T.Type) -> Observable<T>{
+    static func getDataFromApi<T: Codable>(with link: String) -> Observable<T>{
         return Observable.deferred({
             return Observable.create{ observer -> Disposable in
                 let request = Alamofire.request(link)
@@ -28,7 +28,6 @@ class NetworkHelper{
                             observer.onError(response.error!)
                             return
                         }
-                       
                 }
                 return Disposables.create{
                     request.cancel()

@@ -33,19 +33,19 @@ class SingleScreenTests : QuickSpec{
         let testBundleSingle = Bundle.init(for: SingleScreenTests.self)
         let supplyListUrlSingle = testBundleSingle.url(forResource: "main_screen_articles_success", withExtension: "json")!
         let supplyListDataSingle = try! Data(contentsOf: supplyListUrlSingle)
-        let supplyListResponseSingle: [Article] =
+        let supplyListResponseSingle: Response =
         {
             do{
                 let decoder = JSONDecoder()
                 let formatter = DateFormatter()
                 formatter.dateFormat = "yyyy-MM-dd HH:mm:ss.000000"
                 decoder.dateDecodingStrategy = .formatted(formatter)
-                let responce = try decoder.decode(Response.self, from: supplyListDataSingle)
-                return responce.articles
+                let response = try decoder.decode(Response.self, from: supplyListDataSingle)
+                return response
             }catch{
-                return []
+                print("Cannot return responce")
+                return Response.init(name: "", slug: "", category_id: "", articles: [])
             }
-            
         }()
 
         var singleViewModel: SingleViewModel!
